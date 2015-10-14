@@ -1,0 +1,11 @@
+{
+  "name": "analytics",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "hapi": "^10.0.0",
+    "mongodb": "latest",
+    "mongoose": "~3.6.13"
+  }
+}
