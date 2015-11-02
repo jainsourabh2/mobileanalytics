@@ -6,6 +6,8 @@
     "express": "~4.0.0",
     "hapi": "^10.0.0",
     "mongodb": "latest",
-    "mongoose": "~3.6.13"
+    "mongojs": "^1.4.1",
+    "mongoose": "~3.6.13",
+    "nodemon": "^1.7.1"
   }
 }
