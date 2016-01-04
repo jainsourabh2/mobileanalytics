@@ -4,11 +4,11 @@
 // =============================================================================
 
 // call the packages we need
-var Hapi 	= require('hapi');
 var express    	= require('express');        // call express
 var app        	= express();                 
 var bodyParser 	= require('body-parser');
 var mongoose   	= require('mongoose');
+var config	= require('./config/config');
 
 //Connection to MongoDB
 mongoose.connect('mongodb://localhost/analytics');
@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost/analytics');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 9090;        // set our port
+var port = process.env.PORT || config.port;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
