@@ -1,21 +1,88 @@
-var express             = require('express');        // call express
-var app                 = express();
+var express     = require('express');        // call express
+var app         = express();
+var mongojs		= require('mongojs');
 var Begin		= require('../models/begin');
-var router = express.Router();              // get an instance of the express Router
+var router 		= express.Router();              // get an instance of the express Router
+var config		= require('../../config/config');
+var init		= require('../common/init');
 
-var collections = ['user_session_info'];
-var mongojs= require('mongojs');
-var db = mongojs('analytics');
-var sessionCollection = db.collection(collections);
-
+/* var db = mongojs(config.connectionstring);
+var sessionCollection 		= db.collection(config.tbl_usersessioninfo);
+var tickerCollection 		= db.collection(config.tbl_realtime_data);
+var eventCollection 		= db.collection(config.tbl_usereventinfo);
+var hourlySessionCollection = db.collection(config.tbl_userhourlysessioninfo);
+var hourlyEventCollection 	= db.collection(config.tbl_userhourlyeventinfo); */
 
 router.route('/data/B')
 
     // Add Begin Record (accessed at POST http://localhost/api/postanalyticsdata)
     .post(function(req, res) {
+		
+  /* function insertUser(){
+    updateSessionQuery = {$inc : incrementSessionQuery
+                          ,$set : {'lr' : req.body.res
+                                  ,'lo' : req.body.ori
+                                  ,'lm' : req.body.mnu
+                                  ,'lt' : req.body.dt
+                                  ,'ld' : req.body.dev
+                                  ,'lp' : req.body.pf
+                                  ,'lov' : req.body.osv
+                                  ,'lav' : req.body.avn
+                                  //,last city to be coded
+                                  ,'lc' : req.body.c
+                                  ,'ll' : sessionBeginTime
+                                  //,'fl' : activityTime
+                                  ,'flh' : hourFormat
+                                  ,'fld' : dayFormat
+                                  ,'flw' : weekFormat
+                                  ,'flm' : monthFormat}};
 
+    updateHourlyQuery = {$inc : incrementHourlyQuery
+                        ,$set : {'lr' : req.body.res
+                                ,'lo' : req.body.ori
+                                ,'lm' : req.body.mnu
+                                ,'lt' : req.body.dt
+                                ,'ld' : req.body.dev
+                                ,'lp' : req.body.pf
+                                ,'lov' : req.body.osv
+                                ,'lav' : req.body.avn
+                                //,last city to be coded
+                                ,'lc' : req.body.c
+                                ,'ll' : sessionBeginTime
+                                ,'flh' : hourFormat}};
+    };
 
-	//For both Session Begin and End, derive day, week and month
+  function updateUser(){
+    updateSessionQuery = {$inc : incrementSessionQuery
+                          ,$set : {'lr' : req.body.res
+                                  ,'lo' : req.body.ori
+                                  ,'lm' : req.body.mnu
+                                  ,'lt' : req.body.dt
+                                  ,'ld' : req.body.dev
+                                  ,'lp' : req.body.pf
+                                  ,'lov' : req.body.osv
+                                  ,'lav' : req.body.avn
+                                  //,last city to be coded
+                                  ,'lc' : req.body.c
+                                  ,'ll' : sessionBeginTime}};
+
+    updateHourlyQuery = {$inc : incrementHourlyQuery
+                        ,$set : {'lr' : req.body.res
+                                ,'lo' : req.body.ori
+                                ,'lm' : req.body.mnu
+                                ,'lt' : req.body.dt
+                                ,'ld' : req.body.dev
+                                ,'lp' : req.body.pf
+                                ,'lov' : req.body.osv
+                                ,'lav' : req.body.avn
+                                //,last city to be coded
+                                ,'lc' : req.body.c
+                                ,'ll' : sessionBeginTime}};
+    }; */
+
+	init.init(req);
+	
+	/* //For both Session Begin and End, derive day, week and month
 	var sessionBeginTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
 	sessionBeginTime.setUTCSeconds(req.body.rtc);
 
@@ -37,76 +104,86 @@ router.route('/data/B')
 	var weekyyyy = weekDay.getFullYear();
 	if(weekdd<10) {   weekdd='0'+weekdd};
 	if(weekmm<10) {   weekmm='0'+weekmm};
+	
+	//Derive Hour and Minutes
+	var hh = sessionBeginTime.getHours();
+	var mi = sessionBeginTime.getMinutes();
+	var ss = sessionBeginTime.getSeconds();
 
-        var begin       = new Begin();      // create a new instance of the Begin model
-        begin.uid       = req.body.uid;
-        begin.dev       = req.body.dev;
-        begin.mnu       = req.body.mnu;
-        begin.pf        = req.body.pf;
-        begin.avn       = req.body.avn;
-        begin.dt        = req.body.dt;
-        begin.nwk       = req.body.nwk;
-        begin.c         = req.body.c;
-        begin.ori       = req.body.ori;
-        begin.did       = req.body.did;
-        begin.lng       = req.body.lng;
-        begin.lat       = req.body.lat;
-        begin.osv       = req.body.osv;
-        begin.lv        = req.body.lv;
-        begin.sid       = req.body.sid;
-        begin.rtc       = req.body.rtc;
-        begin.res       = req.body.res;
+	if (hh<10) {  hh='0'+hh};
+	if (mi<10) {  mi='0'+mi};
+	if (ss >=0 && ss <15) ss = '15';
+	else if (ss >=15 && ss <30) ss = '30';
+	else if (ss >=30 && ss <45) ss = '45';
+	else {ss = '00'; mi = mi + 1;}
 
-        // save the begin and check for errors
-        begin.save(function(err) {
-            if (err)
-                res.send(err);
+	var hourFormat = '' + yyyy + mm + dd + hh;
+	var dayFormat = '' + yyyy + mm + dd;
+	var weekFormat = '' + weekyyyy + weekmm + weekdd;
+	var monthFormat = '' + yyyy + mm;
+	
+	var secondEpoch = (new Date(yyyy,mm-1,dd,hh,mi,ss).getTime())/1000; */
+	
+	var begin       = new Begin();      // create a new instance of the Begin model
+	begin.uid       = req.body.uid;
+	begin.dev       = req.body.dev;
+	begin.mnu       = req.body.mnu;
+	begin.pf        = req.body.pf;
+	begin.avn       = req.body.avn;
+	begin.dt        = req.body.dt;
+	begin.nwk       = req.body.nwk;
+	begin.c         = req.body.c;
+	begin.ori       = req.body.ori;
+	begin.did       = req.body.did;
+	begin.lng       = req.body.lng;
+	begin.lat       = req.body.lat;
+	begin.osv       = req.body.osv;
+	begin.lv        = req.body.lv;
+	begin.sid       = req.body.sid;
+	begin.rtc       = req.body.rtc;
+	begin.res       = req.body.res;
 
-            //res.json({ message: 'Begin Message Added!' });
-        });
+	// save the begin and check for errors
+	begin.save(function(err) {
+		if (err)
+			res.send(err);
 
-  	var sessionDay = 'SD'+dd+'-'+mm+'-'+yyyy;
- 	var sessionMonth ='SM'+mm+'-'+yyyy;
-  	var sessionWeek = 'SW'+weekdd+'-'+weekmm+'-'+weekyyyy;
-        var durationDay = 'DD'+dd+'-'+mm+'-'+yyyy;
-        var durationMonth ='DM'+mm+'-'+yyyy;
-        var durationWeek = 'DW'+weekdd+'-'+weekmm+'-'+weekyyyy;
+		//res.json({ message: 'Begin Message Added!' });
+	});
+
+	/* var sessionHour = 'SH'+ hourFormat;
+	var sessionDay = 'SD' + dayFormat;
+	var sessionWeek = 'SW' + weekFormat;
+	var sessionMonth ='SM' + monthFormat;
+
+	var incrementSessionQuery = {};
+	incrementSessionQuery[sessionDay] = 1;
+	incrementSessionQuery[sessionWeek] = 1;
+	incrementSessionQuery[sessionMonth] = 1;
+
+	var incrementHourlyQuery = {};
+	incrementHourlyQuery[sessionHour] = 1;
+
+	var updateSessionQuery = {};
+	var updateHourlyQuery = {};
 
   	var incrementQuery = {};
   	incrementQuery[sessionDay] = 1;
   	incrementQuery[sessionWeek] = 1;
   	incrementQuery[sessionMonth] = 1;
-        incrementQuery[durationDay] = 0;
-        incrementQuery[durationWeek] = 0;
-        incrementQuery[durationMonth] = 0;
 
-  	var updatequery = {$inc : incrementQuery
-                    	,$set : {'lr' : req.body.res
-                            	,'lo' : req.body.ori
-                            	,'lm' : req.body.mnu
-                           	,'lt' : req.body.dt
-                            	,'ld' : req.body.dev
-                            	,'lp' : req.body.pf
-                            	,'lov' : req.body.osv
-                            	,'lav' : req.body.avn
-                            	//,last city to be coded
-                            	,'lc' : req.body.c
-                            	,'ll' : req.body.rtc}};
+  sessionCollection.find({'_id' : req.body.did},
+    function (err , result){
+      // If the user doesn't exist then set first login time 'fl'
+      if (result.length == 0) insertUser();
+      //If the user exists then first login time is not changed
+      else updateUser();
 
-	//console.log("Reached 10");
-  	sessionCollection.find({'_id' : req.body.did},function (err , result){
-      	if (result.length == 0){
-	sessionCollection.insert({'_id' : req.body.did,'fl' : req.body.rtc});
-        sessionCollection.update({"_id" : req.body.did},updatequery);
-        //db.close();
-        //console.log("Reached 11");
-	}
-      	else {
-        sessionCollection.update({"_id" : req.body.did},updatequery);
-        //db.close();
-	//console.log("Reached 12");
-	}
-    	});
+      tickerCollection.update({'_id' : secondEpoch},{$inc : {count : 1}},{upsert:true});
+      sessionCollection.update({'_id' : req.body.did},updateSessionQuery,{upsert:true});
+      hourlySessionCollection.update({'_id' : req.body.did},updateHourlyQuery,{upsert:true});
+      //db.close();
+    }); // End of sessionCollection.find */
 
 	res.json({ message: 'Begin Message Added!' });	
     })

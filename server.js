@@ -11,7 +11,7 @@ var mongoose   	= require('mongoose');
 var config	= require('./config/config');
 
 //Connection to MongoDB
-mongoose.connect('mongodb://localhost/analytics');
+mongoose.connect(config.connectionstring);
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
