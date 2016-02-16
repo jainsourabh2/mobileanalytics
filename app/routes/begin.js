@@ -5,7 +5,7 @@ var Begin		= require('../models/begin');
 var router 		= express.Router();              // get an instance of the express Router
 var config		= require('../../config/config');
 var init		= require('../common/init');
-var mongoUtil 	= require('../../connection/mongoUtil' );
+var mongoUtil 	= require('../../connection/MongoUtil' );
 
 var db = mongoUtil.getDbMongoJS();
 

@@ -3,7 +3,7 @@ var app     	= express();
 var End     	= require('../models/end');
 var router 		= express.Router();              // get an instance of the express Router
 var config		= require('../../config/config');
-var mongoUtil 	= require('../../connection/mongoUtil' );
+var mongoUtil 	= require('../../connection/MongoUtil' );
 
 var db = mongoUtil.getDbMongoJS();
 var sessionCollection 		= db.collection(config.tbl_usersessioninfo);

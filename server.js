@@ -9,7 +9,7 @@ var app        	= express();
 var bodyParser 	= require('body-parser');
 var mongoose   	= require('mongoose');
 var config		= require('./config/config');
-var mongoUtil 	= require( './connection/mongoUtil' );
+var mongoUtil 	= require( './connection/MongoUtil' );
 
 //Connection to Mongoose
 mongoose.connect(config.connectionstring);
