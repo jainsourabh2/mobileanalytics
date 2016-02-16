@@ -1,26 +1,15 @@
-var express     = require('express');        // call express
-var app         = express();
 var mongojs		= require('mongojs');
-var Begin		= require('../models/begin');
-var router 		= express.Router();              // get an instance of the express Router
 var config		= require('../../config/config');
-var init		= require('../common/init');
-var mongoUtil 	= require('../../connection/mongoUtil' );
-
-var db = mongoUtil.getDbMongoJS();
-
+var db 			= mongojs(config.connectionstring);
 var sessionCollection 		= db.collection(config.tbl_usersessioninfo);
 var tickerCollection 		= db.collection(config.tbl_realtime_data);
 var eventCollection 		= db.collection(config.tbl_usereventinfo);
 var hourlySessionCollection = db.collection(config.tbl_userhourlysessioninfo);
 var hourlyEventCollection 	= db.collection(config.tbl_userhourlyeventinfo);
 
-router.route('/data/B')
-
-    // Add Begin Record (accessed at POST http://localhost/api/postanalyticsdata)
-    .post(function(req, res) {
-		
-  function insertUser(){
+module.exports.init = function(req) {
+	
+	function insertUser(){
     updateSessionQuery = {$inc : incrementSessionQuery
                           ,$set : {'lr' : req.body.res
                                   ,'lo' : req.body.ori
@@ -81,10 +70,9 @@ router.route('/data/B')
                                 ,'lc' : req.body.c
                                 ,'ll' : sessionBeginTime}};
     };
-
-	//init.init(req);
 	
-	//For both Session Begin and End, derive day, week and month
+	
+//For both Session Begin and End, derive day, week and month
 	var sessionBeginTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
 	sessionBeginTime.setUTCSeconds(req.body.rtc);
 
@@ -126,34 +114,7 @@ router.route('/data/B')
 	
 	var secondEpoch = (new Date(yyyy,mm-1,dd,hh,mi,ss).getTime())/1000;
 	
-	var begin       = new Begin();      // create a new instance of the Begin model
-	begin.uid       = req.body.uid;
-	begin.dev       = req.body.dev;
-	begin.mnu       = req.body.mnu;
-	begin.pf        = req.body.pf;
-	begin.avn       = req.body.avn;
-	begin.dt        = req.body.dt;
-	begin.nwk       = req.body.nwk;
-	begin.c         = req.body.c;
-	begin.ori       = req.body.ori;
-	begin.did       = req.body.did;
-	begin.lng       = req.body.lng;
-	begin.lat       = req.body.lat;
-	begin.osv       = req.body.osv;
-	begin.lv        = req.body.lv;
-	begin.sid       = req.body.sid;
-	begin.rtc       = req.body.rtc;
-	begin.res       = req.body.res;
-
-	// save the begin and check for errors
-	begin.save(function(err) {
-		if (err)
-			res.send(err);
-
-		//res.json({ message: 'Begin Message Added!' });
-	});
-
-	var sessionHour = 'SH'+ hourFormat;
+var sessionHour = 'SH'+ hourFormat;
 	var sessionDay = 'SD' + dayFormat;
 	var sessionWeek = 'SW' + weekFormat;
 	var sessionMonth ='SM' + monthFormat;
@@ -185,18 +146,5 @@ router.route('/data/B')
       sessionCollection.update({'_id' : req.body.did},updateSessionQuery,{upsert:true});
       hourlySessionCollection.update({'_id' : req.body.did},updateHourlyQuery,{upsert:true});
       //db.close();
-    }); // End of sessionCollection.find
-
-	res.json({ message: 'Begin Message Added!' });	
-    })
-
-    // get all the begins (accessed at GET http://localhost/api/post/B)
-    .get(function(req, res) {
-        Begin.find(function(err, rows) {
-            if (err)
-                res.send(err);
-
-            res.json(rows);
-        });
-     });
-module.exports = router;
+    }); // End of sessionCollection.find	
+}

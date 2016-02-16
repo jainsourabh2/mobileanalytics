@@ -3,9 +3,9 @@ var app     	= express();
 var End     	= require('../models/end');
 var router 		= express.Router();              // get an instance of the express Router
 var config		= require('../../config/config');
-var mongojs		= require('mongojs');
+var mongoUtil 	= require('../../connection/mongoUtil' );
 
-var db = mongojs(config.connectionstring);
+var db = mongoUtil.getDbMongoJS();
 var sessionCollection 		= db.collection(config.tbl_usersessioninfo);
 var tickerCollection 		= db.collection(config.tbl_realtime_data);
 var eventCollection 		= db.collection(config.tbl_usereventinfo);

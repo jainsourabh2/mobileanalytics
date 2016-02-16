@@ -8,10 +8,18 @@ var express    	= require('express');        // call express
 var app        	= express();                 
 var bodyParser 	= require('body-parser');
 var mongoose   	= require('mongoose');
-var config	= require('./config/config');
+var config		= require('./config/config');
+var mongoUtil 	= require( './connection/mongoUtil' );
 
 //Connection to MongoDB
+//mongoUtil.connectToMongooseServer(function( err ){
+//	console.log("Mongoose Error "+err);
+//});
+
 mongoose.connect(config.connectionstring);
+mongoUtil.connectToMongoJSServer(function( err ){
+	console.log("MongoJS Errors "+ err);
+});
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
