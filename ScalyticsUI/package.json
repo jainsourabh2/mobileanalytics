@@ -1,0 +1,14 @@
+{
+  "name": "Scalytics",
+  "description": "Scalytics",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ankit Shah",
+    "email": "ankshah25@gmail.com"
+  },
+  "readme": "No README data found!",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongojs": "^2.2.2"
+  }
+}

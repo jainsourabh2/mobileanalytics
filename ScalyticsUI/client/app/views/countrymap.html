@@ -1,0 +1,55 @@
+   <style type="text/css">
+    svg {
+      background: #eee;
+      }
+      
+    #india {
+      fill: #008000;
+      opacity: .8;
+      stroke: #000000;
+      stroke-width: .7;
+      }
+
+      .tooltip {
+      position: absolute;
+      background: rgba(200,200,200,0.75);
+      border: 1px solid #ddd;
+      padding: 5px 12px;
+      border-radius: 5px;
+      box-shadow: 2px 2px 2px rgba(120,120,120,0.55);
+      text-shadow: 0 1px 0 #eee;
+      }
+
+      .city-title {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+      }
+
+      .city-users {
+        font-size: 18px;
+      }
+
+      .countrymap-circle {
+        fill: red;
+      }
+
+    </style>
+    
+      <div class="col-xs-10 col-md-10" style="margin-left:170px">
+           </br></br></br>
+          <div class="container-fluid" class="no-margin" class="no-padding">
+
+             <div ng-controller="CountryMapCtrl" class="col-xs-12 col-md-12" id="countrymaps" data-ng-init="init()">
+                       <div id="reportrange" class="pull-left" style="background: #fff;padding: 5px 10px;cursor: pointer; width: 100%">
+                           <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                           <span></span>
+                       </div>
+                       <br/><br/>
+                      <div id="countrymap">
+
+                      </div>
+                      
+             </div>
+          </div>
+      </div>

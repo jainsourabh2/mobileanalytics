@@ -1,0 +1,217 @@
+ <div class="col-xs-10 col-md-10" style="margin-left:100px;margin-top:35px">
+
+    <div ng-controller="DevicePieChartCtrl" class="col-xs-12 col-md-12" data-ng-init="init()">
+
+             <div class="col-xs-12 col-md-12" id="devicepiecharts">
+
+              <div class="panel panel-default" style="margin-top:0px;margin-bottom:10px">
+                       <div class="panel-heading" style="height:48px">
+                             <div id="reportrange" class="pull-left">
+                                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                                 <span></span>
+
+                             </div>
+
+                             <div class="btn-group pull-right" role="group" aria-label="...">
+                                <button type="button" id="btntoday" class="btn btn-default btn-sm">Today</button>
+                                <button type="button" id="btnyesterday" class="btn btn-default btn-sm">Yesterday</button>   
+                                <button type="button" id="btncurrmonth" class="btn btn-default btn-sm">Current Month</button>
+                                <button type="button" id="btnprevmonth" class="btn btn-default btn-sm">Previous Month</button>
+                                <button type="button" id="btn3mnths" class="btn btn-default btn-sm">3 months</button>
+                                <button type="button" id="btn6mnths" class="btn btn-default btn-sm">6 months</button>
+                                <button type="button" id="btn1year" class="btn btn-default btn-sm">1 year</button>
+                             </div>
+                        </div> <!--panel-heading-->
+                        <div class="panel-body" style="margin-top:-15px;margin-bottom:-15px">
+                          <div id="divdeviceManufacturer" ng-show="showdeviceManufacturer">
+                            <h4> Device Manufacturers </h4>
+                            <div id="divsubdeviceManufacturer">
+                            </div>
+                            <div class="panel panel-default">
+                              <table class="table table-condensed table-fixed">
+                                <thead>
+                                  <tr>
+                                      <th class="col-xs-6">Manufacturer</th>
+                                      <th class="col-xs-3">Total Users</th>
+                                      <th class="col-xs-3">Total Time Spent</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="manufacturer in deviceManufacturerdata">
+                                      <td class="col-xs-6">{{manufacturer._id}}</td>
+                                      <td class="col-xs-3">{{manufacturer.Unique_User_Count}}</td>
+                                      <td class="col-xs-3">{{manufacturer.Total_Time_Spent}}</td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                             </div>
+                          </div>                      
+                          <div id="divdeviceModel" ng-show="showdeviceModel">
+                            <h4> Device Model</h4>
+                             <div id="divsubdeviceModel">
+                             </div>
+                             <div class="panel panel-default">
+                              <table class="table table-condensed table-fixed">
+                                <thead>
+                                  <tr>
+                                      <th class="col-xs-6">Model</th>
+                                      <th class="col-xs-3">Total Users</th>
+                                      <th class="col-xs-3">Total Time Spent</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="model in deviceModeldata">
+                                      <td class="col-xs-6">{{model._id}}</td>
+                                      <td class="col-xs-3">{{model.Unique_User_Count}}</td>
+                                      <td class="col-xs-3">{{model.Total_Time_Spent}}</td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                             </div>
+                          </div>
+                          <div id="divdeviceType" ng-show="showdeviceType">
+                            <h4> Device Types </h4>
+                             <div id="divsubdeviceType">
+                             </div>
+                             <div class="panel panel-default">
+                              <table class="table table-condensed table-fixed">
+                                <thead>
+                                  <tr>
+                                      <th class="col-xs-6">Type</th>
+                                      <th class="col-xs-3">Total Users</th>
+                                      <th class="col-xs-3">Total Time Spent</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="deviceType in deviceTypedata">
+                                      <td class="col-xs-6">{{deviceType._id}}</td>
+                                      <td class="col-xs-3">{{deviceType.Unique_User_Count}}</td>
+                                      <td class="col-xs-3">{{deviceType.Total_Time_Spent}}</td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                             </div>
+                          </div>                        
+                          <div id="divplatform" ng-show="showdevicePlatform">
+                            <h4> Device Platforms </h4>
+                             <div id="divsubplatform">
+                             </div>
+                             <div class="panel panel-default">
+                              <table class="table table-condensed table-fixed">
+                                <thead>
+                                  <tr>
+                                      <th class="col-xs-6">Platform</th>
+                                      <th class="col-xs-3">Total Users</th>
+                                      <th class="col-xs-3">Total Time Spent</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="platform in platformdata">
+                                      <td class="col-xs-6">{{platform._id}}</td>
+                                      <td class="col-xs-3">{{platform.Unique_User_Count}}</td>
+                                      <td class="col-xs-3">{{platform.Total_Time_Spent}}</td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                             </div>
+                          </div>   
+                          <div id="divoperatingSystemVersion" ng-show="showdeviceOSVersion">
+                            <h4> Device OS Versions </h4>
+                              <div id="divsuboperatingSystemVersion">
+                             </div>
+                             <div class="panel panel-default">
+                              <table class="table table-condensed table-fixed">
+                                <thead>
+                                  <tr>
+                                      <th class="col-xs-6">OS Version</th>
+                                      <th class="col-xs-3">Total Users</th>
+                                      <th class="col-xs-3">Total Time Spent</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="operatingSystemVersion in operatingSystemVersiondata">
+                                      <td class="col-xs-6">{{operatingSystemVersion._id}}</td>
+                                      <td class="col-xs-3">{{operatingSystemVersion.Unique_User_Count}}</td>
+                                      <td class="col-xs-3">{{operatingSystemVersion.Total_Time_Spent}}</td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                             </div>
+                          </div>   
+                          <div id="divappVersion" ng-show="showdeviceAppVersion">
+                            <h4> Device App Versions </h4>
+                             <div id="divsubappVersion">
+                             </div>
+                             <div class="panel panel-default">
+                              <table class="table table-condensed table-fixed">
+                                <thead>
+                                  <tr>
+                                      <th class="col-xs-6">App Version</th>
+                                      <th class="col-xs-3">Total Users</th>
+                                      <th class="col-xs-3">Total Time Spent</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="appVersion in appVersiondata">
+                                      <td class="col-xs-6">{{appVersion._id}}</td>
+                                      <td class="col-xs-3">{{appVersion.Unique_User_Count}}</td>
+                                      <td class="col-xs-3">{{appVersion.Total_Time_Spent}}</td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                             </div>
+                          </div>   
+                          <div id="divcarrier" ng-show="showdeviceCarrier">
+                            <h4> Device Carriers </h4>
+                             <div id="divsubcarrier">
+                             </div>
+                             <div class="panel panel-default">
+                              <table class="table table-condensed table-fixed">
+                                <thead>
+                                  <tr>
+                                      <th class="col-xs-6">Carrier</th>
+                                      <th class="col-xs-3">Total Users</th>
+                                      <th class="col-xs-3">Total Time Spent</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="carrier in carrierdata">
+                                      <td class="col-xs-6">{{carrier._id}}</td>
+                                      <td class="col-xs-3">{{carrier.Unique_User_Count}}</td>
+                                      <td class="col-xs-3">{{carrier.Total_Time_Spent}}</td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                             </div>
+                          </div>                                                                     
+                          <div id="divresolution" ng-show="showdeviceResolution">
+                            <h4> Device Resolution </h4>
+                              <div id="divsubresolution">
+                             </div>
+                             <div class="panel panel-default">
+                              <table class="table table-condensed table-fixed">
+                                <thead>
+                                  <tr>
+                                      <th class="col-xs-6">Manufacturer Name</th>
+                                      <th class="col-xs-3">Total Users</th>
+                                      <th class="col-xs-3">Total Time Spent</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr ng-repeat="resolution in resolutiondata">
+                                      <td class="col-xs-6">{{resolution._id}}</td>
+                                      <td class="col-xs-3">{{resolution.Unique_User_Count}}</td>
+                                      <td class="col-xs-3">{{resolution.Total_Time_Spent}}</td>
+                                  </tr>
+                               </tbody>
+                              </table>
+                             </div>
+                          </div>   
+                      </div> <!--panel panel-body-->
+                 </div> <!--panel panel-default-->
+
+             </div> <!--col-xs-12 col-md-12-->
+         </div> <!-- DevicePieChartCtrl  <tr>
+       </tr>-->
+<!--       </div> -->
+  </div><!-- col-xs-10 col-md-10 -->

@@ -1,0 +1,89 @@
+<style> /* set the CSS */
+/*
+body { font: 12px Arial;}*/
+
+path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.legend {
+    font-size: 16px;
+    font-weight: bold;
+    text-anchor: middle;
+}
+
+</style>
+  <div class="col-xs-10 col-md-10" style="margin-left:100px;margin-top:5px">
+<!--            </br></br></br>
+          <div class="container-fluid" class="no-margin" class="no-padding"> -->
+
+             <div ng-controller="EventsCompareCtrl" class="col-xs-12 col-md-12" data-ng-init="init()">
+                   </br></br>
+                <div  class="col-xs-12 col-md-12" id="doubleChartEventsCompare">
+                  <div class="panel panel-default" style="margin-top:5px;margin-bottom:10px">
+                      <div class="panel-heading" style="height:48px">
+                           <div id="reportrange" class="pull-left">
+                               <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                               <span></span>
+                           </div>
+                           <div class="btn-group pull-right" role="group" aria-label="...">
+                               <button type="button" id="btntoday" class="btn btn-default btn-sm">Today</button>
+                               <button type="button" id="btnyesterday" class="btn btn-default btn-sm">Yesterday</button>
+                               <button type="button" id="btncurrmonth" class="btn btn-default btn-sm">Current Month</button>
+                               <button type="button" id="btnprevmonth" class="btn btn-default btn-sm">Previous Month</button>
+                               <button type="button" id="btn3mnths" class="btn btn-default btn-sm">3 months</button>
+                               <button type="button" id="btn6mnths" class="btn btn-default btn-sm">6 months</button>
+                               <button type="button" id="btn1year" class="btn btn-default btn-sm">1 year</button>
+                           </div>
+                        </div> <!--panel-heading-->
+                        <div class="panel-body" style="margin-top:-15px;margin-bottom:-15px">
+               
+                              <table align='center' style='width:570px;height:200px;'>
+                                <tr>
+                                    <td style='width:200px;height: 150px;'>
+                                       <b>Events Selector:</b><br/>
+                                      <select id="EventsSelector" style="height:150px;width:150px" multiple="multiple">
+                                          <option ng-repeat="event in eventsdata" value="{{event._id}}">{{event._id}}</option>
+                                      </select>
+                                    </td>
+
+                                <td style='width:35px;height:150px;text-align:left'>
+                                    <input type='button' class="btn btn-default" id='btnRight' value = ' > '/>
+                                    <br/><input type='button' class="btn btn-default" id='btnLeft' value = '< '/>
+                                </td>
+
+                                <td style='width:200px;height:150px;text-align:right'>
+                                    <b>Events Compared: </b><br/>
+                                    <select multiple="multiple" style="height: 150px; width:150px" id="ComparedEvents">
+                                    </select>
+                                </td>
+                                <td style='width:135px;height:150px;text-align:right'>
+                                  <button type="button" id="btnCompare" class="btn btn-primary">Compare</button>
+                                </td>
+                            </tr>
+                            </table>
+                    
+                   
+                             <div id="divEventNonUniqueChart">
+                             </div>
+                             <div id="divEventUniqueChart">                        
+                             </div>
+                        </div> <!--panel panel-body-->
+                 </div> <!--panel panel-default-->
+
+             </div> <!--col-xs-12 col-md-12-->
+         </div> <!-- InsightSessionCtrl  <tr>
+       </tr>-->
+<!--       </div> -->
+  </div><!-- col-xs-10 col-md-10 -->
+

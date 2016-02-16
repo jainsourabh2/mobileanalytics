@@ -1,0 +1,217 @@
+<!doctype html>
+<html ng-app="nameApp">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <script type="text/javascript" src="js/d3.v3.min.js"></script>
+      <script type="text/javascript" src="js/d3.geo.min.js"></script>
+      <script type="text/javascript" src="js/angular.min.js"></script>
+      <script type="text/javascript" src="js/angular-route.min.js"></script>
+       <script type="text/javascript" src="js/angular-resource.min.js"></script>
+      <script type="text/javascript" src="js/jquery.min.js"></script>
+      <script type="text/javascript" src="js/moment.min.js"></script>
+      <script type="text/javascript" src="js/daterangepicker.js"></script>
+      <script type="text/javascript" src="js/sb-admin.js"></script>
+      <script type="text/javascript" src="js/metisMenu.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/d3tip.js"></script>
+
+      <link href ="css/styles.css" rel="stylesheet">
+       <!-- MetisMenu CSS -->
+      <link rel="stylesheet" type="text/css" href="css/metisMenu.min.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+      <link rel="stylesheet" type="text/css" href="css/daterangepicker.css" />
+      <link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.min.css" />
+      <link rel="stylesheet" type="text/css" href="css/sb-admin.css"/>
+
+<!--       // <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script> -->
+<!--       // <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script> -->
+<!--       // <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular-route.min.js"></script> -->
+<!--       // <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.js"></script> -->
+<!--       // <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular-route.js"></script> -->
+
+
+<!--       <link href ="css/bootstrap.min.css" rel="stylesheet"> -->
+<!--          <link href ="css/styles.css" rel="stylesheet">  -->
+<!--           // <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery/1/jquery.min.js"></script> -->
+<!--           // <script type="text/javascript" src="http://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
+<!--           <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" /> -->
+           
+          <!-- Include Date Range Picker -->
+<!--           // <script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script> -->
+<!--           <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> -->
+
+          <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.2/jquery.tipsy.min.js"></script>
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.2/jquery.tipsy.css" /> -->
+      <title>Scalaytics</title>
+   </head>
+   <body>
+   <div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
+<!--          <div class="navbar navbar-default">
+          <div class="container-fluid"> -->
+            <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">
+                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                    <b>SCALYTICS</b>
+                  </a>
+              </div>    
+              <div class="container-fluid"> 
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right top-nav">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="mainpage.html">Analytics</a></li>
+                    <li><a href="home.html">About</a></li>
+                    <li><a href="home.html">Contact</a></li>
+                  </ul>
+               </div> <!-- /.navbar-collapse -->
+             </div>
+         <!-- <div class="collapse navbar-collapse"> -->
+ 
+
+          <ul class="nav navbar-nav side-nav" id="side-menu">
+              <li>
+
+                <a href="#dashboard">
+                   <b><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Dashboard</b>
+                </a>
+
+<!--                 <ul>
+                  <li>
+                    <a href="#sessionduration" >Session Duration</a>
+                  </li>
+                  <li>
+                     <a href="#newandreturninguser">New v/s Returning </a>
+                  </li>
+                </ul> -->
+
+              </li>
+              <li>
+
+                <a href="#">
+                   <b><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Insights</b>
+                </a>
+
+                <ul>    
+                 <li>         
+                  <a href="#insightsession"><i class="fa fa-spinner"></i>&nbsp;Session</a>
+                 </li>
+                 <li>         
+                  <a href="#insightuser"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Users</a>
+                 </li>
+                </ul>
+
+              </li>
+              <li>
+                <a href="#">
+                  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Device
+                </a>
+
+                <ul>    
+                   <li>         
+                    <a href="#deviceManufacturer"><i class="fa fa-institution"></i>&nbsp;Manufacturer</a>
+                   </li>
+                   <li>         
+                    <a href="#deviceModel"><i class="fa fa-modx"></i>&nbsp;Model</a>
+                   </li>
+                   <li>         
+                    <a href="#deviceType"><i class="fa fa-mobile"></i>&nbsp;Type</a>
+                   </li>
+                   <li>         
+                    <a href="#devicePlatform"><i class="fa fa-tv"></i>&nbsp;Platform</a>
+                   </li>
+                   <li>         
+                    <a href="#deviceOSVersion"><i class="fa fa-vimeo"></i>&nbsp;OS Version</a>
+                   </li>
+                   <li>         
+                    <a href="#deviceAppVersion"><i class="fa fa-vimeo-square"></i>&nbsp;App Version</a>
+                   </li>
+                   <li>         
+                    <a href="#deviceCarrier"><i class="fa fa-wifi"></i>&nbsp;Carrier</a>
+                   </li>
+                   <li>         
+                    <a href="#deviceResolution"><i class="fa fa-photo"></i>&nbsp;Resolution</a>
+                   </li>  
+                 </ul>                                                                                                                  
+              </li>
+              <li>         
+                  <a href="#cities"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Cities</a>
+              </li>
+              <li>
+                  <a href="#" data-toggle="collapse">
+                    <span class="glyphicon glyphicon-random" aria-hidden="true"></span> Events
+                  </a>
+
+                  <ul class="collapse" id="events">
+                    <li>
+                      <a href="#events"><i class="fa fa-reorder"></i>&nbsp;Summary</a>
+                    </li>
+                     <li>
+                       <a href="#eventscompare"><i class="fa fa-tasks"></i>&nbsp;Compare</a>
+                    </li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#userretention" data-toggle="collapse">
+                    <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Cohort
+                  </a>
+ <!--                  <ul class="collapse" id="newandreturninguser">
+                    <li>
+                     <a href="#newuserretention" >New</a>
+                    </li>
+                     <li>
+                      <a href="#retuserretention" >Returning</a>
+                     </li>
+                  </ul> -->
+              </li>
+              <li>
+                  <a href="#crashreports" data-toggle="collapse">
+            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Crash Reports
+                   </a>
+              </li>
+
+          </ul>
+
+
+<!--             </div> 
+        </div>  -->
+    </nav>    
+
+        <div id="page-wrapper">
+
+                <div class="container-fluid">
+
+                    <div ng-view>
+                    </div>
+                </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+   </div>
+  
+
+      <!-- App libs -->
+    <script src="app/app.js"></script>
+    <script src="app/controllers/DashboardController.js"></script>
+    <script src="app/controllers/InsightSessionController.js"></script>
+    <script src="app/controllers/InsightUserController.js"></script>
+    <script src="app/controllers/DevicePieChartsController.js"></script>
+    <script src="app/controllers/CountryMapController.js"></script>
+    <script src="app/controllers/UserRetentionController.js"></script>
+    <script src="app/controllers/EventsController.js"></script>
+    <script src="app/controllers/EventsCompareController.js"></script>
+     <script src="app/services/analyticsService.js"></script>
+
+   </body>
+
+</html>

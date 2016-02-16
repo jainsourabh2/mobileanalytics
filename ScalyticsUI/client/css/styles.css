@@ -1,0 +1,327 @@
+.list-group.panel > .list-group-item {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px
+}
+.list-group-submenu {
+  margin-left:20px;
+}
+.no-margin
+{
+	margin: 0px;
+}
+.no-padding
+{
+	padding: 0px;
+}
+.site-footer
+{
+	background-color: #222;
+	color:#fff;
+	margin-top: 30px;
+	padding-top: 30px;
+}
+.bottom-footer
+{
+	margin-top: 10px;
+	padding-top: 10px;
+	color:#b2b2b2;
+	border-top:1px solid #b2b2b2;
+}
+.footer-nav
+{
+	text-align: right;
+	list-style: none;
+}
+.footer-nav li
+{
+	display: inline;
+
+}
+.footer-nav li:not(:first-child):before
+{
+	content: '|';
+	padding: 0px 10px;
+
+}
+.footer-nav a
+{
+	color:#b2b2b2;
+}
+.footer-nav a:hover
+{
+ color: #fff;
+ text-decoration: none;
+}
+#power-gauge g.arc {
+	fill: steelblue;
+}
+
+#power-gauge g.pointer {
+	fill: #e85116;
+	stroke: #b64011;
+}
+
+#power-gauge g.label text {
+	text-anchor: middle;
+	font-size: 14px;
+	font-weight: bold;
+	fill: #666;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: grey;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
+}
+
+.y.axisLeft  line {
+  stroke: lightgrey;
+}
+
+
+.y.axisRight  line {
+  stroke: lightgrey;
+  stroke-dasharray: 2,2;
+}
+
+.event-data-point1 {
+    fill: white;
+    stroke-width: 1.5px;
+}
+.event-data-point2 {
+    fill: white;
+    stroke-width: 1.5px;
+}
+
+.data-point1 {
+    fill: white;
+    stroke: orange;
+    stroke-width: 1.5px;
+}
+
+.event-summary-data-point1 {
+    fill: white;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.area {
+    fill: lightsteelblue;
+      stroke-width: 0;
+}
+
+.data-point2 {
+    fill: white;
+    stroke: orange;
+    stroke-width: 1.5px;
+}
+
+.navbar-fixed-left {
+  top:50px;
+  position: fixed;
+  left: 0;
+  z-index: 1030;
+  border-width: 0 0 1px;
+}
+@media (min-width: 768px) {
+  .navbar-static-left {
+    border-radius: 0;
+  }
+}
+
+#events-rounded-corners {
+    border-radius: 25px;
+    border: 2px solid #8AC007;
+    padding: 10px; 
+    width: 1025px;
+    height: 1000px;    
+}
+
+#rounded-corners {
+    border-radius: 25px;
+    border: 2px solid #8AC007;
+    padding: 10px; 
+    width: 1025px;
+    height: 350px;    
+}
+
+#tickerchart-rounded-corners {
+    border-radius: 25px;
+    border: 1px solid #8AC007;
+    padding: 10px; 
+    width: 1075px;
+    height: 180px;    
+}
+
+#dashboardSummary {
+    margin-top:10px;
+    border-radius: 25px;
+    border: 1px solid #8AC007;
+    padding: 10px; 
+    width: 1075px;
+    height: 380px;    
+}
+
+#insightSessionChart {
+    margin-top:10px;
+    border-radius: 25px;
+    border: 1px solid #8AC007;
+    padding: 10px; 
+    width: 1075px;
+    height: 860px;    
+}
+
+#insightUserChart {
+    margin-top:10px;
+    border-radius: 25px;
+    border: 1px solid #8AC007;
+    padding: 10px; 
+    width: 1075px;
+    height: 1650px;    
+}
+
+#devicepiecharts {
+    margin-top:10px;
+    border-radius: 25px;
+    border: 1px solid #8AC007;
+    padding: 10px; 
+    width: 1075px;
+    height: 575px;    
+}
+
+#userRetentioncharts {
+    margin-top:10px;
+    border-radius: 25px;
+    border: 1px solid #8AC007;
+    padding: 10px; 
+    width: 1100px;
+    height: 1500px;    
+}
+
+
+#dualChartSessionandTime {
+    border-radius: 25px;
+    border: 2px solid #8AC007;
+    padding: 20px; 
+    width: 1025px;
+    height: 500px;    
+}
+
+#divSummaryEvents {
+    margin-top:10px;
+    border-radius: 25px;
+    border: 1px solid #8AC007;
+    padding: 10px; 
+    width: 1075px;
+    height: 567px;  
+}
+
+#doubleChartEventsCompare {
+    margin-top:10px;
+    border-radius: 25px;
+    border: 1px solid #8AC007;
+    padding: 10px; 
+    width: 1075px;
+    height: 1000px;  
+}
+
+
+.bar1 {
+  fill: orange;
+}
+
+.bar2 {
+  fill: orange;
+}
+
+.bar1:hover {
+  fill: orangered ;
+}
+.bar2:hover {
+  fill: orangered ;
+}
+
+.tickerbar {
+fill: steelblue;
+}
+
+.tickerbar:hover {
+fill: brown;
+}
+
+
+.y.axisticker,
+.x.axisticker
+{
+      fill: none;
+      stroke: #000;
+      shape-rendering: auto;
+}
+
+.d3-modaltip {
+        line-height: 1;
+        font-weight: bold;
+        padding: 12px;
+/*        background: rgba(0, 0, 0, 0.8);*/
+        color: #fff;
+        border-radius: 2px;
+        z-index: 10000;
+    }
+
+.add-check .active:before {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\e013";
+}
+
+.table-fixed thead {
+  width: 97%;
+}
+.table-fixed tbody {
+  height: 100px;
+  overflow-y: auto;
+  width: 98.99%;
+  border-top-width: 0px;
+}
+.table-fixed thead, .table-fixed tbody {
+  display: block;
+}
+
+.table-fixed tr, .table-fixed tbody>tr>td, .table-fixed thead > tr> th{
+  display: block;
+}
+
+.table-fixed thead>tr>th{
+  float: left;
+  border-bottom-width: 0px;
+}
+
+.table-fixed thead{
+  border-bottom-width: 0px;
+}
+
+.table-fixed thead>tr{
+  border-bottom-width: 0px;
+}
+
+.table-fixed thead>tr>th{
+  border-bottom-width: 0px;
+}
+
+.table-fixed tbody >tr>td {
+  float: left;
+  border-bottom-width: 0px;
+}
+/*
+#tickerchart .axis {
+      font: 10px sans-serif;
+    }*/

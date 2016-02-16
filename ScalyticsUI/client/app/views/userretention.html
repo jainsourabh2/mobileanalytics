@@ -1,0 +1,116 @@
+<style>
+/*table {
+    border: 1px solid black;
+}*/
+
+.headercolumn{
+/*  bgcolor:lightgrey;*/
+/*   border: 1px solid black;*/
+   text-align:center;
+   background:lightgrey;
+/*   width:100px;*/
+}
+
+.cellstarter{
+/*  bgcolor:lightgrey;*/
+/*   border: 1px solid black;*/
+   text-align:left;
+   background:lightgrey;
+   width:100px;
+}
+.category71to100
+{
+  background:#88A6FF;
+  width:40px;
+  text-align:center;
+}
+.category41to70
+{
+  background:#C6D4FF;
+  width:40px;
+  text-align:center;
+}
+.category0to40
+{
+  background:#E5ECFF;
+  width:40px;
+  text-align:center;
+}
+.categorynone
+{
+  background:#FFFFFF;
+  width:40px;
+  text-align:center;
+}
+
+/* default state (private) */
+ #privacy-menu.cssnew #new-tick { visibility: visible }
+ #privacy-menu.cssnew #ret-tick { visibility: hidden }
+
+/* public state */
+#privacy-menu.cssreturning #new-tick { visibility: hidden }
+#privacy-menu.cssreturning #ret-tick { visibility: visible }
+
+/*.firstcolumn{
+  bgcolor:lightgrey;
+   border: 1px solid red;
+}*/
+
+</style>
+
+      <div class="col-xs-10 col-md-10" style="margin-left:80px;margin-top:5px">
+
+          <div ng-controller="UserRetentionChartCtrl" class="col-xs-12 col-md-12" data-ng-init="init()">
+            </br></br>
+              <div  class="col-xs-12 col-md-12" id="userRetentioncharts">
+                <div class="panel panel-default" style="margin-top:5px;margin-bottom:10px">
+                  <div class="panel-heading" style="height:48px">
+                    <div id="reportrange" class="pull-left">
+                           <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                           <span></span>
+                    </div>
+
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                       <button type="button" id="btncurrmonth" class="btn btn-default btn-sm">Current Month</button>
+                       <button type="button" id="btnprevmonth" class="btn btn-default btn-sm">Previous Month</button>
+                       <button type="button" id="btn3mnths" class="btn btn-default btn-sm">3 months</button>
+                       <button type="button" id="btn6mnths" class="btn btn-default btn-sm">6 months</button>
+                       <button type="button" id="btn1year" class="btn btn-default btn-sm">1 year</button>
+                   </div>
+                </div> <!--panel-heading-->
+                <div class="panel-body" style="margin-top:-15px;margin-left:-5px;margin-bottom:-15px">       
+               <br>                
+User Type:
+                       <a href="javascript:void(0)" data-placement="bottom" id="anchorpop" data-content="
+ <ul class='list-unstyled' id='privacy-menu' style='min-width: 110px;'>
+                          <li>
+                              <a href='javascript:void(0)' id='anchornew'>                               
+                                <span style='text-align:left'>New</span> 
+                              
+                              <span style='text-align:right' id='new-tick' class='glyphicon glyphicon-ok text-success'></span>
+                              </a>
+                              
+                          </li>
+                          <li>
+                               <a href='javascript:void(0)' id='anchorret'>                               
+                                 <span style='text-align:left'>Returning</span>   
+                                 <span style='text-align:right' id='ret-tick' class='glyphicon glyphicon-ok text-success'></span>
+                               </a>                    
+                               
+                          </li>
+  </ul>" rel="popover" data-html="true">New</a>
+<br></br>
+                      <table id="userRetentionChart" class="table-bordered">
+                          
+                      </table>
+<!--                       <h3> New User Retention </h3>
+                      <table id="newUserRetentionChart">
+                        
+                      </table> -->
+                <br></br>
+              </div> <!--panel panel-body-->
+          </div> <!--panel panel-default-->
+      </div> <!--col-xs-12 col-md-12-->
+    </div> <!-- UserRetentionChartCtrl-->
+ </div><!-- col-xs-10 col-md-10 -->
+
