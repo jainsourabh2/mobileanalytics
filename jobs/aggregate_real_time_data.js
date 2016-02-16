@@ -1,7 +1,10 @@
 //Set the connection details
-var mongojs	= require('mongojs');
-var config	= require('../config/config');
-var db = mongojs(config.connectionstring);
+//var databaseurl = 'analytics';
+var mongojs		= require('mongojs');
+//var mongoUtil = require('../connection/mongoUtil' );
+//var db 		= mongoUtil.getDbMongoJS();
+var config 		= require('../config/config' );
+var db 			= mongojs(config.connectionstring);
 
 var dt = new Date();
 var dtEpoch = Math.round(dt.getTime()/1000);

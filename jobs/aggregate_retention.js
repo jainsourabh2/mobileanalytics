@@ -1,7 +1,10 @@
 //Set the connection details
-var databaseurl = 'test';
-var mongojs= require('mongojs');
-var db = mongojs(databaseurl);
+//var databaseurl = 'analytics';
+var mongojs		= require('mongojs');
+//var mongoUtil = require('../connection/mongoUtil' );
+//var db 		= mongoUtil.getDbMongoJS();
+var config 		= require('../config/config' );
+var db 			= mongojs(config.connectionstring);
 
 //To be executed for past 31 days
 var dayEndDate = new Date();

@@ -1,7 +1,10 @@
 //Set the connection details
-var databaseurl = 'test';
-var mongojs= require('mongojs');
-var db = mongojs(databaseurl);
+//var databaseurl = 'analytics';
+var mongojs		= require('mongojs');
+//var mongoUtil = require('../connection/mongoUtil' );
+//var db 		= mongoUtil.getDbMongoJS();
+var config 		= require('../config/config' );
+var db 			= mongojs(config.connectionstring);
 
 //To be incremented daily
 var endDate = new Date();
@@ -15,6 +18,28 @@ var prevSessionWeek = '';
 var prevSessionMonth = '';
 
 var connectionCount = 0;
+
+  function dbCloseConnection(){
+    connectionCount--;
+    if (connectionCount == 0) {
+      db.close();
+    }}
+
+  function updateAggregate(aggType, key, output) {
+    //console.log(aggType + key);
+    db.collection('agg_session_data').update
+      ({'_id.type' : aggType, '_id.key' : key}
+        ,{$set : {'value' : output}}
+        ,{upsert : true}
+       ,function (err , result) {
+           if (err || !result) {
+               console.log(err);
+               db.close();
+               return;
+          }
+        dbCloseConnection();
+        });
+      } //end of function updateAggregate
 
 for (var dt = startDate;
          dt <= endDate;
@@ -57,28 +82,6 @@ for (var dt = startDate;
   var durationDay = 'DD' + dayKey;
   var durationWeek = 'DW' + weekKey;
   var durationMonth ='DM' + monthKey;
-
-  function dbCloseConnection(){
-    connectionCount--;
-    if (connectionCount == 0) {
-      db.close();
-    }}
-
-  function updateAggregate(aggType, key, output) {
-    //console.log(aggType + key);
-    db.collection('agg_session_data').update
-      ({'_id.type' : aggType, '_id.key' : key}
-        ,{$set : {'value' : output}}
-        ,{upsert : true}
-       ,function (err , result) {
-           if (err || !result) {
-               console.log(err);
-               db.close();
-               return;
-          }
-        dbCloseConnection();
-        });
-      } //end of function updateAggregate
 
   for(var hour = 0;
           hour <= 23;

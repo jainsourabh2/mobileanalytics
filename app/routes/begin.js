@@ -17,7 +17,7 @@ var hourlyEventCollection 	= db.collection(config.tbl_userhourlyeventinfo);
 
 router.route('/data/B')
 
-    // Add Begin Record (accessed at POST http://localhost/api/postanalyticsdata)
+    // Add Begin Record (accessed at POST http://localhost:8080/api/data/B)
     .post(function(req, res) {
 		
   function insertUser(){

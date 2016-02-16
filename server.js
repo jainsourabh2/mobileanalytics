@@ -11,12 +11,10 @@ var mongoose   	= require('mongoose');
 var config		= require('./config/config');
 var mongoUtil 	= require( './connection/mongoUtil' );
 
-//Connection to MongoDB
-//mongoUtil.connectToMongooseServer(function( err ){
-//	console.log("Mongoose Error "+err);
-//});
-
+//Connection to Mongoose
 mongoose.connect(config.connectionstring);
+
+//Connection to MongoDB
 mongoUtil.connectToMongoJSServer(function( err ){
 	console.log("MongoJS Errors "+ err);
 });
@@ -39,13 +37,7 @@ router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-    res.json({ message: 'Testing123' });   
-});
-
-// more routes for our API will happen here
-
+// Integrating our application APIs
 app.use('/api',require('./app/routes/begin'));
 app.use('/api',require('./app/routes/end'));
 app.use('/api',require('./app/routes/crash'));
@@ -57,4 +49,4 @@ app.use('/api',require('./app/routes/crash'));
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Listening on port ' + port);
