@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
-var databasecontroller = require('./server/controllers/session_controller');
-var devicepiechartcontroller = require('./server/controllers/pie_controller');
-var eventscontroller = require('./server/controllers/event_controller');
-var retentioncontroller = require('./server/controllers/retention_controller');
-var tickercontroller = require('./server/controllers/ticker_controller');
-var summarycontroller = require('./server/controllers/summary_controller');
+var databasecontroller = require('./server/Controllers/session_controller');
+var devicepiechartcontroller = require('./server/Controllers/pie_controller');
+var eventscontroller = require('./server/Controllers/event_controller');
+var retentioncontroller = require('./server/Controllers/retention_controller');
+var tickercontroller = require('./server/Controllers/ticker_controller');
+var summarycontroller = require('./server/Controllers/summary_controller');
 
 app.get('/', function (req, res) {
   // res.send('Hello World!');
