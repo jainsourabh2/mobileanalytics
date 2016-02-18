@@ -1,6 +1,6 @@
 {
   "name": "analytics",
-  "main": "server.js",
+  "main": "restapi.js",
   "dependencies": {
     "body-parser": "~1.0.1",
     "express": "~4.0.0",
