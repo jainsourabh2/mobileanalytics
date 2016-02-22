@@ -1,6 +1,7 @@
 {
   "name": "Scalytics",
   "description": "Scalytics",
+  "main":"server.js",
   "version": "1.0.0",
   "author": {
     "name": "Ankit Shah",

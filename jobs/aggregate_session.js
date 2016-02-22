@@ -1,16 +1,19 @@
 //Set the connection details
-//var databaseurl = 'analytics';
-var mongojs		= require('mongojs');
+var databaseurl = 'analytics';
+var mongojs = require('mongojs');
 //var mongoUtil = require('../connection/mongoUtil' );
 //var db 		= mongoUtil.getDbMongoJS();
 var config 		= require('../config/config' );
-var db 			= mongojs(config.connectionstring);
+//var db 			= mongojs(config.connectionstring);
+var db = mongojs(databaseurl);
 
 //To be incremented daily
 var endDate = new Date();
-var startDate = new Date(endDate.getTime() - 15*24*60*60*1000);
+var startDate = new Date(endDate.getTime() - 1*24*60*60*1000);
 //var startDate = new Date(2015, 0, 01);
 //var endDate = new Date(2015, 10, 21);
+
+console.log('Test');
 
 var prevSessionHour = '';
 var prevSessionday = '';
@@ -21,6 +24,7 @@ var connectionCount = 0;
 
   function dbCloseConnection(){
     connectionCount--;
+    console.log('Connection');
     if (connectionCount == 0) {
       db.close();
     }}
@@ -33,8 +37,8 @@ var connectionCount = 0;
         ,{upsert : true}
        ,function (err , result) {
            if (err || !result) {
-               console.log(err);
-               db.close();
+               console.log('update aggreagte');
+               //db.close();
                return;
           }
         dbCloseConnection();
@@ -129,21 +133,25 @@ for (var dt = startDate;
 
    connectionCount++;
 
-   //console.log(aggHourQuery);
+//   console.log(aggHourQuery);
 
    //Execute Aggregate query for Hour
+/*
    db.collection('user_hourly_session_info').aggregate
      ({$group: aggHourQuery}
        ,function (err , result) {
           if (err || !result) {
-              console.log(err);
-              db.close();
+              console.log('hourly');
+              //db.close();
               return;}
 
           //console.log(result);
+          console.log('Inside mongo');
           updateAggregate('Hour', result[0]['_id']['key'], result);
           //console.log(result);
       });
+*/
+
     } //End of for loop for hourly aggregate
 
   if (prevSessionday != sessionDay)
@@ -152,8 +160,7 @@ for (var dt = startDate;
     connectionCount++;
 
     //Form Aggregate query for Day
-    aggDayQuery['_id'] = {'key' : dayKey
-                          ,'resolution' : '$lr'
+    aggDayQuery['_id'] = {'resolution' : '$lr'
                           ,'orientation' : '$lo'
                           ,'deviceManufacturer' : '$lm'
                           ,'deviceType' : '$lt'
@@ -164,12 +171,16 @@ for (var dt = startDate;
                           ,'carrier' : '$lc'
                          };
 
+//console.log(aggDayQuery);
+
     var sumQuery = {$sum : '$' + sessionDay};
     aggDayQuery['Non_Unique_User_Count'] = sumQuery;
     var sumQuery = {$sum : {$cond: [{$gt: ['$' + sessionDay, 0]},1,0]}};
     aggDayQuery['Unique_User_Count'] = sumQuery;
     var sumQuery = {$sum : '$' + durationDay};
     aggDayQuery['Total_Time_Spent'] = sumQuery;
+
+//console.log(aggDayQuery);
 
     var sumQuery = {$sum :
                             {$cond: [{
@@ -182,17 +193,22 @@ for (var dt = startDate;
                    };
     aggDayQuery['New_User_Count'] = sumQuery;
 
+//console.log(aggDayQuery);
+
+
     //Execute Aggregate query for Day
     db.collection('user_session_info').aggregate
       ({$group: aggDayQuery}
         ,function (err , result) {
            if (err || !result) {
-               console.log(err);
+               console.log('user session');
+console.log(err);
                db.close();
                return;}
 
            //console.log(result);
            //console.log(result[0]['_id']['key']);
+           console.log('Inside');
            updateAggregate('Day', result[0]['_id']['key'], result);
        });
      } // emd of 'if' for Day Check
@@ -232,19 +248,21 @@ for (var dt = startDate;
                             }
                    };
     aggWeekQuery['New_User_Count'] = sumQuery;
-
+/*
     //Execute Aggregate query for Week
     db.collection('user_session_info').aggregate
      ({$group: aggWeekQuery}
        ,function (err , result) {
           if (err || !result) {
-              console.log(err);
-              db.close();
+              console.log('info');
+  //            db.close();
               return;}
 
+console.log('Inside');
           updateAggregate('Week', result[0]['_id']['key'], result);
       });
-  } //end of 'if' for week check
+*/ 
+ } //end of 'if' for week check
 
 
   if (prevSessionMonth != sessionMonth)
@@ -283,18 +301,20 @@ for (var dt = startDate;
                  };
   aggMonthQuery['New_User_Count'] = sumQuery;
 
-
+/*
   //Execute Aggregate query for Month
   db.collection('user_session_info').aggregate
    ({$group: aggMonthQuery}
      ,function (err , result) {
         if (err || !result) {
-            console.log(err);
-            db.close();
+            console.log('monthly');
+//            db.close();
             return;}
 
+console.log('Inside');
         updateAggregate('Month', result[0]['_id']['key'], result);
     });
+*/
   } //end of 'if' for month check
 
 }; //end of for loop
