@@ -70,7 +70,7 @@ for (var dt = startDate;
                db.close();
                return;
           }
-        //dbCloseConnection();
+        dbCloseConnection();
         });
       } //end of function updateAggregate
 
