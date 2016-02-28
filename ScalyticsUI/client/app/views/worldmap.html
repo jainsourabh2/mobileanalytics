@@ -1,0 +1,84 @@
+<style>
+path {
+  stroke: white;
+  stroke-width: 0.25px;
+  fill: grey;
+}
+
+  .tooltip {
+  position: absolute;
+  background: rgba(200,200,200,0.75);
+  border: 1px solid #ddd;
+  padding: 5px 12px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(120,120,120,0.55);
+  text-shadow: 0 1px 0 #eee;
+  }
+
+  .city-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .city-users {
+    font-size: 18px;
+  }
+
+  .countrymap-circle {
+    fill: red;
+  }
+
+</style>
+  <div class="col-xs-10 col-md-10" style="margin-left:100px;margin-top:5px">
+<!--        </br></br> -->
+<!--       <div class="container-fluid" class="no-margin" class="no-padding"> -->
+
+         <div ng-controller="WorldMapCtrl" class="col-xs-12 col-md-12"  data-ng-init="init()">
+
+
+             </br></br>
+              <div  class="col-xs-12 col-md-12" id="worldMapChart">
+              <div class="panel panel-default" style="margin-top:5px;margin-bottom:10px">
+                       <div class="panel-heading" style="height:48px">
+                             <div id="reportrange" class="pull-left">
+                                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                                 <span></span>
+
+                             </div>
+
+                             <div class="btn-group pull-right" role="group" aria-label="...">
+                                <button type="button" id="btntoday" class="btn btn-default btn-sm">Today</button>
+                                <button type="button" id="btnyesterday" class="btn btn-default btn-sm">Yesterday</button>   
+                                <button type="button" id="btncurrmonth" class="btn btn-default btn-sm">Current Month</button>
+                                <button type="button" id="btnprevmonth" class="btn btn-default btn-sm">Previous Month</button>
+                                <button type="button" id="btn3mnths" class="btn btn-default btn-sm">3 months</button>
+                                <button type="button" id="btn6mnths" class="btn btn-default btn-sm">6 months</button>
+                                <button type="button" id="btn1year" class="btn btn-default btn-sm">1 year</button>
+                             </div>
+                        </div> <!--panel-heading-->
+                        <div class="panel-body" style="margin-top:-15px;margin-bottom:-15px">
+                            <table class="table" style="margin-top:0px;margin-bottom:0px">
+                                <tr>
+                                  <td>
+                                    <div id="worldMap">
+                                    </div>
+                                  </td>
+                                </tr>
+<!--                                 <tr>
+                                  <td>
+                                    <div id="chartsessionduration">  
+                                      <h4> Total Time Spent </h4>
+                                    </div> 
+                                  </td>
+                                </tr>   -->
+                            </table>
+                        </div> <!--panel panel-body-->
+                 </div> <!--panel panel-default-->
+
+             </div> <!--col-xs-12 col-md-12-->
+         </div> <!-- InsightSessionCtrl  <tr>
+       </tr>-->
+<!--       </div> -->
+  </div><!-- col-xs-10 col-md-10 -->
+
