@@ -105,10 +105,10 @@ nameApp.config(function ($routeProvider) {
              devicesubtype: 'deviceResolution',
             
         })
-        .when('/cities',
+        .when('/worldmap',
         {
             //controller: 'DashboardPageCtrl',
-            templateUrl: '/app/views/countrymap.html'
+            templateUrl: '/app/views/worldmap.html'
             
         })
         .when('/userretention',
@@ -129,7 +129,12 @@ nameApp.config(function ($routeProvider) {
             templateUrl: '/app/views/eventscompare.html'
             
         })
-
+        .when('/crashreports',
+        {
+            //controller: 'DashboardPageCtrl',
+            templateUrl: '/app/views/crashreport.html'
+            
+        })
        // .otherwise({ redirectTo: '/' });
 });
 

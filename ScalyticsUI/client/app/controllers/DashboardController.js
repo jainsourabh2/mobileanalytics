@@ -150,9 +150,23 @@ $scope.$on("$destroy", function(){
 
       var DashboardSummaryPromise  = analyticsService.getDashboardSummary($scope.startdate,$scope.enddate,$scope.selectedfrequency);
       DashboardSummaryPromise.then(function(response){
-
+           $scope.dashboardsummarydata = {};
            dashboarddata =  response.data;
-           console.log(dashboarddata);
+           console.log('anks');
+           //console.log(dashboarddata);
+
+$scope.dashboardsummarydata.Non_Unique_User_Count = (dashboarddata[0] != undefined ? dashboarddata[0].Non_Unique_User_Count :0 );
+$scope.dashboardsummarydata.Unique_User_Count = (dashboarddata[1] != undefined ? dashboarddata[1].Unique_User_Count :0 );
+$scope.dashboardsummarydata.Total_Time_Spent = (dashboarddata[2] != undefined ? dashboarddata[2].Total_Time_Spent :0 );
+$scope.dashboardsummarydata.New_User_Count = (dashboarddata[3] != undefined ? dashboarddata[3].New_User_Count :0 );
+$scope.dashboardsummarydata.Total_Event_Count = (dashboarddata[4] != undefined ? dashboarddata[4].Total_Event_Count :0 );
+//$scope.dashboardsummarydata.push({'Non_Unique_User_Count' : (dashboarddata[0] != undefined? dashboarddata[0].Non_Unique_User_Count :0)});
+/*$scope.dashboardsummarydata.push({'Unique_User_Count' : (dashboarddata[1] != undefined? dashboarddata[1].Unique_User_Count :0)});
+$scope.dashboardsummarydata.push({'Total_Time_Spent' : (dashboarddata[2] != undefined? dashboarddata[2].Total_Time_Spent :0)});
+$scope.dashboardsummarydata.push({'New_User_Count' : (dashboarddata[3] != undefined? dashboarddata[3].New_User_Count :0)});
+$scope.dashboardsummarydata.push({'Total_Event_Count' : (dashboarddata[4] != undefined? dashboarddata[4].Total_Event_Count :0)});*/
+
+           console.log($scope.dashboardsummarydata);
 
       }) ;
 

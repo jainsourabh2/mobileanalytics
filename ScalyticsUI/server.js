@@ -6,6 +6,7 @@ var eventscontroller = require('./server/Controllers/event_controller');
 var retentioncontroller = require('./server/Controllers/retention_controller');
 var tickercontroller = require('./server/Controllers/ticker_controller');
 var summarycontroller = require('./server/Controllers/summary_controller');
+var crashcontroller = require('./server/Controllers/crash_controller');
 
 app.get('/', function (req, res) {
   // res.send('Hello World!');
@@ -40,6 +41,12 @@ app.get('/database/eventssummary', eventscontroller.eventSummary);
 app.get('/database/events', eventscontroller.eventNames);
 
 app.get('/database/eventscomparisiondata', eventscontroller.eventCounts);
+
+app.get('/database/crashreportsummary', crashcontroller.crashSummary);
+
+app.get('/database/crashreportdetail', crashcontroller.crashDetail);
+
+
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
