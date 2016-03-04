@@ -19,6 +19,7 @@ var BeginSchema   = new Schema({
         sid : {type: String,lowercase: true,trim: true},	//Session ID	
         rtc : {type: Number,trim: true},			//Record TimeStamp in epoch format
         res : {type: String,trim: true},     	//resolution of the phone
+        akey : {type: String,trim: true},        //ApplicationKey
         ip : {type: String,trim: true}        //IP address
 });
 
