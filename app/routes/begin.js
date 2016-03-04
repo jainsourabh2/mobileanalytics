@@ -147,6 +147,7 @@ router.route('/data/B')
 	begin.rtc       = req.body.rtc;
 	begin.res       = req.body.res;
 	begin.ip	= req.headers['x-forwarded-for']||req.connection.remoteAddress;
+	begin.akey	= req.body.akey;
 
 	// save the begin and check for errors
 	begin.save(function(err) {

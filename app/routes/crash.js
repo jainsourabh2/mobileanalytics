@@ -104,6 +104,7 @@ router.route('/data/C')
         crash.stkt      = req.body.stkt;
         crash.stkc      = req.body.stkc;
         crash.stkm      = req.body.stkm;
+        crash.akey      = req.body.akey;
 		
         // save the begin and check for errors
         crash.save(function(err) {
