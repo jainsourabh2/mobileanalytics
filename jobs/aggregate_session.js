@@ -13,7 +13,7 @@ var startDate = new Date(endDate.getTime() - 1*24*60*60*1000);
 //var startDate = new Date(2015, 0, 01);
 //var endDate = new Date(2015, 10, 21);
 
-console.log('Test');
+//console.log('Test');
 
 var prevSessionHour = '';
 var prevSessionday = '';
@@ -24,7 +24,7 @@ var connectionCount = 0;
 
   function dbCloseConnection(){
     connectionCount--;
-    console.log('Connection');
+    //console.log('Connection');
     if (connectionCount == 0) {
       db.close();
     }}
@@ -37,7 +37,7 @@ var connectionCount = 0;
         ,{upsert : true}
        ,function (err , result) {
            if (err || !result) {
-               console.log('update aggreagte');
+               //console.log('update aggreagte');
                //db.close();
                return;
           }
@@ -201,8 +201,8 @@ for (var dt = startDate;
       ({$group: aggDayQuery}
         ,function (err , result) {
            if (err || !result) {
-               console.log('user session');
-console.log(err);
+               //console.log('user session');
+		console.log(err);
                db.close();
                return;}
 

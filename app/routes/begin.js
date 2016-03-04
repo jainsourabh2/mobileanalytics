@@ -1,10 +1,10 @@
 var express     = require('express');        // call express
 var app         = express();
-var mongojs		= require('mongojs');
-var Begin		= require('../models/begin');
-var router 		= express.Router();              // get an instance of the express Router
-var config		= require('../../config/config');
-var init		= require('../common/init');
+var mongojs	= require('mongojs');
+var Begin	= require('../models/begin');
+var router	= express.Router();              // get an instance of the express Router
+var config	= require('../../config/config');
+var init	= require('../common/init');
 var mongoUtil 	= require('../../connection/MongoUtil' );
 
 var db = mongoUtil.getDbMongoJS();
@@ -12,8 +12,10 @@ var db = mongoUtil.getDbMongoJS();
 var sessionCollection 		= db.collection(config.tbl_usersessioninfo);
 var tickerCollection 		= db.collection(config.tbl_realtime_data);
 var eventCollection 		= db.collection(config.tbl_usereventinfo);
-var hourlySessionCollection = db.collection(config.tbl_userhourlysessioninfo);
+var hourlySessionCollection 	= db.collection(config.tbl_userhourlysessioninfo);
 var hourlyEventCollection 	= db.collection(config.tbl_userhourlyeventinfo);
+
+var sessionBeginTime = new Date(0);
 
 router.route('/data/B')
 
@@ -144,6 +146,7 @@ router.route('/data/B')
 	begin.sid       = req.body.sid;
 	begin.rtc       = req.body.rtc;
 	begin.res       = req.body.res;
+	begin.ip	= req.headers['x-forwarded-for']||req.connection.remoteAddress;
 
 	// save the begin and check for errors
 	begin.save(function(err) {

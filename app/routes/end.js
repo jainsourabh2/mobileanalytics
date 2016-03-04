@@ -36,6 +36,7 @@ router.route('/data/E')
 	end.rtc         = req.body.rtc;
 	end.res         = req.body.res;
 	end.ts          = req.body.ts;
+        end.ip          = req.headers['x-forwarded-for']||req.connection.remoteAddress;
 
 	// save the begin and check for errors
 	end.save(function(err) {
