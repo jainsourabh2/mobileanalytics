@@ -47,6 +47,7 @@ router.route('/data/E')
 //            res.json({ message: 'End Message Added!' });
 	});
 
+	process.env.TZ = 'Asia/Kolkata';
 	var sessionEndTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
 	sessionEndTime.setUTCSeconds(req.body.rtc);	
 

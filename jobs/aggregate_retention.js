@@ -5,7 +5,7 @@ var mongojs		= require('mongojs');
 //var db 		= mongoUtil.getDbMongoJS();
 var config 		= require('../config/config' );
 var db 			= mongojs(config.connectionstring);
-
+process.env.TZ = 'Asia/Kolkata';
 //To be executed for past 31 days
 var dayEndDate = new Date();
 var dayStartDate = new Date(dayEndDate.getTime() - 31*24*60*60*1000);

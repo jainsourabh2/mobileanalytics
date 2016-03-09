@@ -5,7 +5,7 @@ var mongojs		= require('mongojs');
 //var db 		= mongoUtil.getDbMongoJS();
 var config 		= require('../config/config' );
 var db 			= mongojs(config.connectionstring);
-
+process.env.TZ = 'Asia/Kolkata';
 var dt = new Date();
 var dtEpoch = Math.round(dt.getTime()/1000);
 

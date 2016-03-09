@@ -17,6 +17,7 @@ router.route('/data/C')
 
 		var insertQuery = {};	
 		
+		process.env.TZ = 'Asia/Kolkata';		
 		var activityTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
 		activityTime.setUTCSeconds(req.body.rtc);
 

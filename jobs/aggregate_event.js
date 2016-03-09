@@ -2,7 +2,7 @@
 var mongojs	= require('mongojs');
 var config	= require('../config/config');
 var db = mongojs(config.connectionstring);
-
+process.env.TZ = 'Asia/Kolkata';
 //To be incremented daily
 var endDate = new Date();
 var startDate = new Date(endDate.getTime() - 15*24*60*60*1000);

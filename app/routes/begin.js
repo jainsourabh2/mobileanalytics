@@ -15,8 +15,6 @@ var eventCollection 		= db.collection(config.tbl_usereventinfo);
 var hourlySessionCollection 	= db.collection(config.tbl_userhourlysessioninfo);
 var hourlyEventCollection 	= db.collection(config.tbl_userhourlyeventinfo);
 
-var sessionBeginTime = new Date(0);
-
 router.route('/data/B')
 
     // Add Begin Record (accessed at POST http://localhost:8080/api/data/B)
@@ -87,6 +85,7 @@ router.route('/data/B')
 	//init.init(req);
 	
 	//For both Session Begin and End, derive day, week and month
+	process.env.TZ = 'Asia/Kolkata';
 	var sessionBeginTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
 	sessionBeginTime.setUTCSeconds(req.body.rtc);
 
