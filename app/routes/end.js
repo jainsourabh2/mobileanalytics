@@ -86,7 +86,7 @@ router.route('/data/E')
 	var weekFormat = '' + weekyyyy + weekmm + weekdd;
 	var monthFormat = '' + yyyy + mm;
 	
-	var timeSpent = req.body.ts;
+	var timeSpent = parseInt(req.body.ts);
 	var secondEpoch = (new Date(yyyy,mm-1,dd,hh,mi,ss).getTime())/1000;
 
 	var tickerEndEpoch = 0;

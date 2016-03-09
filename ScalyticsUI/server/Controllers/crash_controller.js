@@ -99,9 +99,9 @@ module.exports.crashDetail = function(req,res){
   else if (frequency == 'Month')
     key['CM'] = {$in : [crashTime]};
 
-  plcondition['pl'] = {$in : [platform]};
+  plcondition['pf'] = {$in : [platform]};
   OSVersionCondition['osv'] = {$in : [OSVersion]};
-  AppVersionCondition['ap'] = {$in : [AppVersion]};
+  AppVersionCondition['avn'] = {$in : [AppVersion]};
 
   //console.log(key);
   //console.log(OSVersionCondition);
@@ -140,7 +140,7 @@ module.exports.crashSummary = function(req,res){
 
   db.collection('crash_data').aggregate(
     {$match : key}
-    ,{$group : {'_id' : {Time : type._id,Platform : '$pl', OSVersion : '$osv', AppVersion : '$ap'}
+    ,{$group : {'_id' : {Time : type._id,Platform : '$pf', OSVersion : '$osv', AppVersion : '$avn'}
                 ,'Total_Crash_Count' : {$sum : 1}
               }}
 //    ,{$sort : {'Total_Event_Count' : -1}}

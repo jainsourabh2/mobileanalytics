@@ -71,7 +71,7 @@ module.exports.summarydata = function(req,res){
   var key = {};
   var type = {};
   var connectionCount = 0;
-  var resultSet = [];
+  var resultSet = {};
   var db = mongojs(config.connectionstring);
 
 
@@ -103,10 +103,15 @@ module.exports.summarydata = function(req,res){
                  return;} //end of function
 
             if (result.length > 0) {
-              resultSet.push({'Non_Unique_User_Count' : result[0].Non_Unique_User_Count});
+
+              resultSet.Non_Unique_User_Count = result[0].Non_Unique_User_Count;
+              resultSet.Unique_User_Count = result[0].Unique_User_Count;
+              resultSet.Total_Time_Spent = result[0].Total_Time_Spent;
+              resultSet.New_User_Count = result[0].New_User_Count;
+/*              resultSet.push({'Non_Unique_User_Count' : result[0].Non_Unique_User_Count});
               resultSet.push({'Unique_User_Count' : result[0].Unique_User_Count});
               resultSet.push({'Total_Time_Spent' : result[0].Total_Time_Spent});
-              resultSet.push({'New_User_Count' : result[0].New_User_Count});
+              resultSet.push({'New_User_Count' : result[0].New_User_Count});*/
             }
              dbCloseConnection();
          });
@@ -126,8 +131,51 @@ module.exports.summarydata = function(req,res){
                   return;} //end of function
 
               if (result.length > 0) {
-                resultSet.push({'Total_Event_Count' : result[0].Total_Event_Count});
+/*                resultSet.push({'Total_Event_Count' : result[0].Total_Event_Count});*/
+                resultSet.Total_Event_Count = result[0].Total_Event_Count;
+              }
+              else
+              {
+/*                resultSet.push({'Total_Event_Count' : 0});*/
+                resultSet.Total_Event_Count = 0;
               }
               dbCloseConnection();
+      });  
+
+    var crashKey = {};
+
+  if (frequency == 'Hour')
+    crashKey['CH'] = key['_id.key'];
+  else if (frequency == 'Day')
+    crashKey['CD'] = key['_id.key'];
+  else if (frequency == 'Week')
+    crashKey['CW'] = key['_id.key'];
+  else if (frequency == 'Month')
+    crashKey['CM'] = key['_id.key'];
+
+  connectionCount++;
+  db.collection('crash_data').aggregate(
+     {$match : crashKey}
+     ,{$group : {'_id' : 'Crash'
+                 ,'Total_Crash_Count' : {$sum : 1}
+                }}
+     ,{$sort : {'Total_Crash_Count' : -1}}
+           ,function (err , result) {
+              if (err || !result) {
+                  console.log(err);
+                  db.close();
+                  return;} //end of function
+
+              if (result.length > 0) {
+/*                resultSet.push({'Total_Crash_Count' : result[0].Total_Crash_Count});*/
+                resultSet.Total_Crash_Count = result[0].Total_Crash_Count;
+              }
+              else
+              {
+/*                resultSet.push({'Total_Crash_Count' : 0});*/
+                resultSet.Total_Crash_Count = 0;
+              }
+              dbCloseConnection();
+
       });
   } //end of fucntion summarydata
