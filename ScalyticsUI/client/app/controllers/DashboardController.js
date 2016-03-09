@@ -150,9 +150,20 @@ $scope.$on("$destroy", function(){
 
       var DashboardSummaryPromise  = analyticsService.getDashboardSummary($scope.startdate,$scope.enddate,$scope.selectedfrequency);
       DashboardSummaryPromise.then(function(response){
-
+           $scope.dashboardsummarydata = {};
            dashboarddata =  response.data;
-           console.log(dashboarddata);
+           console.log('anks');
+           //console.log(dashboarddata);
+
+$scope.dashboardsummarydata.Non_Unique_User_Count = (dashboarddata.Non_Unique_User_Count != undefined ? dashboarddata.Non_Unique_User_Count :0 );
+$scope.dashboardsummarydata.Unique_User_Count = (dashboarddata.Unique_User_Count != undefined ? dashboarddata.Unique_User_Count :0 );
+$scope.dashboardsummarydata.Total_Time_Spent = (dashboarddata.Total_Time_Spent != undefined ? dashboarddata.Total_Time_Spent :0 );
+$scope.dashboardsummarydata.New_User_Count = (dashboarddata.New_User_Count != undefined ? dashboarddata.New_User_Count :0 );
+$scope.dashboardsummarydata.Total_Event_Count = (dashboarddata.Total_Event_Count != undefined ? dashboarddata.Total_Event_Count :0 );
+$scope.dashboardsummarydata.Total_Crash_Count = (dashboarddata.Total_Crash_Count != undefined ? dashboarddata.Total_Crash_Count :0 );
+
+
+           console.log($scope.dashboardsummarydata);
 
       }) ;
 
@@ -679,9 +690,11 @@ TickerDataPromise.then(function(response){
 		                .attr("transform", "translate(0," + height + ")")
 		                .call(xAxis);
 
-		  chart.append("g")
+		  var yAxisOrg = chart.append("g")
 		      .attr("class", "y axisticker")
-		      .call(yAxis)
+		      .call(yAxis);
+
+          yAxisOrg
 		      .append("text")
 		      .attr("transform", "rotate(-90)")
 		      .attr("y", 6)
@@ -694,7 +707,7 @@ TickerDataPromise.then(function(response){
 		     .attr('class', 'd3-tip')
 		     .offset([-10, 0])
 		     .html(function (d) {
-		     return "<strong>Total number of online users:</strong> <span style='color:red'>" + d.count +"</span>";
+		     return "<span style='color:red'>" + d.count +"</span>";
 		 })
 
 		  chart.call(tip1);
@@ -706,7 +719,7 @@ TickerDataPromise.then(function(response){
 		      .attr("class", "tickerbar")
 		      //.attr("x", function(d) { return x(d._id); })
 		      .attr("x", function(d,i) {return x(d._id) ; })
-		      .attr("width", 10)
+		      .attr("width", 8)
 		      //.attr("y", function(d) { return y(d.vax(lu);e); })
 		      .attr("y", function(d) { return y(d.count) ; })
 		      .attr("height", function(d) { return height - y(d.count); })
@@ -759,19 +772,25 @@ TickerDataPromise.then(function(response){
 						    var rect = chart.selectAll(".tickerbar")
 						        .data(data, function(d) { return d._id; });
 
-						             //slide the x-axis left
+						      //slide the x-axis left
 						      xAxisOrg.transition()
 						          .duration(15000)
 						          .ease("linear")
 						          .call(xAxis);
 
 
+                  //slide the x-axis left
+                  yAxisOrg.transition()
+                      .duration(15000)
+                      //.ease("linear")
+                      .call(yAxis);
+
 						    rect
 						    .enter().append("rect")
 						      .attr("class", "tickerbar")
 						      .attr("x", function(d, i) {  console.log(d);console.log(d._id);return x(d._id + 15000);  })
 						      //.attr("x", x(findlast(19)))
-						      .attr("width", 10)
+						      .attr("width", 8)
 						      .attr("y", function(d) { return y(d.count) ; })
 						      //.attr("y", function(d) { return 100; })
 						      .attr("height", function(d) { return height - y(d.count); })
@@ -780,14 +799,18 @@ TickerDataPromise.then(function(response){
 						       .transition()
 						        .duration(15000)
 						        .ease("linear")
-						        .attr("x", function(d, i) { return x(d._id) ; });
+						        .attr("x", function(d, i) { return x(d._id) ; })
+                    .attr("y", function(d) { return y(d.count) ; })
+                    .attr("height", function(d) { return height - y(d.count); });
 
 
 						      rect
 						       .transition()
 						       .duration(15000)
 						       .ease("linear")
-						       .attr("x", function(d, i) { return x(d._id) ; }); 
+						       .attr("x", function(d, i) { return x(d._id) ; })
+                   .attr("y", function(d) { return y(d.count) ; })
+                   .attr("height", function(d) { return height - y(d.count); });
 
 
 		       	   // set_idout(function(){
@@ -796,6 +819,8 @@ TickerDataPromise.then(function(response){
 							         .duration(10)
 							         .ease("linear")
 							         .attr("x", function(d,i) {return x(0);})
+                       .attr("y", function(d) { return y(d.count) ; })
+                       .attr("height", function(d) { return height - y(d.count); })
 							         .remove();
 
 							   nextnumber = nextnumber + 15000;

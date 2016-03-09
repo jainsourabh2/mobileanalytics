@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:layout_width="match_parent">
+
+    <Button
+        android:id="@+id/bBegin"
+        android:layout_width="match_parent"
+        android:text="Begin"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bEvent"
+        android:layout_width="match_parent"
+        android:text="Event"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bCrash"
+        android:layout_width="match_parent"
+        android:text="Crash"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bEnd"
+        android:layout_width="match_parent"
+        android:text="End"
+        android:layout_height="wrap_content" />
+</LinearLayout>

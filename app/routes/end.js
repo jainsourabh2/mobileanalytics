@@ -36,6 +36,8 @@ router.route('/data/E')
 	end.rtc         = req.body.rtc;
 	end.res         = req.body.res;
 	end.ts          = req.body.ts;
+        end.ip          = req.headers['x-forwarded-for']||req.connection.remoteAddress;
+        end.akey        = req.body.akey;
 
 	// save the begin and check for errors
 	end.save(function(err) {
@@ -45,6 +47,7 @@ router.route('/data/E')
 //            res.json({ message: 'End Message Added!' });
 	});
 
+	process.env.TZ = 'Asia/Kolkata';
 	var sessionEndTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
 	sessionEndTime.setUTCSeconds(req.body.rtc);	
 
@@ -84,7 +87,7 @@ router.route('/data/E')
 	var weekFormat = '' + weekyyyy + weekmm + weekdd;
 	var monthFormat = '' + yyyy + mm;
 	
-	var timeSpent = req.body.ts;
+	var timeSpent = parseInt(req.body.ts);
 	var secondEpoch = (new Date(yyyy,mm-1,dd,hh,mi,ss).getTime())/1000;
 
 	var tickerEndEpoch = 0;
