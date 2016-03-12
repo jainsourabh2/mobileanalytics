@@ -1,10 +1,10 @@
 //Set the connection details
 //var databaseurl = 'analytics';
-var mongojs		= require('mongojs');
+var mongojs             = require('mongojs');
 //var mongoUtil = require('../connection/mongoUtil' );
-//var db 		= mongoUtil.getDbMongoJS();
-var config 		= require('../config/config' );
-var db 			= mongojs(config.connectionstring);
+//var db                = mongoUtil.getDbMongoJS();
+var config              = require('../config/config' );
+var db                  = mongojs(config.connectionstring);
 
 //To be incremented daily
 var endDate = new Date();
