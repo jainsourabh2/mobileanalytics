@@ -7,6 +7,7 @@ var retentioncontroller = require('./server/Controllers/retention_controller');
 var tickercontroller = require('./server/Controllers/ticker_controller');
 var summarycontroller = require('./server/Controllers/summary_controller');
 var crashcontroller = require('./server/Controllers/crash_controller');
+var worldmapcontroller = require('./server/Controllers/worldmap_controller');
 
 app.get('/', function (req, res) {
   // res.send('Hello World!');
@@ -20,11 +21,6 @@ app.get('/analytics', function (req, res) {
 
 app.get('/database/summarydata', summarycontroller.summarydata);
 
-//app.get('/database/usersplit', databasecontroller.usersplit);
-
-// app.get('/database/sessioncounts', databasecontroller.sessioncounts);
-
-//app.get('/database/sessionduration', databasecontroller.sessionduration);
 
 app.get('/database/insightsession', databasecontroller.insightsession);
 
@@ -46,7 +42,7 @@ app.get('/database/crashreportsummary', crashcontroller.crashSummary);
 
 app.get('/database/crashreportdetail', crashcontroller.crashDetail);
 
-
+app.get('/database/deviceusersbycities', worldmapcontroller.deviceusersbycities);
 
 var server = app.listen(3000, function () {
   var host = server.address().address;

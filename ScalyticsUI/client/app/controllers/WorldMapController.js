@@ -107,11 +107,17 @@ nameApp.controller('WorldMapCtrl', ['$scope','analyticsService',function ($scope
   $scope.setDates = function()
   {
 
-      data = analyticsService.getDeviceUsersbyCitiesData($scope.startdate,$scope.enddate,$scope.selectedfrequency);
-      updateWorldMap("#worldMap",data);
+    var DeviceUsersbyCitiesDataPromise  = analyticsService.getDeviceUsersbyCitiesData($scope.startdate,$scope.enddate,$scope.selectedfrequency);
+    DeviceUsersbyCitiesDataPromise.then(function(response){
 
+      var deviceusersbycitiesdata =  response.data;
+      updateWorldMap("#worldMap",deviceusersbycitiesdata);
 
       $scope.alreadymaploaded = true;
+
+    });
+
+
   }
 
   function updateWorldMap(div,data)
