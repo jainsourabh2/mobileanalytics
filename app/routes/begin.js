@@ -1,19 +1,24 @@
 var express     = require('express');        // call express
 var app         = express();
-var mongojs		= require('mongojs');
-var Begin		= require('../models/begin');
-var router 		= express.Router();              // get an instance of the express Router
-var config		= require('../../config/config');
-var init		= require('../common/init');
-var mongoUtil 	= require('../../connection/MongoUtil' );
+var mongojs     = require('mongojs');
+var Begin       = require('../models/begin');
+var router      = express.Router();              // get an instance of the express Router
+var config      = require('../../config/config');
+var init        = require('../common/init');
+var mongoUtil   = require('../../connection/MongoUtil' );
+var geoip = require('geoip-lite');
+
 
 var db = mongoUtil.getDbMongoJS();
 
-var sessionCollection 		= db.collection(config.tbl_usersessioninfo);
-var tickerCollection 		= db.collection(config.tbl_realtime_data);
-var eventCollection 		= db.collection(config.tbl_usereventinfo);
-var hourlySessionCollection = db.collection(config.tbl_userhourlysessioninfo);
-var hourlyEventCollection 	= db.collection(config.tbl_userhourlyeventinfo);
+var sessionCollection           = db.collection(config.tbl_usersessioninfo);
+var tickerCollection            = db.collection(config.tbl_realtime_data);
+var eventCollection             = db.collection(config.tbl_usereventinfo);
+var hourlySessionCollection     = db.collection(config.tbl_userhourlysessioninfo);
+var hourlyEventCollection       = db.collection(config.tbl_userhourlyeventinfo);
+
+var geo;
+
 
 router.route('/data/B')
 
@@ -30,7 +35,9 @@ router.route('/data/B')
                                   ,'lp' : req.body.pf
                                   ,'lov' : req.body.osv
                                   ,'lav' : req.body.avn
-                                  //,last city to be coded
+                                  ,'lci' : geo.city
+                                  ,'lla' : geo.ll[0]
+                                  ,'llo' : geo.ll[1]
                                   ,'lc' : req.body.c
                                   ,'ll' : sessionBeginTime
                                   //,'fl' : activityTime
@@ -48,7 +55,9 @@ router.route('/data/B')
                                 ,'lp' : req.body.pf
                                 ,'lov' : req.body.osv
                                 ,'lav' : req.body.avn
-                                //,last city to be coded
+                                ,'lci' : geo.city
+                                ,'lla' : geo.ll[0]
+                                ,'llo' : geo.ll[1]
                                 ,'lc' : req.body.c
                                 ,'ll' : sessionBeginTime
                                 ,'flh' : hourFormat}};
@@ -64,7 +73,9 @@ router.route('/data/B')
                                   ,'lp' : req.body.pf
                                   ,'lov' : req.body.osv
                                   ,'lav' : req.body.avn
-                                  //,last city to be coded
+                                  ,'lci' : geo.city
+                                  ,'lla' : geo.ll[0]
+                                  ,'llo' : geo.ll[1]
                                   ,'lc' : req.body.c
                                   ,'ll' : sessionBeginTime}};
 
@@ -77,7 +88,9 @@ router.route('/data/B')
                                 ,'lp' : req.body.pf
                                 ,'lov' : req.body.osv
                                 ,'lav' : req.body.avn
-                                //,last city to be coded
+                                ,'lci' : geo.city
+                                ,'lla' : geo.ll[0]
+                                ,'llo' : geo.ll[1]
                                 ,'lc' : req.body.c
                                 ,'ll' : sessionBeginTime}};
     };
@@ -85,6 +98,7 @@ router.route('/data/B')
 	//init.init(req);
 	
 	//For both Session Begin and End, derive day, week and month
+    process.env.TZ = 'Asia/Kolkata';
 	var sessionBeginTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
 	sessionBeginTime.setUTCSeconds(req.body.rtc);
 
@@ -144,6 +158,11 @@ router.route('/data/B')
 	begin.sid       = req.body.sid;
 	begin.rtc       = req.body.rtc;
 	begin.res       = req.body.res;
+    begin.ip        = req.headers['x-forwarded-for']||req.connection.remoteAddress;
+    begin.akey      = req.body.akey;
+
+    var IPAddress = req.headers['x-forwarded-for']||req.connection.remoteAddress;
+    geo = geoip.lookup(IPAddress);
 
 	// save the begin and check for errors
 	begin.save(function(err) {
