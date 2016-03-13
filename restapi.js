@@ -41,6 +41,7 @@ router.use(function(req, res, next) {
 app.use('/api',require('./app/routes/begin'));
 app.use('/api',require('./app/routes/end'));
 app.use('/api',require('./app/routes/crash'));
+app.use('/api',require('./app/routes/event'));
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
