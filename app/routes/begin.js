@@ -18,6 +18,10 @@ var hourlySessionCollection     = db.collection(config.tbl_userhourlysessioninfo
 var hourlyEventCollection       = db.collection(config.tbl_userhourlyeventinfo);
 
 var geo;
+var city;
+var country;
+var latitude;
+var longitude;
 
 
 router.route('/data/B')
@@ -35,9 +39,10 @@ router.route('/data/B')
                                   ,'lp' : req.body.pf
                                   ,'lov' : req.body.osv
                                   ,'lav' : req.body.avn
-                                  ,'lci' : geo.city
-                                  ,'lla' : geo.ll[0]
-                                  ,'llo' : geo.ll[1]
+                                  ,'lci' : city
+                                  ,'lcn' : country
+                                  ,'lla' : latitude
+                                  ,'llo' : longitude
                                   ,'lc' : req.body.c
                                   ,'ll' : sessionBeginTime
                                   //,'fl' : activityTime
@@ -55,9 +60,10 @@ router.route('/data/B')
                                 ,'lp' : req.body.pf
                                 ,'lov' : req.body.osv
                                 ,'lav' : req.body.avn
-                                ,'lci' : geo.city
-                                ,'lla' : geo.ll[0]
-                                ,'llo' : geo.ll[1]
+                                ,'lci' : city
+                                ,'lcn' : country
+                                ,'lla' : latitude
+                                ,'llo' : longitude
                                 ,'lc' : req.body.c
                                 ,'ll' : sessionBeginTime
                                 ,'flh' : hourFormat}};
@@ -73,9 +79,10 @@ router.route('/data/B')
                                   ,'lp' : req.body.pf
                                   ,'lov' : req.body.osv
                                   ,'lav' : req.body.avn
-                                  ,'lci' : geo.city
-                                  ,'lla' : geo.ll[0]
-                                  ,'llo' : geo.ll[1]
+                                  ,'lci' : city
+                                  ,'lcn' : country
+                                  ,'lla' : latitude
+                                  ,'llo' : longitude
                                   ,'lc' : req.body.c
                                   ,'ll' : sessionBeginTime}};
 
@@ -88,9 +95,10 @@ router.route('/data/B')
                                 ,'lp' : req.body.pf
                                 ,'lov' : req.body.osv
                                 ,'lav' : req.body.avn
-                                ,'lci' : geo.city
-                                ,'lla' : geo.ll[0]
-                                ,'llo' : geo.ll[1]
+                                ,'lci' : city
+                                ,'lcn' : country
+                                ,'lla' : latitude
+                                ,'llo' : longitude
                                 ,'lc' : req.body.c
                                 ,'ll' : sessionBeginTime}};
     };
@@ -163,6 +171,11 @@ router.route('/data/B')
 
     var IPAddress = req.headers['x-forwarded-for']||req.connection.remoteAddress;
     geo = geoip.lookup(IPAddress);
+    if (geo.city == '') city = 'Unknown'; else city = geo.city;
+    if (geo.country == 'IN') country = 'India'; else country = geo.country;
+    latitude = geo.ll[0];
+    longitude = geo.ll[1];
+//    console.log(city + ' ' + country);
 
 	// save the begin and check for errors
 	begin.save(function(err) {
