@@ -1,217 +1,331 @@
- <div class="col-xs-10 col-md-10" style="margin-left:100px;margin-top:35px">
+<style>
+     
+     #divsubdeviceManufacturersvg1,#divsubdeviceManufacturersvg2,#divsubdeviceManufacturersvg3,
+     #divsubdeviceModelsvg1,#divsubdeviceModelsvg2,#divsubdeviceModelsvg3,
+     #divsubdeviceTypesvg1,#divsubdeviceTypesvg2,#divsubdeviceTypesvg3,
+     #divsubplatformsvg1,#divsubplatformsvg2,#divsubplatformsvg3,
+     #divsuboperatingSystemVersionsvg1,#divsuboperatingSystemVersionsvg2,#divsuboperatingSystemVersionsvg3,
+     #divsubappVersionsvg1,#divsubappVersionsvg2,#divsubappVersionsvg3,
+     #divsubcarriersvg1,#divsubcarriersvg2,#divsubcarriersvg3,
+     #divsubresolutionsvg1,#divsubresolutionsvg2,#divsubresolutionsvg3
+        {
+          width: 100%;
+          height: 100%;
+        }
+   
+        .transparentScrollbarDiv::-webkit-scrollbar {
+            width: inherit;
+        }
 
-    <div ng-controller="DevicePieChartCtrl" class="col-xs-12 col-md-12" data-ng-init="init()">
+        /* this targets the default scrollbar (compulsory) */
 
-             <div class="col-xs-12 col-md-12" id="devicepiecharts">
+        .transparentScrollbarDiv::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
 
-              <div class="panel panel-default" style="margin-top:0px;margin-bottom:10px">
+        /* the new scrollbar will have a flat appearance with the set background color */
+
+        .transparentScrollbarDiv::-webkit-scrollbar-thumb {
+            background-color: transparent;
+        }
+
+        /* this will style the thumb, ignoring the track */
+
+        .transparentScrollbarDiv::-webkit-scrollbar-button {
+            background-color: transparent;
+        }
+
+        /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+
+        .transparentScrollbarDiv::-webkit-scrollbar-corner {
+            background-color: transparent;
+        }
+
+        /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
+
+</style>
+    <div style="margin-top:10px;margin-bottom:0px" ng-controller="DevicePieChartCtrl" data-ng-init="init()">
+
+              <div class="panel panel-default" style="margin-top:0px;margin-bottom:0px">
                        <div class="panel-heading" style="height:48px">
-                             <div id="reportrange" class="pull-left">
-                                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                             <div id="reportrange" style="margin-left:-7px;" class="pull-left">
+                                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                  <span></span>
-
                              </div>
 
-                             <div class="btn-group pull-right" role="group" aria-label="...">
+                             <div class="btn-group pull-right hidden-xs hidden-sm hidden-md" role="group" aria-label="...">
                                 <button type="button" id="btntoday" class="btn btn-default btn-sm">Today</button>
                                 <button type="button" id="btnyesterday" class="btn btn-default btn-sm">Yesterday</button>   
                                 <button type="button" id="btncurrmonth" class="btn btn-default btn-sm">Current Month</button>
                                 <button type="button" id="btnprevmonth" class="btn btn-default btn-sm">Previous Month</button>
-                                <button type="button" id="btn3mnths" class="btn btn-default btn-sm">3 months</button>
-                                <button type="button" id="btn6mnths" class="btn btn-default btn-sm">6 months</button>
-                                <button type="button" id="btn1year" class="btn btn-default btn-sm">1 year</button>
+                                <button type="button" id="btn3mnths" class="btn btn-default btn-sm">3 Months</button>
+                                <button type="button" id="btn6mnths" class="btn btn-default btn-sm">6 Months</button>
+                                <button type="button" id="btn1year" class="btn btn-default btn-sm">1 Year</button>
                              </div>
+                             <div class="btn-group pull-right visible-xs visible-sm visible-md">
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                Frequency <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="javascript:void(0)" id="anchtoday">Today</a></li>
+                                  <li><a href="javascript:void(0)" id="anchyesterday">Yesterday</a></li>
+                                  <li><a href="javascript:void(0)" id="anchcurrmonth">Current Month</a></li>
+                                  <li><a href="javascript:void(0)" id="anchprevmonth">Previous Month</a></li>
+                                  <li><a href="javascript:void(0)" id="anch3mnths">3 Months</a></li>
+                                  <li><a href="javascript:void(0)" id="anch6mnths">6 Months</a></li>
+                                  <li><a href="javascript:void(0)" id="anch1year">1 Year</a></li>
+                                </ul>
+                            </div>   
                         </div> <!--panel-heading-->
-                        <div class="panel-body" style="margin-top:-15px;margin-bottom:-15px">
+                        <div class="panel-body" style="margin-top:-20px;margin-bottom:0px">
                           <div id="divdeviceManufacturer" ng-show="showdeviceManufacturer">
                             <h4> Device Manufacturers </h4>
-                            <div id="divsubdeviceManufacturer">
-                            </div>
-                            <div class="panel panel-default">
-                              <table class="table table-condensed table-fixed">
-                                <thead>
-                                  <tr>
-                                      <th class="col-xs-6">Manufacturer</th>
-                                      <th class="col-xs-3">Total Users</th>
-                                      <th class="col-xs-3">Total Time Spent</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr ng-repeat="manufacturer in deviceManufacturerdata">
-                                      <td class="col-xs-6">{{manufacturer._id}}</td>
-                                      <td class="col-xs-3">{{manufacturer.Unique_User_Count}}</td>
-                                      <td class="col-xs-3">{{manufacturer.Total_Time_Spent}}</td>
-                                  </tr>
-                               </tbody>
-                              </table>
-                             </div>
-                          </div>                      
+                              <div id ='divsubdeviceManufacturer'>
+                                <div class="row table-bordered">
+                                   <div class="col-xs-12 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5 col-lg-2 col-lg-push-5" id='divsubdeviceManufacturerdiv3'>
+                                    </div>
+                                   <div class="col-xs-12 col-sm-5 col-sm-pull-2 col-md-5 col-md-pull-2 col-lg-5 col-lg-pull-2" id='divsubdeviceManufacturerdiv1'> 
+                                   </div>
+                                   <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id ='divsubdeviceManufacturerdiv2'>
+                                   </div>
+                                </div>
+                              </div>
+                              <div class="row"> 
+                                <div id="transparentScrollbarDiv" class="container-fluid table-bordered transparentScrollbarDiv" style="overflow-y: scroll;">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-6"><strong>Manufacturer</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Users</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Time Spent</strong></div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid table-bordered" style="height:120px; overflow-y: auto">
+                                    <div>
+                                        <div class="row table-bordered" ng-repeat="manufacturer in deviceManufacturerdata">
+                                            <div class="col-lg-6 col-xs-6">{{manufacturer._id}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{manufacturer.Unique_User_Count}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{manufacturer.Total_Time_Spent}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>                             
+                           </div>                      
                           <div id="divdeviceModel" ng-show="showdeviceModel">
                             <h4> Device Model</h4>
-                             <div id="divsubdeviceModel">
-                             </div>
-                             <div class="panel panel-default">
-                              <table class="table table-condensed table-fixed">
-                                <thead>
-                                  <tr>
-                                      <th class="col-xs-6">Model</th>
-                                      <th class="col-xs-3">Total Users</th>
-                                      <th class="col-xs-3">Total Time Spent</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr ng-repeat="model in deviceModeldata">
-                                      <td class="col-xs-6">{{model._id}}</td>
-                                      <td class="col-xs-3">{{model.Unique_User_Count}}</td>
-                                      <td class="col-xs-3">{{model.Total_Time_Spent}}</td>
-                                  </tr>
-                               </tbody>
-                              </table>
-                             </div>
+                              <div id ='divsubdeviceModel'>
+                                <div class="row table-bordered">
+                                   <div class="col-xs-8 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5 col-lg-2 col-lg-push-5" id='divsubdeviceModeldiv3'>
+                                    </div>
+                                   <div class="col-xs-12 col-sm-5 col-sm-pull-2 col-md-5 col-md-pull-2 col-lg-5 col-lg-pull-2" id='divsubdeviceModeldiv1'> 
+                                   </div>
+                                   <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id ='divsubdeviceModeldiv2'>
+                                   </div>
+                                </div>
+                              </div>
+                              <div class="row"> 
+                                <div id="transparentScrollbarDiv" class="container-fluid table-bordered transparentScrollbarDiv" style="overflow-y: scroll;">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-6"><strong>Model</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Users</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Time Spent</strong></div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid table-bordered" style="height:120px; overflow-y: auto">
+                                    <div>
+                                        <div class="row table-bordered" ng-repeat="model in deviceModeldata">
+                                            <div class="col-lg-6 col-xs-6">{{model._id}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{model.Unique_User_Count}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{model.Total_Time_Spent}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>                            
                           </div>
                           <div id="divdeviceType" ng-show="showdeviceType">
                             <h4> Device Types </h4>
-                             <div id="divsubdeviceType">
-                             </div>
-                             <div class="panel panel-default">
-                              <table class="table table-condensed table-fixed">
-                                <thead>
-                                  <tr>
-                                      <th class="col-xs-6">Type</th>
-                                      <th class="col-xs-3">Total Users</th>
-                                      <th class="col-xs-3">Total Time Spent</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr ng-repeat="deviceType in deviceTypedata">
-                                      <td class="col-xs-6">{{deviceType._id}}</td>
-                                      <td class="col-xs-3">{{deviceType.Unique_User_Count}}</td>
-                                      <td class="col-xs-3">{{deviceType.Total_Time_Spent}}</td>
-                                  </tr>
-                               </tbody>
-                              </table>
-                             </div>
+                              <div id ='divsubdeviceType'>
+                                <div class="row table-bordered">
+                                   <div class="col-xs-8 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5 col-lg-2 col-lg-push-5" id='divsubdeviceTypediv3'>
+                                    </div>
+                                   <div class="col-xs-12 col-sm-5 col-sm-pull-2 col-md-5 col-md-pull-2 col-lg-5 col-lg-pull-2" id='divsubdeviceTypediv1'> 
+                                   </div>
+                                   <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id ='divsubdeviceTypediv2'>
+                                   </div>
+                                </div>
+                              </div>
+                              <div class="row"> 
+                                <div id="transparentScrollbarDiv" class="container-fluid table-bordered transparentScrollbarDiv" style="overflow-y: scroll;">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-6"><strong>Type</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Users</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Time Spent</strong></div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid table-bordered" style="height:120px; overflow-y: auto">
+                                    <div>
+                                        <div class="row table-bordered" ng-repeat="deviceType in deviceTypedata">
+                                            <div class="col-lg-6 col-xs-6">{{deviceType._id}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{deviceType.Unique_User_Count}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{deviceType.Total_Time_Spent}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>                            
                           </div>                        
                           <div id="divplatform" ng-show="showdevicePlatform">
                             <h4> Device Platforms </h4>
-                             <div id="divsubplatform">
-                             </div>
-                             <div class="panel panel-default">
-                              <table class="table table-condensed table-fixed">
-                                <thead>
-                                  <tr>
-                                      <th class="col-xs-6">Platform</th>
-                                      <th class="col-xs-3">Total Users</th>
-                                      <th class="col-xs-3">Total Time Spent</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr ng-repeat="platform in platformdata">
-                                      <td class="col-xs-6">{{platform._id}}</td>
-                                      <td class="col-xs-3">{{platform.Unique_User_Count}}</td>
-                                      <td class="col-xs-3">{{platform.Total_Time_Spent}}</td>
-                                  </tr>
-                               </tbody>
-                              </table>
-                             </div>
+                              <div id ='divsubplatform'>
+                                <div class="row table-bordered">
+                                   <div class="col-xs-12 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5 col-lg-2 col-lg-push-5" id='divsubplatformdiv3'>
+                                    </div>
+                                   <div class="col-xs-12 col-sm-5 col-sm-pull-2 col-md-5 col-md-pull-2 col-lg-5 col-lg-pull-2" id='divsubplatformdiv1'> 
+                                   </div>
+                                   <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id ='divsubplatformdiv2'>
+                                   </div>
+                                </div>
+                              </div>
+                              <div class="row"> 
+                                <div id="transparentScrollbarDiv" class="container-fluid table-bordered transparentScrollbarDiv" style="overflow-y: scroll;">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-6"><strong>Platform</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Users</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Time Spent</strong></div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid table-bordered" style="height:120px; overflow-y: auto">
+                                    <div>
+                                        <div class="row table-bordered" ng-repeat="platform in platformdata">
+                                            <div class="col-lg-6 col-xs-6">{{platform._id}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{platform.Unique_User_Count}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{platform.Total_Time_Spent}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>                             
                           </div>   
                           <div id="divoperatingSystemVersion" ng-show="showdeviceOSVersion">
                             <h4> Device OS Versions </h4>
-                              <div id="divsuboperatingSystemVersion">
-                             </div>
-                             <div class="panel panel-default">
-                              <table class="table table-condensed table-fixed">
-                                <thead>
-                                  <tr>
-                                      <th class="col-xs-6">OS Version</th>
-                                      <th class="col-xs-3">Total Users</th>
-                                      <th class="col-xs-3">Total Time Spent</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr ng-repeat="operatingSystemVersion in operatingSystemVersiondata">
-                                      <td class="col-xs-6">{{operatingSystemVersion._id}}</td>
-                                      <td class="col-xs-3">{{operatingSystemVersion.Unique_User_Count}}</td>
-                                      <td class="col-xs-3">{{operatingSystemVersion.Total_Time_Spent}}</td>
-                                  </tr>
-                               </tbody>
-                              </table>
-                             </div>
+                              <div id ='divsuboperatingSystemVersion'>
+                                <div class="row table-bordered">
+                                   <div class="col-xs-12 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5 col-lg-2 col-lg-push-5" id='divsuboperatingSystemVersiondiv3'>
+                                    </div>
+                                   <div class="col-xs-12 col-sm-5 col-sm-pull-2 col-md-5 col-md-pull-2 col-lg-5 col-lg-pull-2" id='divsuboperatingSystemVersiondiv1'> 
+                                   </div>
+                                   <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id ='divsuboperatingSystemVersiondiv2'>
+                                   </div>
+                                </div>
+                              </div>
+                              <div class="row"> 
+                                <div id="transparentScrollbarDiv" class="container-fluid table-bordered transparentScrollbarDiv" style="overflow-y: scroll;">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-6"><strong>OS Version</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Users</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Time Spent</strong></div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid table-bordered" style="height:120px; overflow-y: auto">
+                                    <div>
+                                        <div class="row table-bordered" ng-repeat="operatingSystemVersion in operatingSystemVersiondata">
+                                            <div class="col-lg-6 col-xs-6">{{operatingSystemVersion._id}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{operatingSystemVersion.Unique_User_Count}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{operatingSystemVersion.Total_Time_Spent}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>                             
                           </div>   
                           <div id="divappVersion" ng-show="showdeviceAppVersion">
                             <h4> Device App Versions </h4>
-                             <div id="divsubappVersion">
-                             </div>
-                             <div class="panel panel-default">
-                              <table class="table table-condensed table-fixed">
-                                <thead>
-                                  <tr>
-                                      <th class="col-xs-6">App Version</th>
-                                      <th class="col-xs-3">Total Users</th>
-                                      <th class="col-xs-3">Total Time Spent</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr ng-repeat="appVersion in appVersiondata">
-                                      <td class="col-xs-6">{{appVersion._id}}</td>
-                                      <td class="col-xs-3">{{appVersion.Unique_User_Count}}</td>
-                                      <td class="col-xs-3">{{appVersion.Total_Time_Spent}}</td>
-                                  </tr>
-                               </tbody>
-                              </table>
-                             </div>
+                              <div id ='divsubappVersion'>
+                                <div class="row table-bordered">
+                                   <div class="col-xs-12 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5 col-lg-2 col-lg-push-5" id='divsubappVersiondiv3'>
+                                    </div>
+                                   <div class="col-xs-12 col-sm-5 col-sm-pull-2 col-md-5 col-md-pull-2 col-lg-5 col-lg-pull-2" id='divsubappVersiondiv1'> 
+                                   </div>
+                                   <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id ='divsubappVersiondiv2'>
+                                   </div>
+                                </div>
+                              </div>
+                              <div class="row"> 
+                                <div id="transparentScrollbarDiv" class="container-fluid table-bordered transparentScrollbarDiv" style="overflow-y: scroll;">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-6"><strong>App Version</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Users</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Time Spent</strong></div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid table-bordered" style="height:120px; overflow-y: auto">
+                                    <div>
+                                        <div class="row table-bordered" ng-repeat="appVersion in appVersiondata">
+                                            <div class="col-lg-6 col-xs-6">{{appVersion._id}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{appVersion.Unique_User_Count}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{appVersion.Total_Time_Spent}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>                             
                           </div>   
                           <div id="divcarrier" ng-show="showdeviceCarrier">
                             <h4> Device Carriers </h4>
-                             <div id="divsubcarrier">
-                             </div>
-                             <div class="panel panel-default">
-                              <table class="table table-condensed table-fixed">
-                                <thead>
-                                  <tr>
-                                      <th class="col-xs-6">Carrier</th>
-                                      <th class="col-xs-3">Total Users</th>
-                                      <th class="col-xs-3">Total Time Spent</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr ng-repeat="carrier in carrierdata">
-                                      <td class="col-xs-6">{{carrier._id}}</td>
-                                      <td class="col-xs-3">{{carrier.Unique_User_Count}}</td>
-                                      <td class="col-xs-3">{{carrier.Total_Time_Spent}}</td>
-                                  </tr>
-                               </tbody>
-                              </table>
-                             </div>
+                              <div id ='divsubcarrier'>
+                                <div class="row table-bordered">
+                                   <div class="col-xs-12 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5 col-lg-2 col-lg-push-5" id='divsubcarrierdiv3'>
+                                    </div>
+                                   <div class="col-xs-12 col-sm-5 col-sm-pull-2 col-md-5 col-md-pull-2 col-lg-5 col-lg-pull-2" id='divsubcarrierdiv1'> 
+                                   </div>
+                                   <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id ='divsubcarrierdiv2'>
+                                   </div>
+                                </div>
+                              </div>
+                              <div class="row"> 
+                                <div id="transparentScrollbarDiv" class="container-fluid table-bordered transparentScrollbarDiv" style="overflow-y: scroll;">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-6"><strong>Carrier</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Users</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Time Spent</strong></div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid table-bordered" style="height:120px; overflow-y: auto">
+                                    <div>
+                                        <div class="row table-bordered" ng-repeat="carrier in carrierdata">
+                                            <div class="col-lg-6 col-xs-6">{{carrier._id}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{carrier.Unique_User_Count}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{carrier.Total_Time_Spent}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>                             
                           </div>                                                                     
                           <div id="divresolution" ng-show="showdeviceResolution">
                             <h4> Device Resolution </h4>
-                              <div id="divsubresolution">
-                             </div>
-                             <div class="panel panel-default">
-                              <table class="table table-condensed table-fixed">
-                                <thead>
-                                  <tr>
-                                      <th class="col-xs-6">Manufacturer Name</th>
-                                      <th class="col-xs-3">Total Users</th>
-                                      <th class="col-xs-3">Total Time Spent</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr ng-repeat="resolution in resolutiondata">
-                                      <td class="col-xs-6">{{resolution._id}}</td>
-                                      <td class="col-xs-3">{{resolution.Unique_User_Count}}</td>
-                                      <td class="col-xs-3">{{resolution.Total_Time_Spent}}</td>
-                                  </tr>
-                               </tbody>
-                              </table>
-                             </div>
+                              <div id ='divsubresolution'>
+                                <div class="row table-bordered">
+                                   <div class="col-xs-12 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5 col-lg-2 col-lg-push-5" id='divsubresolutiondiv3'>
+                                    </div>
+                                   <div class="col-xs-12 col-sm-5 col-sm-pull-2 col-md-5 col-md-pull-2 col-lg-5 col-lg-pull-2" id='divsubresolutiondiv1'> 
+                                   </div>
+                                   <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id ='divsubresolutiondiv2'>
+                                   </div>
+                                </div>
+                              </div>
+                              <div class="row"> 
+                                <div id="transparentScrollbarDiv" class="container-fluid table-bordered transparentScrollbarDiv" style="overflow-y: scroll;">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-6"><strong>Resolution</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Users</strong></div>
+                                        <div class="col-lg-3 col-xs-3"><strong>Total Time Spent</strong></div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid table-bordered" style="height:120px; overflow-y: auto">
+                                    <div>
+                                        <div class="row table-bordered" ng-repeat="resolution in resolutiondata">
+                                            <div class="col-lg-6 col-xs-6">{{resolution._id}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{resolution.Unique_User_Count}}</div>
+                                            <div class="col-lg-3 col-xs-3">{{resolution.Total_Time_Spent}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>                             
                           </div>   
                       </div> <!--panel panel-body-->
                  </div> <!--panel panel-default-->
-
-             </div> <!--col-xs-12 col-md-12-->
          </div> <!-- DevicePieChartCtrl  <tr>
-       </tr>-->
-<!--       </div> -->
-  </div><!-- col-xs-10 col-md-10 -->
+

@@ -2,9 +2,10 @@
 <html ng-app="nameApp">
    <head>
       <meta charset="utf-8">
+      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width,initial-scale=1.0">
       <script type="text/javascript" src="js/d3.v3.min.js"></script>
-/*<!--       <script type="text/javascript" src="js/d3.geo.min.js"></script> -->*/
       <script type="text/javascript" src="js/angular.min.js"></script>
       <script type="text/javascript" src="js/angular-route.min.js"></script>
        <script type="text/javascript" src="js/angular-resource.min.js"></script>
@@ -53,6 +54,12 @@
           <div class="container-fluid"> -->
             <!-- Brand and toggle get grouped for better mobile display -->
               <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-ex1-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -65,9 +72,10 @@
                     <b>SCALYTICS</b>
                   </a>
               </div>    
-              <div class="container-fluid"> 
+<!--               <div class="container-fluid">  -->
                   <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <!-- <ul class="nav navbar-nav navbar-right"> -->
                   <ul class="nav navbar-nav navbar-right top-nav">
                     <li><a href="home.html">Home</a></li>
                     <li><a href="mainpage.html">Analytics</a></li>
@@ -75,33 +83,21 @@
                     <li><a href="home.html">Contact</a></li>
                   </ul>
                </div> <!-- /.navbar-collapse -->
-             </div>
+<!--              </div> -->
          <!-- <div class="collapse navbar-collapse"> -->
  
-
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav" id="side-menu">
               <li>
-
                 <a href="#dashboard">
                    <b><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Dashboard</b>
                 </a>
-
-<!--                 <ul>
-                  <li>
-                    <a href="#sessionduration" >Session Duration</a>
-                  </li>
-                  <li>
-                     <a href="#newandreturninguser">New v/s Returning </a>
-                  </li>
-                </ul> -->
-
               </li>
-              <li>
 
+              <li>
                 <a href="#">
                    <b><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Insights</b>
                 </a>
-
                 <ul>    
                  <li>         
                   <a href="#insightsession"><i class="fa fa-spinner"></i>&nbsp;Session</a>
@@ -110,13 +106,12 @@
                   <a href="#insightuser"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Users</a>
                  </li>
                 </ul>
-
               </li>
+
               <li>
                 <a href="#">
                   <span class="glyphicon glyphicon-phone" aria-hidden="true"></span> Device
                 </a>
-
                 <ul>    
                    <li>         
                     <a href="#deviceManufacturer"><i class="fa fa-institution"></i>&nbsp;Manufacturer</a>
@@ -142,11 +137,13 @@
                    <li>         
                     <a href="#deviceResolution"><i class="fa fa-photo"></i>&nbsp;Resolution</a>
                    </li>  
-                 </ul>                                                                                                                  
+                 </ul>                                                                                                 
               </li>
+
               <li>         
                   <a href="#worldmap"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Cities</a>
               </li>
+
               <li>
                   <a href="#" data-toggle="collapse">
                     <span class="glyphicon glyphicon-random" aria-hidden="true"></span> Events
@@ -161,19 +158,13 @@
                     </li>
                   </ul>
               </li>
+
               <li>
                   <a href="#userretention" data-toggle="collapse">
                     <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span> Cohort
                   </a>
- <!--                  <ul class="collapse" id="newandreturninguser">
-                    <li>
-                     <a href="#newuserretention" >New</a>
-                    </li>
-                     <li>
-                      <a href="#retuserretention" >Returning</a>
-                     </li>
-                  </ul> -->
               </li>
+
               <li>
                   <a href="#crashreports" data-toggle="collapse">
             <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Crash Reports
@@ -181,22 +172,15 @@
               </li>
 
           </ul>
-
-
-<!--             </div> 
-        </div>  -->
-    </nav>    
-
-        <div id="page-wrapper">
-
-                <div class="container-fluid">
-
-                    <div ng-view>
-                    </div>
-                </div>
-            <!-- /.container-fluid -->
-
         </div>
+    </nav> 
+    <div id="page-wrapper">
+            <div class="container-fluid">
+
+                <div ng-view>
+                </div>
+            </div>
+    </div>
         <!-- /#page-wrapper -->
    </div>
   

@@ -1,6 +1,9 @@
 nameApp.controller('InsightUserCtrl', ['$scope','$http','analyticsService',function ($scope,$http,analyticsService){
 
+    $scope.$on("$destroy", function(){
 
+        $(window).off("resize");
+    });
 
     $(function() {
           $('#reportrange').daterangepicker({
@@ -18,6 +21,34 @@ nameApp.controller('InsightUserCtrl', ['$scope','$http','analyticsService',funct
               // }
           }, cb);
           
+            $("#anchtoday").click(function(){
+             cb(moment().startOf('day'), moment().endOf('day'),"Hour");
+            });
+
+            $("#anchyesterday").click(function(){
+             cb(moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day'),"Hour");
+            });
+
+            $("#anchcurrmonth").click(function(){
+             cb(moment().startOf('month').startOf('day'), moment().endOf('day'),"Day");
+            });
+
+            $("#anchprevmonth").click(function(){
+             cb(moment().subtract(1, 'month').startOf('month').startOf('day'), moment().subtract(1, 'month').endOf('month').endOf('day'),"Day");
+            });
+
+            $("#anch3mnths").click(function(){
+             cb(moment().subtract(3, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+                                    
+            $("#anch6mnths").click(function(){
+             cb(moment().subtract(6, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+
+            $("#anch1year").click(function(){
+             cb(moment().subtract(1, 'year').startOf('day'), moment().endOf('day'),"Month");
+            });
+
             $("#btntoday").click(function(){
              cb(moment().startOf('day'), moment().endOf('day'),"Hour");
             });
@@ -71,7 +102,7 @@ nameApp.controller('InsightUserCtrl', ['$scope','$http','analyticsService',funct
                }
 
             }
-              $('#reportrange span').html('<b>' +start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY')+'</b>');
+              $('#reportrange span').html('<b>' +start.format('MMM D,YYYY') + ' - ' + end.format('MMM D,YYYY')+'</b>');
               $scope.startdate=moment(start).valueOf();
               $scope.enddate=moment(end).valueOf();
               $scope.selectedfrequency=freq;
@@ -136,10 +167,47 @@ nameApp.controller('InsightUserCtrl', ['$scope','$http','analyticsService',funct
        //console.log(sessioncountdata);
        //var userdata1 = JSON.parse(JSON.stringify(userdata));
 
-       $scope.updateuserdetailslinechart('#chartusercount',usercountdata);
-       $scope.updateuserdetailslinechart('#chartuserduration',userdurationdata);
-        $scope.updateuserdetailsbarchart('#chartnewuser',newusercountdata);
-       $scope.updateuserdetailsbarchart('#chartreturninguser',retusercountdata);
+       $scope.updateuserdetailslinechart('#chartusercount','chartusercountsvg',usercountdata);
+       $scope.updateuserdetailslinechart('#chartuserduration','chartuserdurationsvg',userdurationdata);
+        $scope.updateuserdetailsbarchart('#chartnewuser','chartnewusersvg',newusercountdata);
+       $scope.updateuserdetailsbarchart('#chartreturninguser','chartreturningusersvg',retusercountdata);
+
+        var the_chart1 = $("#chartusercount"),
+            aspect1 = the_chart1.width() / the_chart1.height(),
+            container1 = the_chart1.parent();
+
+        var the_chart2 = $("#chartuserduration"),
+            aspect2 = the_chart2.width() / the_chart2.height(),
+            container2 = the_chart2.parent();
+
+        var the_chart3 = $("#chartnewuser"),
+            aspect3 = the_chart3.width() / the_chart3.height(),
+            container3 = the_chart3.parent();
+
+        var the_chart4 = $("#chartreturninguser"),
+            aspect4 = the_chart4.width() / the_chart4.height(),
+            container4 = the_chart4.parent();
+                                    
+        $(window).on("resize", function() {
+          console.log('resize');
+          var targetWidth1 = container1.width();
+          the_chart1.attr("width", targetWidth1);
+          the_chart1.attr("height", Math.round(targetWidth1 / aspect1));
+
+          var targetWidth2 = container2.width();
+          the_chart2.attr("width", targetWidth2);
+          the_chart2.attr("height", Math.round(targetWidth2 / aspect2));
+
+          var targetWidth3 = container3.width();
+          the_chart3.attr("width", targetWidth3);
+          the_chart3.attr("height", Math.round(targetWidth3 / aspect3));
+
+          var targetWidth4 = container4.width();
+          the_chart4.attr("width", targetWidth4);
+          the_chart4.attr("height", Math.round(targetWidth4 / aspect4));                              
+    /*      the_chart.attr("height", container.height());*/
+
+        }).trigger("resize");
 
        $scope.alreadyuserloaded = true;
 
@@ -147,11 +215,11 @@ nameApp.controller('InsightUserCtrl', ['$scope','$http','analyticsService',funct
 
  };
 
- $scope.updateuserdetailslinechart = function(div,userdata){
+ $scope.updateuserdetailslinechart = function(div,divid,userdata){
 
-  var margin = {top: 10, right: 20, bottom: 20, left: 50},
-  width = 980 - margin.left - margin.right,
-  height = 300 - margin.top - margin.bottom;
+  var margin = {top: 20, right: 20, bottom: 55, left: 40},
+  width = 1000 - margin.left - margin.right,
+  height = 220 - margin.top - margin.bottom;
   var parseDate;
 
   var x = d3.time.scale().range([0, width]);
@@ -229,8 +297,11 @@ if($scope.alreadyuserloaded==false)
     
       svg = d3.select(div)
           .append("svg")
-              .attr("width", width + margin.left + margin.right + 10)
-              .attr("height", height + margin.top + margin.bottom + 30)
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .attr("id",divid)
+              .attr('viewBox', '0 0 1000 220')
+              .attr('perserveAspectRatio', 'xMinYMid')
           .append("g")
               .attr("transform", 
                     "translate(" + margin.left + "," + margin.top + ")");
@@ -377,13 +448,13 @@ if($scope.alreadyuserloaded==false)
   };
 
 
-$scope.updateuserdetailsbarchart = function(div,userdata)
+$scope.updateuserdetailsbarchart = function(div,divid,userdata)
    {
 
 
-  var margin = {top: 10, right: 20, bottom: 20, left: 50},
-  width = 980 - margin.left - margin.right,
-  height = 300 - margin.top - margin.bottom;
+  var margin = {top: 20, right: 20, bottom: 55, left: 40},
+  width = 1000 - margin.left - margin.right,
+  height = 220 - margin.top - margin.bottom;
 
   var parseDate;
 
@@ -462,8 +533,11 @@ if($scope.alreadyuserloaded==false)
 
       svg = d3.select(div)
           .append("svg")
-              .attr("width", width + margin.left + margin.right + 10)
-              .attr("height", height + margin.top + margin.bottom + 30)
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .attr("id",divid)
+              .attr('viewBox', '0 0 1000 220')
+              .attr('perserveAspectRatio', 'xMinYMid')
           .append("g")
               .attr("transform", 
                     "translate(" + margin.left + "," + margin.top + ")");
