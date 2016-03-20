@@ -1,5 +1,11 @@
 nameApp.controller('WorldMapCtrl', ['$scope','analyticsService',function ($scope,analyticsService)
 {
+
+    $scope.$on("$destroy", function(){
+
+      $(window).off("resize");
+  });
+
     $(function() {
           $('#reportrange').daterangepicker({
             linkedCalendars: false,
@@ -14,8 +20,37 @@ nameApp.controller('WorldMapCtrl', ['$scope','analyticsService',function ($scope
               //    "This Month": [moment().startOf('month'), moment().endOf('month')],
               //    "Last Month": [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
               // }
+
           }, cb);
-          
+
+            $("#anchtoday").click(function(){
+             cb(moment().startOf('day'), moment().endOf('day'),"Hour");
+            });
+
+            $("#anchyesterday").click(function(){
+             cb(moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day'),"Hour");
+            });
+
+            $("#anchcurrmonth").click(function(){
+             cb(moment().startOf('month').startOf('day'), moment().endOf('day'),"Day");
+            });
+
+            $("#anchprevmonth").click(function(){
+             cb(moment().subtract(1, 'month').startOf('month').startOf('day'), moment().subtract(1, 'month').endOf('month').endOf('day'),"Day");
+            });
+
+            $("#anch3mnths").click(function(){
+             cb(moment().subtract(3, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+                                    
+            $("#anch6mnths").click(function(){
+             cb(moment().subtract(6, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+
+            $("#anch1year").click(function(){
+             cb(moment().subtract(1, 'year').startOf('day'), moment().endOf('day'),"Month");
+            });
+
             $("#btntoday").click(function(){
              cb(moment().startOf('day'), moment().endOf('day'),"Hour");
             });
@@ -69,7 +104,7 @@ nameApp.controller('WorldMapCtrl', ['$scope','analyticsService',function ($scope
                }
 
             }
-              $('#reportrange span').html('<b>' +start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY')+'</b>');
+              $('#reportrange span').html('<b>' +start.format('MMM D,YYYY') + ' - ' + end.format('MMM D,YYYY')+'</b>');
               $scope.startdate=moment(start).valueOf();
               $scope.enddate=moment(end).valueOf();
               $scope.selectedfrequency=freq;
@@ -125,7 +160,7 @@ nameApp.controller('WorldMapCtrl', ['$scope','analyticsService',function ($scope
 
 
     var width = 1025,
-    height = 600,
+    height = 575,
     centered;
 
    var projection = d3.geo.mercator()
@@ -147,7 +182,10 @@ nameApp.controller('WorldMapCtrl', ['$scope','analyticsService',function ($scope
 
           var svg = d3.select(div).append("svg")
               .attr("width", width)
-              .attr("height", height);
+              .attr("height", height)
+              .attr('viewBox', '0 0 1025 575')
+              .attr('perserveAspectRatio', 'xMinYMid')
+              .attr('id','world_map_svg');
 
 
           svg.call(tip1);
@@ -232,6 +270,19 @@ nameApp.controller('WorldMapCtrl', ['$scope','analyticsService',function ($scope
 
       }
 
+        var the_chart = $("#world_map_svg"),
+            aspect = the_chart.width() / the_chart.height(),
+            container = the_chart.parent();
+
+        $(window).on("resize", function() {
+          console.log('resize');
+          var targetWidth = container.width();
+          the_chart.attr("width", targetWidth);
+          the_chart.attr("height", Math.round(targetWidth / aspect));
+    /*      the_chart.attr("height", container.height());*/
+
+        }).trigger("resize");
+    
       function clicked(d) {
         var x, y, k;
 
