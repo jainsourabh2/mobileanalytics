@@ -360,7 +360,7 @@ var svg2 = d3.select("#divEventUniqueChart")
        .attr('class', 'd3-tip')
        .offset([-10, 0])
        .html(function (d) {
-       return "<strong>Unique Number of Events:</strong> <span style='color:red'>" + d.Unique_User_Count +"</span>";
+       return "<strong>Unique Number of Users:</strong> <span style='color:red'>" + d.Unique_User_Count +"</span>";
    })
 
    svg1.call(tip1);
