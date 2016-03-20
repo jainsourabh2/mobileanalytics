@@ -2,9 +2,7 @@
 var mongojs		= require('mongojs');
 var config		= require('../../../config/config');
 
-var data = [];
-
-function generateResult(result){
+function generateResult(result,res){
 
   var resultSet = [];
 
@@ -21,7 +19,8 @@ function generateResult(result){
     resultSet.push(arrayItem);
     }
   }
-  data = resultSet;
+  console.log(resultSet);
+  return res.json(resultSet);
 } //end of function generateResult
 
 function matchCriteria(startDate, endDate, matchCondition)
@@ -68,7 +67,8 @@ module.exports.deviceusersbycities = function(req,res){
   startDateEpoch = parseInt(req.query["param1"])/1000;
   endDateEpoch = parseInt(req.query["param2"])/1000;
   frequency = req.query["param3"];
-var db = mongojs(config.connectionstring);
+  var db = mongojs(config.connectionstring);
+  var data = [];
 
   //istest = req.query["param4"];
 
@@ -105,11 +105,10 @@ var db = mongojs(config.connectionstring);
                  ];
       }
 
-  }
+      return res.json(data);
+ }
   else
-  {
-    
-    console.log('else');
+  {    
     var startDate = new Date(0); // The 0 there is the key, which sets the date to the epoch
     startDate.setUTCSeconds(startDateEpoch);
 
@@ -121,6 +120,10 @@ var db = mongojs(config.connectionstring);
 
     var matchCondition = [];
     matchCriteria(startDate,endDate,matchCondition);
+
+    console.log(startDate);
+    console.log(endDate);
+    //console.log(matchCondition);
 
     var groupQuery = {};
     groupQuery['_id'] = { 'cityname' : '$lci'
@@ -142,10 +145,8 @@ var db = mongojs(config.connectionstring);
                    return;} //end of function
 
                db.close();
-               generateResult(result);
+               generateResult(result,res);
         });
   }
-
-  return res.json(data);
 }
 

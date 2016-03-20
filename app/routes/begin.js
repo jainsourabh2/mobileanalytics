@@ -28,6 +28,8 @@ router.route('/data/B')
 
     // Add Begin Record (accessed at POST http://localhost:8080/api/data/B)
     .post(function(req, res) {
+
+  //req.body.rtc = parseInt(req.body.rtc) + 19800;
 		
   function insertUser(){
     updateSessionQuery = {$inc : incrementSessionQuery
@@ -103,12 +105,14 @@ router.route('/data/B')
                                 ,'ll' : sessionBeginTime}};
     };
 
-	//init.init(req);
 	
 	//For both Session Begin and End, derive day, week and month
-    process.env.TZ = 'Asia/Kolkata';
 	var sessionBeginTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
 	sessionBeginTime.setUTCSeconds(req.body.rtc);
+//        sessionBeginTime.setTimezone("Asia/Kolkata");
+
+        console.log(req.body.rtc);
+        console.log(sessionBeginTime);
 
 	//Derive Day and Month
 	var dd = sessionBeginTime.getDate();
@@ -147,6 +151,8 @@ router.route('/data/B')
 	var monthFormat = '' + yyyy + mm;
 	
 	var secondEpoch = (new Date(yyyy,mm-1,dd,hh,mi,ss).getTime())/1000;
+
+        console.log(secondEpoch);
 	
 	var begin       = new Begin();      // create a new instance of the Begin model
 	begin.uid       = req.body.uid;
@@ -166,16 +172,15 @@ router.route('/data/B')
 	begin.sid       = req.body.sid;
 	begin.rtc       = req.body.rtc;
 	begin.res       = req.body.res;
-    begin.ip        = req.headers['x-forwarded-for']||req.connection.remoteAddress;
-    begin.akey      = req.body.akey;
+        begin.ip        = req.headers['x-forwarded-for']||req.connection.remoteAddress;
+        begin.akey      = req.body.akey;
 
-    var IPAddress = req.headers['x-forwarded-for']||req.connection.remoteAddress;
-    geo = geoip.lookup(IPAddress);
-    if (geo.city == '') city = 'Unknown'; else city = geo.city;
-    if (geo.country == 'IN') country = 'India'; else country = geo.country;
-    latitude = geo.ll[0];
-    longitude = geo.ll[1];
-//    console.log(city + ' ' + country);
+        var IPAddress = req.headers['x-forwarded-for']||req.connection.remoteAddress;
+        geo = geoip.lookup(IPAddress);
+        if (geo.city == '') city = 'Unknown'; else city = geo.city;
+        if (geo.country == 'IN') country = 'India'; else country = geo.country;
+        latitude = geo.ll[0];
+        longitude = geo.ll[1];
 
 	// save the begin and check for errors
 	begin.save(function(err) {
@@ -206,16 +211,17 @@ router.route('/data/B')
   	incrementQuery[sessionWeek] = 1;
   	incrementQuery[sessionMonth] = 1;
 
-  sessionCollection.find({'_id' : req.body.did},
-    function (err , result){
-      // If the user doesn't exist then set first login time 'fl'
-      if (result.length == 0) insertUser();
-      //If the user exists then first login time is not changed
-      else updateUser();
+        sessionCollection.find({'_id' : req.body.did},
+        function (err , result){
+           // If the user doesn't exist then set first login time 'fl'
+           if (result.length == 0) insertUser();
+           //If the user exists then first login time is not changed
+           else updateUser();
 
-      tickerCollection.update({'_id' : secondEpoch},{$inc : {count : 1}},{upsert:true});
-      sessionCollection.update({'_id' : req.body.did},updateSessionQuery,{upsert:true});
-      hourlySessionCollection.update({'_id' : req.body.did},updateHourlyQuery,{upsert:true});
+
+        tickerCollection.update({'_id' : secondEpoch},{$inc : {count : 1}},{upsert:true});
+        sessionCollection.update({'_id' : req.body.did},updateSessionQuery,{upsert:true});
+        hourlySessionCollection.update({'_id' : req.body.did},updateHourlyQuery,{upsert:true});
       //db.close();
     }); // End of sessionCollection.find
 

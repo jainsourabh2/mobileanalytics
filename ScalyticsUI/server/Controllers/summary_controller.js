@@ -68,6 +68,9 @@ module.exports.summarydata = function(req,res){
   endDate = parseInt(req.query["param2"])/1000;
   frequency = req.query["param3"];
 
+  console.log(startDate);
+  console.log(endDate);
+
   var key = {};
   var type = {};
   var connectionCount = 0;

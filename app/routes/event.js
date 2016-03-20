@@ -94,7 +94,7 @@ router.route('/data/event')
    // db.close();
   } //end of function readResult
 
-        process.env.TZ = 'Asia/Kolkata';
+//        process.env.TZ = 'Asia/Kolkata';
         var sessionBeginTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
         sessionBeginTime.setUTCSeconds(req.body.rtc);
 
