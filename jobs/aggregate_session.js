@@ -1,12 +1,11 @@
 //Set the connection details
-var databaseurl = 'analytics';
-var mongojs = require('mongojs');
+//var databaseurl = 'analytics';
+var mongojs             = require('mongojs');
 //var mongoUtil = require('../connection/mongoUtil' );
-//var db 		= mongoUtil.getDbMongoJS();
-var config 		= require('../config/config' );
-//var db 			= mongojs(config.connectionstring);
-var db = mongojs(databaseurl);
-process.env.TZ = 'Asia/Kolkata';
+//var db                = mongoUtil.getDbMongoJS();
+var config              = require('../config/config' );
+var db                  = mongojs(config.connectionstring);
+
 //To be incremented daily
 var endDate = new Date();
 var startDate = new Date(endDate.getTime() - 1*24*60*60*1000);

@@ -49,7 +49,7 @@ router.route('/data/E')
 
 	process.env.TZ = 'Asia/Kolkata';
 	var sessionEndTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
-	sessionEndTime.setUTCSeconds(req.body.rtc);	
+	sessionEndTime.setUTCSeconds(req.body.rtc - parseInt(req.body.ts));	
 
 	//Derive Week
 	var weekDate = new Date(sessionEndTime);
@@ -93,6 +93,12 @@ router.route('/data/E')
 	var tickerEndEpoch = 0;
 	if (timeSpent%15 == 0) tickerEndEpoch = timeSpent;
 	else tickerEndEpoch = (timeSpent + 15) - (timeSpent%15);
+
+        console.log(req.body.rtc);
+        console.log(sessionEndTime);
+        console.log(secondEpoch);
+        console.log(timeSpent);
+        console.log(tickerEndEpoch);
 
 	//Derive fields to be updated
 	var durationHour = 'DH'+ hourFormat;

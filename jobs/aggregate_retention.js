@@ -1,10 +1,10 @@
 //Set the connection details
 //var databaseurl = 'analytics';
-var mongojs		= require('mongojs');
+var mongojs             = require('mongojs');
 //var mongoUtil = require('../connection/mongoUtil' );
-//var db 		= mongoUtil.getDbMongoJS();
-var config 		= require('../config/config' );
-var db 			= mongojs(config.connectionstring);
+//var db                = mongoUtil.getDbMongoJS();
+var config              = require('../config/config' );
+var db                  = mongojs(config.connectionstring);
 process.env.TZ = 'Asia/Kolkata';
 //To be executed for past 31 days
 var dayEndDate = new Date();
@@ -94,8 +94,8 @@ for (var daydt = new Date(dayStartDate);
     groupQuery[nextDayKey] = {$sum : {$cond: [{$gt: ['$' + sessionDay, 0]},1,0]}};
     }
 
-  console.log(matchQueryNewUser);
-  console.log(groupQuery);
+  //console.log(matchQueryNewUser);
+  //console.log(groupQuery);
 
   //Aggregate data for New User
   connectionCount++;
