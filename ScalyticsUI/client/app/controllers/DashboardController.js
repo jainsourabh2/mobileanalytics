@@ -144,7 +144,7 @@ TickerDataPromise.then(function(response){
 
     data=response.data;
     totallength = data.length;
-  var margin = {top: 10, right: 20, bottom: 20, left: 20},
+  var margin = {top: 10, right: 20, bottom: 20, left: 35},
     width = 1050 - margin.left - margin.right,
     height = 175 - margin.top - margin.bottom;
 
