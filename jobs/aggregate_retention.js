@@ -29,7 +29,7 @@ var connectionCount = 0;
 function dbCloseConnection(){
   connectionCount--;
   if (connectionCount == 0) {
-    //console.log(connectionCount);
+    console.log('Connection closed');
     db.close();
   }}
 
@@ -112,7 +112,7 @@ for (var daydt = new Date(dayStartDate);
         //console.log(result);
         if(result.length > 0)
         updateAggregate('Day', 'New', result[0]['_id']['key'], result);
-        else connectionCount--;
+        else dbCloseConnection();
      });
 
    //Aggregate data for Returning User
@@ -130,7 +130,7 @@ for (var daydt = new Date(dayStartDate);
         //console.log(result);
         if(result.length > 0)
         updateAggregate('Day', 'Returning', result[0]['_id']['key'], result);
-        else connectionCount--;
+        else dbCloseConnection();
     });
 }
 
@@ -197,7 +197,7 @@ for (var weekdt = new Date(weekStartDate);
 
          if(result.length > 0)
          updateAggregate('Week', 'New', result[0]['_id']['key'], result);
-         else connectionCount--;
+         else dbCloseConnection();
      });
 
     //Aggregate data for Returning User
@@ -214,7 +214,7 @@ for (var weekdt = new Date(weekStartDate);
 
          if(result.length > 0)
          updateAggregate('Week', 'Returning', result[0]['_id']['key'], result);
-         else connectionCount--;
+         else dbCloseConnection();
      });
 }
 
@@ -274,7 +274,7 @@ for (var monthdt = new Date(monthStartDate);
 
          if(result.length > 0)
          updateAggregate('Month', 'New', result[0]['_id']['key'], result);
-         else connectionCount--;
+         else dbCloseConnection();
      });
 
     //Aggregate data for Returning User
@@ -291,6 +291,6 @@ for (var monthdt = new Date(monthStartDate);
 
          if(result.length > 0)
          updateAggregate('Month', 'Returning', result[0]['_id']['key'], result);
-         else connectionCount--;
+         else dbCloseConnection();
      });
 }
