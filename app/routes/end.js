@@ -36,6 +36,7 @@ router.route('/data/E')
 	end.rtc         = req.body.rtc;
 	end.res         = req.body.res;
 	end.ts          = req.body.ts;
+	end.akey	= req.body.akey;
 
 	// save the begin and check for errors
 	end.save(function(err) {
