@@ -21,7 +21,8 @@ var CrashSchema   = new Schema({
     res : {type: String,lowercase: true,trim: true},    //Resolution of the phone
 	stkt : {type: String,trim: true},					//Stack trace of the crash
 	stkc : {type: String,trim:true},					//Stack command of the crash
-	stkm : {type: String,trim:true}						//Stack message of the crash
+	stkm : {type: String,trim:true},						//Stack message of the crash
+        akey : {type: String,trim:true}                                         //Application Key
 });
 
 module.exports = mongoose.model('Crash', CrashSchema);
