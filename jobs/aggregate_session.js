@@ -4,7 +4,10 @@ var mongojs             = require('mongojs');
 //var mongoUtil = require('../connection/mongoUtil' );
 //var db                = mongoUtil.getDbMongoJS();
 var config              = require('../config/config' );
-var db                  = mongojs(config.connectionstring);
+var dbname              = 'analytics';
+var db                  = mongojs(config.connectionstring + dbname);
+
+//console.log(db);
 
 //To be incremented daily
 var endDate = new Date();

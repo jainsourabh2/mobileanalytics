@@ -4,7 +4,8 @@ var mongojs		= require('mongojs');
 //var mongoUtil = require('../connection/mongoUtil' );
 //var db 		= mongoUtil.getDbMongoJS();
 var config 		= require('../config/config' );
-var db 			= mongojs(config.connectionstring);
+var dbname              = 'analytics';
+var db                  = mongojs(config.connectionstring + dbname);
 
 var dt = new Date();
 var dtEpoch = Math.round(dt.getTime()/1000);

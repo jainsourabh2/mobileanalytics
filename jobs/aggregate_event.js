@@ -1,7 +1,8 @@
 //Set the connection details
 var mongojs	= require('mongojs');
 var config	= require('../config/config');
-var db = mongojs(config.connectionstring);
+var dbname      = 'analytics';
+var db          = mongojs(config.connectionstring + dbname);
 
 //To be incremented daily
 var endDate = new Date();
