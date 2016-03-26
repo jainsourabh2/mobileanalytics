@@ -30,7 +30,7 @@ module.exports.ticker = function(req,res){
      //returnresult(result);
      var arrayItem = {};
      //var resultSet = {};
-     console.log("ticker controller result anks code called");
+     //console.log("ticker controller result anks code called");
      console.log(result);
 
      if(result.length <= 0)
@@ -65,8 +65,9 @@ module.exports.ticker = function(req,res){
         resultSet.push({'_id' : i*1000, 'count' : arrayItem[i]});
         }
       }
-       console.log("ticker call is completed");
-        return res.json(resultSet);
+       console.log(resultSet);
+       console.log('ticker call is complete');
+       return res.json(resultSet);
 
   });
 
