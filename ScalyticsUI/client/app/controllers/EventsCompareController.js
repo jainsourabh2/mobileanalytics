@@ -1,5 +1,10 @@
 nameApp.controller('EventsCompareCtrl', ['$scope','$http','analyticsService',function ($scope,$http,analyticsService){
 
+      $scope.$on("$destroy", function(){
+
+          $(window).off("resize");
+
+      });
 
     $(function() {
           $('#reportrange').daterangepicker({
@@ -51,6 +56,34 @@ nameApp.controller('EventsCompareCtrl', ['$scope','$http','analyticsService',fun
                 });
               }
             });
+
+            $("#anchtoday").click(function(){
+             cb(moment().startOf('day'), moment().endOf('day'),"Hour");
+            });
+
+            $("#anchyesterday").click(function(){
+             cb(moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day'),"Hour");
+            });
+
+            $("#anchcurrmonth").click(function(){
+             cb(moment().startOf('month').startOf('day'), moment().endOf('day'),"Day");
+            });
+
+            $("#anchprevmonth").click(function(){
+             cb(moment().subtract(1, 'month').startOf('month').startOf('day'), moment().subtract(1, 'month').endOf('month').endOf('day'),"Day");
+            });
+
+            $("#anch3mnths").click(function(){
+             cb(moment().subtract(3, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+                                    
+            $("#anch6mnths").click(function(){
+             cb(moment().subtract(6, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+
+            $("#anch1year").click(function(){
+             cb(moment().subtract(1, 'year').startOf('day'), moment().endOf('day'),"Month");
+            });   
 
             $("#btntoday").click(function(){
              cb(moment().startOf('day'), moment().endOf('day'),"Hour");
@@ -106,7 +139,7 @@ nameApp.controller('EventsCompareCtrl', ['$scope','$http','analyticsService',fun
                }
 
             }
-              $('#reportrange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+              $('#reportrange span').html(start.format('MMM D,YYYY') + ' - ' + end.format('MMM D,YYYY'));
               $scope.startdate=moment(start).valueOf();
               $scope.enddate=moment(end).valueOf();
               $scope.selectedfrequency=freq;
@@ -207,12 +240,12 @@ $scope.getEventNames = function(){
 
   if($scope.alreadyeventsloaded==true)
   {
-    d3.select("#the_SVG_ID_1").remove();
-    d3.select("#the_SVG_ID_2").remove();
+    d3.select("#Event_Compare_SVG_ID_1").remove();
+    d3.select("#Event_Compare_SVG_ID_2").remove();
   }
 // Set the dimensions of the canvas / graph
-var margin = {top: 30, right: 20, bottom: 70, left: 50},
-    width = 950 - margin.left - margin.right,
+var margin = {top: 30, right: 30, bottom: 70, left: 50},
+    width = 980 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 // Parse the date / time
@@ -276,7 +309,9 @@ var svg1 = d3.select("#divEventNonUniqueChart")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .attr("id","the_SVG_ID_1")
+        .attr("id","Event_Compare_SVG_ID_1")
+        .attr('viewBox', '0 0 980 300')
+        .attr('perserveAspectRatio', 'xMinYMid')
     .append("g")
         .attr("transform", 
               "translate(" + margin.left + "," + margin.top + ")");
@@ -286,7 +321,9 @@ var svg2 = d3.select("#divEventUniqueChart")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .attr("id","the_SVG_ID_2")
+        .attr("id","Event_Compare_SVG_ID_2")
+        .attr('viewBox', '0 0 980 300')
+        .attr('perserveAspectRatio', 'xMinYMid')        
     .append("g")
         .attr("transform", 
               "translate(" + margin.left + "," + margin.top + ")");
@@ -323,7 +360,7 @@ var svg2 = d3.select("#divEventUniqueChart")
        .attr('class', 'd3-tip')
        .offset([-10, 0])
        .html(function (d) {
-       return "<strong>Unique Number of Events:</strong> <span style='color:red'>" + d.Unique_User_Count +"</span>";
+       return "<strong>Unique Number of Users:</strong> <span style='color:red'>" + d.Unique_User_Count +"</span>";
    })
 
    svg1.call(tip1);
@@ -465,6 +502,27 @@ var svg2 = d3.select("#divEventUniqueChart")
         .call(yAxis2);
 
   
+      var the_chart1 = $("#Event_Compare_SVG_ID_1"),
+        aspect1 = the_chart1.width() / the_chart1.height(),
+        container1 = the_chart1.parent();
+
+      var the_chart2 = $("#Event_Compare_SVG_ID_2"),
+        aspect2 = the_chart2.width() / the_chart2.height(),
+        container2 = the_chart2.parent();
+
+    $(window).on("resize", function() {
+      console.log('resize');
+      var targetWidth1 = container1.width();
+      the_chart1.attr("width", targetWidth1);
+      the_chart1.attr("height", Math.round(targetWidth1 / aspect1));
+
+      var targetWidth2 = container2.width();
+      the_chart2.attr("width", targetWidth2);
+      the_chart2.attr("height", Math.round(targetWidth2 / aspect2));      
+/*      the_chart.attr("height", container.height());*/
+
+    }).trigger("resize");
+
 
  };
 

@@ -8,23 +8,23 @@
 #privacy-menu.cssuser #event-tick { visibility: hidden }
 #privacy-menu.cssuser #user-tick { visibility: visible }
 
+#svgdualeventdetailchart {
+  width: 100%;
+  height: 100%;
+}
 
 </style>
 
-       <div class="col-xs-10 col-md-10" style="margin-left:100px;margin-top:5px">
-
-             <div ng-controller="EventsCtrl" class="col-xs-12 col-md-12" id="" data-ng-init="init()">
-
-                           </br></br>
-              <div  class="col-xs-12 col-md-12" id="divSummaryEvents">
+          <div style="margin-top:10px;margin-bottom:0px" ng-controller="EventsCtrl" id="" data-ng-init="init()">
+              <div id="divSummaryEvents">
                     <div class="panel panel-default" style="margin-top:5px;margin-bottom:10px">
                        <div class="panel-heading" style="height:48px">
-                         <div id="reportrange" class="pull-left">
-                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                         <div id="reportrange" style="margin-left:-7px;" class="pull-left">
+                             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                              <span></span>
 
                          </div>
-                         <div class="btn-group pull-right" role="group" aria-label="...">
+                         <div class="btn-group pull-right hidden-xs hidden-sm hidden-md" role="group" aria-label="...">
                              <button type="button" id="btntoday" class="btn btn-default btn-sm">Today</button>
                              <button type="button" id="btnyesterday" class="btn btn-default btn-sm">Yesterday</button>
                              <button type="button" id="btncurrmonth" class="btn btn-default btn-sm">Current Month</button>
@@ -33,6 +33,19 @@
                              <button type="button" id="btn6mnths" class="btn btn-default btn-sm">6 months</button>
                              <button type="button" id="btn1year" class="btn btn-default btn-sm">1 year</button>
                          </div>
+                         <div class="btn-group pull-right visible-xs visible-sm visible-md">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            Frequency <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="javascript:void(0)" id="anchtoday">Today</a></li>
+                              <li><a href="javascript:void(0)" id="anchyesterday">Yesterday</a></li>
+                              <li><a href="javascript:void(0)" id="anchcurrmonth">Current Month</a></li>
+                              <li><a href="javascript:void(0)" id="anchprevmonth">Previous Month</a></li>
+                              <li><a href="javascript:void(0)" id="anch3mnths">3 Months</a></li>
+                              <li><a href="javascript:void(0)" id="anch6mnths">6 Months</a></li>
+                              <li><a href="javascript:void(0)" id="anch1year">1 Year</a></li>
+                            </ul>
+                        </div>                          
                        </div> <!--panel-heading-->
                       <div class="panel-body" style="margin-top:-15px;margin-bottom:-15px">
                         <div id="divTableEvents" class="table table-hover">
@@ -55,28 +68,29 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title" id="myLargeModalLabel">Modal title</h4>
                               </div>
-                              <div class="modal-body" id="dualeventdetailchart">
-                              Type:
-                              <a href="javascript:void(0)" data-placement="bottom" id="anchorpop" data-content="
-                               <ul class='list-unstyled' id='privacy-menu' style='min-width: 110px;'>
-                                                        <li>
-                                                            <a href='javascript:void(0)' id='anchorevent'>                               
-                                                              <span style='text-align:left'>Event</span> 
-                                                            
-                                                            <span style='text-align:right' id='event-tick' class='glyphicon glyphicon-ok text-success'></span>
-                                                            </a>
-                                                            
-                                                        </li>
-                                                        <li>
-                                                             <a href='javascript:void(0)' id='anchoruser'>                               
-                                                               <span style='text-align:left'>User</span>   
-                                                               <span style='text-align:right' id='user-tick' class='glyphicon glyphicon-ok text-success'></span>
-                                                             </a>                    
-                                                             
-                                                        </li>
-                                </ul>" rel="popover" data-html="true">Event</a>
-                              <br></br>
-                        <!--         <h4>Ankit Shah</h4> -->
+                              <div class="modal-body">
+                                <div id="dualeventdetailchart" class="table-responsive">
+                                    Type:
+                                    <a href="javascript:void(0)" data-placement="bottom" id="anchorpop" data-content="
+                                     <ul class='list-unstyled' id='privacy-menu' style='min-width: 110px;'>
+                                                              <li>
+                                                                  <a href='javascript:void(0)' id='anchorevent'>                               
+                                                                    <span style='text-align:left'>Event</span> 
+                                                                  
+                                                                  <span style='text-align:right' id='event-tick' class='glyphicon glyphicon-ok text-success'></span>
+                                                                  </a>
+                                                                  
+                                                              </li>
+                                                              <li>
+                                                                   <a href='javascript:void(0)' id='anchoruser'>                               
+                                                                     <span style='text-align:left'>User</span>   
+                                                                     <span style='text-align:right' id='user-tick' class='glyphicon glyphicon-ok text-success'></span>
+                                                                   </a>                    
+                                                                   
+                                                              </li>
+                                      </ul>" rel="popover" data-html="true">Event</a>
+                                </div>
+
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -90,9 +104,7 @@
                     </div> <!--panel panel-body-->
                  </div> <!--panel panel-default-->
 
-             </div> <!--col-xs-12 col-md-12-->
+             </div> <!--divSummaryEvents-->
          </div> <!-- InsightSessionCtrl  <tr>
-       </tr>-->
-<!--       </div> -->
-  </div><!-- col-xs-10 col-md-10 -->
+
 

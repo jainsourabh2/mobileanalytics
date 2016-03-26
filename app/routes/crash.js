@@ -6,9 +6,9 @@ var router 		= express.Router();              // get an instance of the express 
 var config		= require('../../config/config');
 var mongoUtil 	= require('../../connection/MongoUtil' );
 
-var db = mongoUtil.getDbMongoJS();
+//var db = mongoUtil.getDbMongoJS();
 
-var crashCollection 		= db.collection(config.tbl_crash_data);
+//var crashCollection 		= db.collection(config.tbl_crash_data);
 
 router.route('/data/C')
 
@@ -81,7 +81,13 @@ router.route('/data/C')
 	  insertQuery['CW'] = weekFormat;
 	  insertQuery['CM'] = monthFormat;
 
-	  crashCollection.insert(insertQuery);			   
+        var db = mongojs(config.connectionstring + req.body.akey);
+        console.log('db value:' + db);
+
+        var crashCollection             = db.collection(config.tbl_crash_data);
+
+
+	crashCollection.insert(insertQuery);			   
 
         var crash       = new Crash();      // create a new instance of the Crash model
         crash.uid       = req.body.uid;
@@ -104,6 +110,7 @@ router.route('/data/C')
         crash.stkt      = req.body.stkt;
         crash.stkc      = req.body.stkc;
         crash.stkm      = req.body.stkm;
+	crash.akey	= req.body.akey;
 		
         // save the begin and check for errors
         crash.save(function(err) {

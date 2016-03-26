@@ -18,7 +18,8 @@ var BeginSchema   = new Schema({
         lv : {type: String,lowercase: true,trim: true},		//Library version of the SDK
         sid : {type: String,lowercase: true,trim: true},	//Session ID	
         rtc : {type: Number,trim: true},			//Record TimeStamp in epoch format
-        res : {type: String,lowercase: true,trim: true}     	//resolution of the phone
+        res : {type: String,lowercase: true,trim: true},     	//resolution of the phone
+        akey : {type: String,lowercase: true,trim: true}        //Application Key
 });
 
 module.exports = mongoose.model('Begin', BeginSchema);

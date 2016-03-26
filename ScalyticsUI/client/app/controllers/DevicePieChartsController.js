@@ -1,21 +1,83 @@
 nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyticsService',function ($scope,$route,$rootScope,analyticsService)
 {
 
+    $scope.$on("$destroy", function(){
+
+        $(window).off("resize");
+    });
+
     $scope.devicesubtype = $route.current.devicesubtype;
     $scope.myValue = true;
     //console.log(devicesubtype);
 
-
-     if($scope.devicesubtype =='deviceManufacturer'){$scope.showdeviceManufacturer=true;}
-     if($scope.devicesubtype == 'deviceModel'){$scope.showdeviceModel=true;}
-     if($scope.devicesubtype =='deviceType'){$scope.showdeviceType=true;}
-     if($scope.devicesubtype == 'devicePlatform'){$scope.showdevicePlatform=true;}
-     if($scope.devicesubtype == 'deviceOSVersion'){$scope.showdeviceOSVersion=true;}
-     if($scope.devicesubtype =='deviceAppVersion'){$scope.showdeviceAppVersion=true;}
-     if($scope.devicesubtype == 'deviceCarrier'){$scope.showdeviceCarrier=true;}
-     if($scope.devicesubtype =='deviceResolution'){$scope.showdeviceResolution=true;}
+   var the_chart1,the_chart2,the_chart3,aspect1,aspect2,aspect3,container1,container2,container3;
 
 
+     if($scope.devicesubtype =='deviceManufacturer')
+      {
+        $scope.showdeviceManufacturer=true;
+        the_chart1 = $("#divsubdeviceManufacturersvg1");
+        the_chart2 = $("#divsubdeviceManufacturersvg2");
+        the_chart3 = $("#divsubdeviceManufacturersvg3");
+      }
+     if($scope.devicesubtype == 'deviceModel')
+      {
+        $scope.showdeviceModel=true;
+        the_chart1 = $("#divsubdeviceModelsvg1");
+        the_chart2 = $("#divsubdeviceModelsvg2");
+        the_chart3 = $("#divsubdeviceModelsvg3");        
+      }
+     if($scope.devicesubtype =='deviceType')
+      {
+        $scope.showdeviceType=true;
+        the_chart1 = $("#divsubdeviceTypesvg1");
+        the_chart2 = $("#divsubdeviceTypesvg2");
+        the_chart3 = $("#divsubdeviceTypesvg3");        
+      }
+     if($scope.devicesubtype == 'devicePlatform')
+     {
+       $scope.showdevicePlatform=true;
+        the_chart1 = $("#divsubplatformsvg1");
+        the_chart2 = $("#divsubplatformsvg2");
+        the_chart3 = $("#divsubplatformsvg3");       
+     }
+     if($scope.devicesubtype == 'deviceOSVersion')
+      {
+        $scope.showdeviceOSVersion=true;
+        the_chart1 = $("#divsuboperatingSystemVersionsvg1");
+        the_chart2 = $("#divsuboperatingSystemVersionsvg2");
+        the_chart3 = $("#divsuboperatingSystemVersionsvg3");        
+      }
+     if($scope.devicesubtype =='deviceAppVersion')
+      {
+        $scope.showdeviceAppVersion=true;
+        the_chart1 = $("#divsubappVersionsvg1");
+        the_chart2 = $("#divsubappVersionsvg2");
+        the_chart3 = $("#divsubappVersionsvg3");        
+      }
+     if($scope.devicesubtype == 'deviceCarrier')
+      {
+        $scope.showdeviceCarrier=true;
+        the_chart1 = $("#divsubcarriersvg1");
+        the_chart2 = $("#divsubcarriersvg2");
+        the_chart3 = $("#divsubcarriersvg3");        
+      }
+     if($scope.devicesubtype =='deviceResolution')
+      {
+        $scope.showdeviceResolution=true;
+        the_chart1 = $("#divsubresolutionsvg1");
+        the_chart2 = $("#divsubresolutionsvg2");
+        the_chart3 = $("#divsubresolutionsvg3");        
+      }
+
+        aspect1 = the_chart1.width() / the_chart1.height();
+        container1 = the_chart1.parent();
+
+        aspect2 = the_chart2.width() / the_chart2.height(),
+        container2 = the_chart2.parent();
+
+        aspect3 = the_chart3.width() / the_chart3.height(),
+        container3 = the_chart3.parent();
 
 
       $(function() {
@@ -34,6 +96,35 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
               //    "Last Month": [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
               // }
           }, cb);
+
+            $("#anchtoday").click(function(){
+             cb(moment().startOf('day'), moment().endOf('day'),"Hour");
+            });
+
+            $("#anchyesterday").click(function(){
+             cb(moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day'),"Hour");
+            });
+
+            $("#anchcurrmonth").click(function(){
+             cb(moment().startOf('month').startOf('day'), moment().endOf('day'),"Day");
+            });
+
+            $("#anchprevmonth").click(function(){
+             cb(moment().subtract(1, 'month').startOf('month').startOf('day'), moment().subtract(1, 'month').endOf('month').endOf('day'),"Day");
+            });
+
+            $("#anch3mnths").click(function(){
+             cb(moment().subtract(3, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+                                    
+            $("#anch6mnths").click(function(){
+             cb(moment().subtract(6, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+
+            $("#anch1year").click(function(){
+             cb(moment().subtract(1, 'year').startOf('day'), moment().endOf('day'),"Month");
+            });
+
 
             $("#btntoday").click(function(){
              cb(moment().startOf('day'), moment().endOf('day'),"Hour");
@@ -87,7 +178,7 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
                }
 
             }
-              $('#reportrange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+              $('#reportrange span').html(start.format('MMM D,YYYY') + ' - ' + end.format('MMM D,YYYY'));
               $scope.startdate=moment(start).valueOf();
               $scope.enddate=moment(end).valueOf();
               $scope.selectedfrequency=freq;
@@ -169,45 +260,84 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
         }                                        
       }
 
-// console.log(devicedata);
-// console.log(deviceManufacturerdata);
-// console.log(deviceTypedata);
-// console.log(platformdata);
-// console.log(operatingSystemVersiondata);
-// console.log(appVersiondata);
-// console.log(carrierdata);
-// console.log(resolutiondata);
+     if($scope.devicesubtype =='deviceManufacturer')
+      {
+        updatedevicepiechart("#divsubdeviceManufacturer","divsubdeviceManufacturer",$scope.deviceManufacturerdata);
+      }
+     if($scope.devicesubtype == 'deviceModel')
+      {
+       updatedevicepiechart("#divsubdeviceModel","divsubdeviceModel",$scope.deviceModeldata);       
+      }
+     if($scope.devicesubtype =='deviceType')
+      {
+       updatedevicepiechart("#divsubdeviceType","divsubdeviceType",$scope.deviceTypedata);     
+      }
+     if($scope.devicesubtype == 'devicePlatform')
+     {
+       updatedevicepiechart("#divsubplatform","divsubplatform",$scope.platformdata);      
+     }
+     if($scope.devicesubtype == 'deviceOSVersion')
+      {
+        updatedevicepiechart("#divsuboperatingSystemVersion","divsuboperatingSystemVersion",$scope.operatingSystemVersiondata);       
+      }
+     if($scope.devicesubtype =='deviceAppVersion')
+      {
+        updatedevicepiechart("#divsubappVersion","divsubappVersion",$scope.appVersiondata);      
+      }
+     if($scope.devicesubtype == 'deviceCarrier')
+      {
+        updatedevicepiechart("#divsubcarrier","divsubcarrier",$scope.carrierdata);       
+      }
+     if($scope.devicesubtype =='deviceResolution')
+      {
+        updatedevicepiechart("#divsubresolution","divsubresolution",$scope.resolutiondata);      
+      }
 
-updatedevicepiechart("#divsubdeviceModel",$scope.deviceModeldata);
-updatedevicepiechart("#divsubdeviceManufacturer",$scope.deviceManufacturerdata);
-updatedevicepiechart("#divsubdeviceType",$scope.deviceTypedata);
-updatedevicepiechart("#divsubplatform",$scope.platformdata);
-updatedevicepiechart("#divsuboperatingSystemVersion",$scope.operatingSystemVersiondata);
-updatedevicepiechart("#divsubappVersion",$scope.appVersiondata);
-updatedevicepiechart("#divsubcarrier",$scope.carrierdata);
-updatedevicepiechart("#divsubresolution",$scope.resolutiondata);
 
+    $(window).on("resize", function() {
 
-      // data1 = analyticsService.getDeviceUsersbyCompanyData($scope.startdate,$scope.enddate,$scope.selectedfrequency);
-      // updatedevicepiechart("#deviceCompanyPieChart",data1);
-      // data2 = analyticsService.getDeviceUsersbyCarriersData($scope.startdate,$scope.enddate,$scope.selectedfrequency);
-      // updatedevicepiechart("#deviceCarriersPieChart",data2)
-      // data3 = analyticsService.getDeviceUsersbyOSVersions($scope.startdate,$scope.enddate,$scope.selectedfrequency);
-      // updatedevicepiechart("#deviceOSVersionsPieChart",data3)
+      console.log('resize');
+      var targetWidth1 = container1.width();
+      the_chart1.attr("width", targetWidth1);
+      the_chart1.attr("height", Math.round(targetWidth1 / aspect1));
+/*      the_chart1.attr("height", container1.height());*/
+
+      var targetWidth2 = container2.width();
+      the_chart2.attr("width", targetWidth2);
+      the_chart2.attr("height", Math.round(targetWidth2 / aspect2));
+/*     the_chart2.attr("height", container2.height());*/
+
+      var targetWidth3 = container3.width();
+      the_chart3.attr("width", targetWidth3);
+      the_chart3.attr("height", Math.round(targetWidth3 / aspect3));        
+/*    the_chart3.attr("height", container3.height());    
+*/
+    }).trigger("resize");
 
       $scope.alreadypiechartloaded = true;
 
      })
   }
 
-  function updatedevicepiechart(div,data)
+  function updatedevicepiechart(div,divclass,data)
   {
 
+/*    if(data.length == 0)
+    {
+      $(div + ' span').html("No Data Found");
+    }
+    else
+    {
+      $(div + ' span').html("");
+    }*/
 
-    var width = 1000,
-        height = 300,
-        //radius = Math.min(width, height) / 2;
+    var width1 = 400,
+        height = 300;
+
+    var  width2 = width1,
         radius = 125;
+
+    var width3= width1/2;
 
     // var color = d3.scale.ordinal()
     //     .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
@@ -242,31 +372,43 @@ updatedevicepiechart("#divsubresolution",$scope.resolutiondata);
 
     if($scope.alreadypiechartloaded == false)
     {
-        var svg = d3.select(div)
+        var svg1 = d3.select(div+"div1")
            .append("svg")
-            .attr("class","p")
-            .attr("width", width)
-            .attr("height", height);
+            .attr("id",divclass+"svg1")
+            .attr("class","divpiechartssvg1")
+            .attr("width", width1)
+            .attr("height", height)
+            .attr('viewBox', '0 0 400 300')
+            .attr('perserveAspectRatio', 'xMinYMid');
+
+        var svg2 = d3.select(div+"div2")
+           .append("svg")
+            .attr("id",divclass+"svg2")
+            .attr("class","divpiechartssvg2")
+            .attr("width", width2)
+            .attr("height", height)
+            .attr('viewBox', '0 0 400 300')
+            .attr('perserveAspectRatio', 'xMinYMid');            
           // .append("g")
           //   .attr("class","g1")
           //   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        var arcs1 = svg.selectAll("g.arc1")
+        var arcs1 = svg1.selectAll("g.arc1")
             .data(pie1(data))
             .enter()
             .append("g")
             .attr("class", "arc1")
             //.attr("fill","steelblue")
-            .attr("transform", "translate(" + 170  + "," + ((height / 2))   + ")");
+            .attr("transform", "translate(" + ((width1 / 2))  + "," + ((height / 2))   + ")");
 
 
-        var arcs2 = svg.selectAll("g.arc2")
+        var arcs2 = svg2.selectAll("g.arc2")
             .data(pie2(data))
             .enter()
             .append("g")
             .attr("class", "arc2")
             //.attr("fill","steelblue")
-            .attr("transform", "translate(" + 800  + "," + ((height / 2))   + ")");
+            .attr("transform", "translate(" + ((width2 / 2))  + "," + ((height / 2))   + ")");
 
         var paths1 = arcs1.append("path")
             .attr("fill", function (d, i) {
@@ -377,7 +519,18 @@ arcs2.append("text")
         d.sy = d.oy = d.y+2;
     });
 
-svg.append("defs").append("marker")
+svg1.append("defs").append("marker")
+    .attr("id", "circ")
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("refX", 3)
+    .attr("refY", 3)
+    .append("circle")
+    .attr("cx", 3)
+    .attr("cy", 3)
+    .attr("r", 3);
+
+svg2.append("defs").append("marker")
     .attr("id", "circ")
     .attr("markerWidth", 6)
     .attr("markerHeight", 6)
@@ -413,17 +566,27 @@ arcs2.append("path")
             return "M" + d.ox + "," + d.oy + "L" + d.sx + "," + d.sy + " " + d.cx + "," + d.cy;
         }
     });
-        var legend = svg.append("g")
+
+          var svg3 = d3.select(div+"div3")
+           .append("svg")
+            .attr("id",divclass+"svg3")
+            .attr("class","divpiechartssvg3")
+            .attr("width", width3)
+            .attr("height", height)
+            .attr('viewBox', '0 0 200 300')
+            .attr('perserveAspectRatio', 'xMinYMid');            
+
+        var legend = svg3.append("g")
         .attr("class", "legend")
-        .attr("height", 100)
-        .attr("width", 150)
+        .attr("height", height)
+        .attr("width", width3)
         .attr('transform', 'translate(-40,60)');
     
         legend.selectAll('rect')
         .data(data)
         .enter()
         .append("rect")
-        .attr("x", width - 525)
+        .attr("x", 50)
         .attr("y", function (d, i) {
                 return i * 20;
             })
@@ -437,7 +600,7 @@ arcs2.append("path")
         .data(data)
         .enter()
         .append("text")
-        .attr("x", width - 502)
+        .attr("x", 70)
         .attr("y", function (d, i) {
                 return i * 20 + 9;
             })
@@ -451,13 +614,15 @@ arcs2.append("path")
      else
      {
 
-      d3.select(div).select("svg").selectAll("g.arc1").remove();
-      d3.select(div).select("svg").selectAll("g.arc2").remove();
-      d3.select(div).select("svg").selectAll("rect").remove();
-      d3.select(div).select("svg").selectAll("text").remove();
+      d3.select(div+"div1").select("svg").selectAll("g.arc1").remove();
+      d3.select(div+"div2").select("svg").selectAll("g.arc2").remove();
+      d3.select(div+"div3").select("svg").selectAll("rect").remove();
+      d3.select(div+"div1").select("svg").selectAll("text").remove();
+      d3.select(div+"div2").select("svg").selectAll("text").remove();
+      d3.select(div+"div3").select("svg").selectAll("text").remove();
 
-      var paths1 = d3.select(div).select("svg").selectAll("g.arc1").data(pie1(data));
-      var paths2 = d3.select(div).select("svg").selectAll("g.arc2").data(pie2(data));
+      var paths1 = d3.select(div+"div1").select("svg").selectAll("g.arc1").data(pie1(data));
+      var paths2 = d3.select(div+"div2").select("svg").selectAll("g.arc2").data(pie2(data));
 
 
       var pathsEnter1 = paths1
@@ -465,14 +630,14 @@ arcs2.append("path")
       .append("g")
         .attr("class", "arc1")
         //.attr("transform", "translate(" + radius + "," + radius + ")");
-        .attr("transform", "translate(" + 170  + "," + ((height / 2))   + ")");
+        .attr("transform", "translate(" + ((width1 / 2))  + "," + ((height / 2))   + ")");
 
       var pathsEnter2 = paths2
         .enter()
       .append("g")
         .attr("class", "arc2")
         //.attr("transform", "translate(" + radius + "," + radius + ")");
-        .attr("transform", "translate(" + 800  + "," + ((height / 2))   + ")");
+        .attr("transform", "translate(" + ((width2 / 2))  + "," + ((height / 2))   + ")");
     
     pathsEnter1
       .append("path")
@@ -545,7 +710,9 @@ arcs2.append("path")
         //     })
         // .style("fill", "#fff");
 
-        var svg = d3.select(div).select("svg");
+        var svg1 = d3.select(div+"div1").select("svg");
+        var svg2 = d3.select(div+"div2").select("svg");
+        var svg3 = d3.select(div+"div3").select("svg");
 
   pathsEnter1.append("text")
     .attr("text-anchor", "middle")
@@ -587,7 +754,18 @@ arcs2.append("path")
         d.sy = d.oy = d.y+2;
     });
 
-svg.append("defs").append("marker")
+svg1.append("defs").append("marker")
+    .attr("id", "circ")
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("refX", 3)
+    .attr("refY", 3)
+    .append("circle")
+    .attr("cx", 3)
+    .attr("cy", 3)
+    .attr("r", 3);
+
+svg2.append("defs").append("marker")
     .attr("id", "circ")
     .attr("markerWidth", 6)
     .attr("markerHeight", 6)
@@ -623,17 +801,18 @@ pathsEnter2.append("path")
             return "M" + d.ox + "," + d.oy + "L" + d.sx + "," + d.sy + " " + d.cx + "," + d.cy;
         }
     });
-        var legend = svg.append("g")
+
+      var legend = svg3.append("g")
         .attr("class", "legend")
-        .attr("height", 100)
-        .attr("width", 100)
+        .attr("height", height)
+        .attr("width", width3)
         .attr('transform', 'translate(-40,60)');
     
         legend.selectAll('rect')
         .data(data)
         .enter()
         .append("rect")
-        .attr("x", width - 525)
+        .attr("x", 50)
         .attr("y", function (d, i) {
                 return i * 20;
             })
@@ -647,20 +826,18 @@ pathsEnter2.append("path")
         .data(data)
         .enter()
         .append("text")
-        .attr("x", width - 502)
+        .attr("x", 70)
         .attr("y", function (d, i) {
                 return i * 20 + 9;
             })
         .text(function (d, i) {
                 //return t[i];
-                return d._id;  
+                return d._id; 
             });
 
+        
 
      }
-
-
-   
 
     }
 

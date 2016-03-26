@@ -6,9 +6,9 @@ var router      = express.Router();              // get an instance of the expre
 var config      = require('../../config/config');
 var mongoUtil   = require('../../connection/MongoUtil' );
 
-var db = mongoUtil.getDbMongoJS();
+//var db = mongoUtil.getDbMongoJS();
 
-var eventCollection             = db.collection(config.tbl_usereventinfo);
+//var eventCollection             = db.collection(config.tbl_usereventinfo);
 
 router.route('/data/event')
 
@@ -97,6 +97,12 @@ router.route('/data/event')
 //        process.env.TZ = 'Asia/Kolkata';
         var sessionBeginTime = new Date(0); // The 0 there is the key, which sets the date to the epoch
         sessionBeginTime.setUTCSeconds(req.body.rtc);
+
+        var db = mongojs(config.connectionstring + req.body.akey);
+        console.log('db value:' + db);
+
+        var eventCollection             = db.collection(config.tbl_usereventinfo);
+
 
         //Derive Day and Month
         var dd = sessionBeginTime.getDate();

@@ -4,13 +4,12 @@ var End     	= require('../models/end');
 var router 		= express.Router();              // get an instance of the express Router
 var config		= require('../../config/config');
 var mongoUtil 	= require('../../connection/MongoUtil' );
+var mongojs     = require('mongojs');
 
-var db = mongoUtil.getDbMongoJS();
-var sessionCollection 		= db.collection(config.tbl_usersessioninfo);
-var tickerCollection 		= db.collection(config.tbl_realtime_data);
-var eventCollection 		= db.collection(config.tbl_usereventinfo);
-var hourlySessionCollection = db.collection(config.tbl_userhourlysessioninfo);
-var hourlyEventCollection 	= db.collection(config.tbl_userhourlyeventinfo);
+//var db = mongoUtil.getDbMongoJS();
+//var sessionCollection 		= db.collection(config.tbl_usersessioninfo);
+//var tickerCollection 		= db.collection(config.tbl_realtime_data);
+//var hourlySessionCollection = db.collection(config.tbl_userhourlysessioninfo);
 
 router.route('/data/E')
 
@@ -36,6 +35,7 @@ router.route('/data/E')
 	end.rtc         = req.body.rtc;
 	end.res         = req.body.res;
 	end.ts          = req.body.ts;
+	end.akey	= req.body.akey;
 
 	// save the begin and check for errors
 	end.save(function(err) {
@@ -111,6 +111,14 @@ router.route('/data/E')
 
 	var incrementHourlyQuery = {};
 	incrementHourlyQuery[durationHour] = timeSpent;
+
+        var db = mongojs(config.connectionstring + req.body.akey);
+        console.log('db value:' + db);
+
+        var sessionCollection           = db.collection(config.tbl_usersessioninfo);
+        var tickerCollection            = db.collection(config.tbl_realtime_data);
+        var hourlySessionCollection     = db.collection(config.tbl_userhourlysessioninfo);
+
 
 	//update the time spent during the session
 	tickerCollection.update({'_id' : secondEpoch + tickerEndEpoch},{$inc : {count : -1}},{upsert:true});

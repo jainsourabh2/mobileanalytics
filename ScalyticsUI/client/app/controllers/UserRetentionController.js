@@ -104,6 +104,26 @@ nameApp.controller('UserRetentionChartCtrl', ['$scope','analyticsService',functi
             //  cb(moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day'),"Hour");
             // });
 
+            $("#anchcurrmonth").click(function(){
+             cb(moment().startOf('month').startOf('day'), moment().endOf('day'),"Day");
+            });
+
+            $("#anchprevmonth").click(function(){
+             cb(moment().subtract(1, 'month').startOf('month').startOf('day'), moment().subtract(1, 'month').endOf('month').endOf('day'),"Day");
+            });
+
+            $("#anch3mnths").click(function(){
+             cb(moment().subtract(3, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+                                    
+            $("#anch6mnths").click(function(){
+             cb(moment().subtract(6, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+
+            $("#anch1year").click(function(){
+             cb(moment().subtract(1, 'year').startOf('day'), moment().endOf('day'),"Month");
+            });
+
             $("#btncurrmonth").click(function(){
              cb(moment().startOf('month').startOf('day'), moment().endOf('day'),"Day");
             });
@@ -145,7 +165,7 @@ nameApp.controller('UserRetentionChartCtrl', ['$scope','analyticsService',functi
 
             }
 
-              $('#reportrange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+              $('#reportrange span').html(start.format('MMM D,YYYY') + ' - ' + end.format('MMM D,YYYY'));
               $scope.startdate=moment(start).valueOf();
               $scope.enddate=moment(end).valueOf();
               $scope.selectedfrequency=freq;

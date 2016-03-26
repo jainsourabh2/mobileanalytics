@@ -3,6 +3,11 @@ nameApp.controller('EventsCtrl', ['$scope','$http','analyticsService',function (
         var line1active;
         var line2active;
 
+      $scope.$on("$destroy", function(){
+
+          $(window).off("resize");
+
+      });
 
       $scope.SelectionType = 'Event';
 
@@ -77,7 +82,34 @@ nameApp.controller('EventsCtrl', ['$scope','$http','analyticsService',function (
               //    "Last Month": [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
               // }
           }, cb);
-          
+
+            $("#anchtoday").click(function(){
+             cb(moment().startOf('day'), moment().endOf('day'),"Hour");
+            });
+
+            $("#anchyesterday").click(function(){
+             cb(moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day'),"Hour");
+            });
+
+            $("#anchcurrmonth").click(function(){
+             cb(moment().startOf('month').startOf('day'), moment().endOf('day'),"Day");
+            });
+
+            $("#anchprevmonth").click(function(){
+             cb(moment().subtract(1, 'month').startOf('month').startOf('day'), moment().subtract(1, 'month').endOf('month').endOf('day'),"Day");
+            });
+
+            $("#anch3mnths").click(function(){
+             cb(moment().subtract(3, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+                                    
+            $("#anch6mnths").click(function(){
+             cb(moment().subtract(6, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+
+            $("#anch1year").click(function(){
+             cb(moment().subtract(1, 'year').startOf('day'), moment().endOf('day'),"Month");
+            });                  
 
             $("#btntoday").click(function(){
              cb(moment().startOf('day'), moment().endOf('day'),"Hour");
@@ -133,7 +165,7 @@ nameApp.controller('EventsCtrl', ['$scope','$http','analyticsService',function (
                }
 
             }
-              $('#reportrange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+              $('#reportrange span').html(start.format('MMM D,YYYY') + ' - ' + end.format('MMM D,YYYY'));
               $scope.startdate=moment(start).valueOf();
               $scope.enddate=moment(end).valueOf();
               $scope.selectedfrequency=freq;
@@ -232,7 +264,7 @@ nameApp.controller('EventsCtrl', ['$scope','$http','analyticsService',function (
      $scope.updateEventsChart = function(data) {
    
    console.log(data);
-  var margin = {top: 20, right: 40, bottom: 20, left: 50},
+  var margin = {top: 10, right: 50, bottom: 50, left: 50},
   width = 950 - margin.left - margin.right,
   height = 300 - margin.top - margin.bottom;
   var parseDate;
@@ -317,8 +349,11 @@ if($scope.alreadysessionloaded==false)
     
       svg = d3.select("#dualeventdetailchart")
           .append("svg")
-              .attr("width", width + margin.left + margin.right + 10)
-              .attr("height", height + margin.top + margin.bottom + 30)
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .attr("id","svgdualeventdetailchart")
+              .attr('viewBox', '0 0 950 300')
+              .attr('perserveAspectRatio', 'xMinYMid')
           .append("g")
               .attr("transform", 
                     "translate(" + margin.left + "," + margin.top + ")");
@@ -474,6 +509,19 @@ if($scope.alreadysessionloaded==false)
 
 
     }
+
+        var the_chart = $("#svgdualeventdetailchart"),
+        aspect = the_chart.width() / the_chart.height(),
+        container = the_chart.parent();
+
+        $(window).on("resize", function() {
+          console.log('resize');
+          var targetWidth = container.width();
+          the_chart.attr("width", targetWidth);
+          //the_chart.attr("height", Math.round(targetWidth / aspect));
+            the_chart.attr("height", container.height());
+
+    }).trigger("resize");
     
     };
 

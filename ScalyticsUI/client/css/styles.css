@@ -147,49 +147,42 @@
     height: 350px;    
 }
 
-#tickerchart-rounded-corners {
-    border-radius: 25px;
-    border: 1px solid #8AC007;
-    padding: 10px; 
-    width: 1075px;
-    height: 180px;    
-}
 
-#dashboardSummary {
+/*#dashboardSummary {
     margin-top:10px;
     border-radius: 25px;
     border: 1px solid #8AC007;
     padding: 10px; 
     width: 1075px;
     height: 380px;    
-}
+}*/
 
-#worldMapChart {
+/*#worldMapChart {
     margin-top:10px;
     border-radius: 25px;
     border: 1px solid #8AC007;
     padding: 10px; 
     width: 1075px;
     height: 860px;    
-}
+}*/
 
-#insightSessionChart {
+/*#insightSessionChart {
     margin-top:10px;
     border-radius: 25px;
     border: 1px solid #8AC007;
     padding: 10px; 
     width: 1075px;
     height: 860px;    
-}
+}*/
 
-#insightUserChart {
+/*#insightUserChart {
     margin-top:10px;
     border-radius: 25px;
     border: 1px solid #8AC007;
     padding: 10px; 
     width: 1075px;
     height: 1650px;    
-}
+}*/
 
 #devicepiecharts {
     margin-top:10px;
@@ -200,14 +193,14 @@
     height: 575px;    
 }
 
-#userRetentioncharts {
+/*#userRetentioncharts {
     margin-top:10px;
     border-radius: 25px;
     border: 1px solid #8AC007;
     padding: 10px; 
     width: 1100px;
     height: 1500px;    
-}
+}*/
 
 
 #dualChartSessionandTime {
@@ -218,32 +211,32 @@
     height: 500px;    
 }
 
-#divSummaryEvents {
+/*#divSummaryEvents {
     margin-top:10px;
     border-radius: 25px;
     border: 1px solid #8AC007;
     padding: 10px; 
     width: 1075px;
     height: 567px;  
-}
+}*/
 
-#doubleChartEventsCompare {
+/*#doubleChartEventsCompare {
     margin-top:10px;
     border-radius: 25px;
     border: 1px solid #8AC007;
     padding: 10px; 
     width: 1075px;
     height: 1000px;  
-}
+}*/
 
-#divSummaryCrash {
+/*#divSummaryCrash {
     margin-top:10px;
     border-radius: 25px;
     border: 1px solid #8AC007;
     padding: 10px; 
     width: 1075px;
     height: 567px;  
-}
+}*/
 
 .bar1 {
   fill: orange;
@@ -300,6 +293,10 @@ fill: brown;
     content: "\e013";
 }
 
+
+
+
+/*
 .table-fixed thead {
   width: 97%;
 }
@@ -337,7 +334,7 @@ fill: brown;
 .table-fixed tbody >tr>td {
   float: left;
   border-bottom-width: 0px;
-}
+}*/
 /*
 #tickerchart .axis {
       font: 10px sans-serif;
