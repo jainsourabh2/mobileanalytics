@@ -8,11 +8,11 @@ var express    	= require('express');        // call express
 var app        	= express();                 
 var bodyParser 	= require('body-parser');
 var mongoose   	= require('mongoose');
-var config		= require('./config/config');
+var config	= require('./config/config');
 var mongoUtil 	= require( './connection/MongoUtil' );
 
 //Connection to Mongoose
-mongoose.connect(config.connectionstring);
+mongoose.connect(config.connectionstring + config.dbname);
 
 //Connection to MongoDB
 mongoUtil.connectToMongoJSServer(function( err ){

@@ -8,14 +8,11 @@ var init        = require('../common/init');
 var mongoUtil   = require('../../connection/MongoUtil' );
 var geoip = require('geoip-lite');
 
+//var db = mongoUtil.getDbMongoJS();
 
-var db = mongoUtil.getDbMongoJS();
-
-var sessionCollection           = db.collection(config.tbl_usersessioninfo);
-var tickerCollection            = db.collection(config.tbl_realtime_data);
-var eventCollection             = db.collection(config.tbl_usereventinfo);
-var hourlySessionCollection     = db.collection(config.tbl_userhourlysessioninfo);
-var hourlyEventCollection       = db.collection(config.tbl_userhourlyeventinfo);
+//var sessionCollection           = db.collection(config.tbl_usersessioninfo);
+//var tickerCollection            = db.collection(config.tbl_realtime_data);
+//var hourlySessionCollection     = db.collection(config.tbl_userhourlysessioninfo);
 
 var geo;
 var city;
@@ -113,6 +110,13 @@ router.route('/data/B')
 
         console.log(req.body.rtc);
         console.log(sessionBeginTime);
+
+        var db = mongojs(config.connectionstring + req.body.akey);
+        console.log('db value:' + db);
+
+        var sessionCollection           = db.collection(config.tbl_usersessioninfo);
+        var tickerCollection            = db.collection(config.tbl_realtime_data);
+        var hourlySessionCollection     = db.collection(config.tbl_userhourlysessioninfo);
 
 	//Derive Day and Month
 	var dd = sessionBeginTime.getDate();

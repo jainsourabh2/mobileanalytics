@@ -1,5 +1,5 @@
 module.exports.port = 9090;
-module.exports.connectionstring = 'mongodb://54.169.255.221/analytics';
+module.exports.connectionstring = 'mongodb://54.169.255.221/';
 module.exports.dbname = 'analytics';
 
 
