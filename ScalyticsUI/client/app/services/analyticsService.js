@@ -11,7 +11,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
       console.log("Aalytic service called for dashboard summary");
       console.log(start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/summarydata",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4":0}})
+       return $http.get("/database/summarydata",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for summarydata");
               console.log(response);
@@ -29,7 +29,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
  
       console.log(start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/insightsession",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4":0}})
+       return $http.get("/database/insightsession",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for insightsession");
               console.log(response);
@@ -47,7 +47,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
  
       console.log(start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/insightuser",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4":0}})
+       return $http.get("/database/insightuser",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for insightuser");
               console.log(response);
@@ -65,7 +65,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
       console.log(start,end,selectedfrequency,selectedevents);
        //var data;
-       return $http.get("/database/eventscomparisiondata",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4[]":selectedevents,"param5":0}})
+       return $http.get("/database/eventscomparisiondata",{params:{"param1" : '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5[]":selectedevents,"param6":0}})
         .success(function(response){
               console.log("I got the data for geteventscomparisiondata");
               console.log(response);
@@ -84,7 +84,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
       console.log(start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/devicepiecharts",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4":0}})
+       return $http.get("/database/devicepiecharts",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for devicepiecharts");
               console.log(response);
@@ -104,7 +104,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
       console.log(start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/deviceusersbycities",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4":0}})
+       return $http.get("/database/deviceusersbycities",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for deviceusersbycities");
               console.log(response);
@@ -121,7 +121,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
       console.log(start);
        //var data;
-       return $http.get("/database/ticker",{params:{"param1": start}})
+       return $http.get("/database/ticker",{params:{"param1": '109158001', "param2": start}})
         .success(function(response){
               console.log("I got the data for ticker");
               console.log(response);
@@ -138,7 +138,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
       console.log(start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/userretention",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4":usertype}})
+       return $http.get("/database/userretention",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":usertype}})
         .success(function(response){
               console.log("I got the data for user retention");
               //console.log(response);
@@ -151,29 +151,10 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
      };
 
-    // this.getNewUserRetentionData = function(start,end,selectedfrequency) {
-
-    //   console.log(start,end,selectedfrequency);
-    //    //var data;
-    //    return $http.get("/database/newuserretention",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4":0}})
-    //     .success(function(response){
-    //           console.log("I got the data for new user retention");
-    //           //console.log(response);
-    //           return response;
-    //          // return response;
-    //     }).error(function(){
-    //      alert("error");
-    //      return null ;
-    //   });
-
-    //  };
-
-
-    this.getEventsSummary = function(start,end,selectedfrequency) {
-
+     this.getEventsSummary = function(start,end,selectedfrequency) {
       console.log(start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/eventssummary",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4":1}})
+       return $http.get("/database/eventssummary",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":1}})
         .success(function(response){
               console.log("I got the data for eventssummary");
               console.log(response);
@@ -190,7 +171,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
       console.log(start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/crashreportsummary",{params:{"param1": start, "param2": end,"param3": selectedfrequency,"param4":1}})
+       return $http.get("/database/crashreportsummary",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":1}})
         .success(function(response){
               console.log("I got the data for getCrashReportSummary");
               console.log(response);
@@ -207,13 +188,14 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
       console.log(start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/crashreportdetail",{params:{"param1": start, 
-                                                               "param2": end,
-                                                               "param3": selectedfrequency,
-                                                               "param4": selectedcrash.Time,
-                                                               "param5": selectedcrash.Platform,
-                                                               "param6": selectedcrash.OSVersion,
-                                                               "param7": selectedcrash.AppVersion
+       return $http.get("/database/crashreportdetail",{params:{"param1": '109158001',
+                                                               "param2": start, 
+                                                               "param3": end,
+                                                               "param4": selectedfrequency,
+                                                               "param5": selectedcrash.Time,
+                                                               "param6": selectedcrash.Platform,
+                                                               "param7": selectedcrash.OSVersion,
+                                                               "param8": selectedcrash.AppVersion
                                                                }})
         .success(function(response){
               console.log("I got the data for getCrashReportSummary");
@@ -231,7 +213,7 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
       console.log();
        //var data;
-       return $http.get("/database/events",{params:{"param4":1}})
+       return $http.get("/database/events",{params:{"param1": '109158001', "param5":1}})
         .success(function(response){
               console.log("I got the data for events");
               //console.log(response);

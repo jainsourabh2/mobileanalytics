@@ -8,14 +8,15 @@ module.exports.ticker = function(req,res){
 
  var data;
   console.log("ticker is called");
-  var startDateEpoch = parseInt(req.query["param1"])/1000;
+  var dbname = req.query["param1"];
+  var startDateEpoch = parseInt(req.query["param2"])/1000;
   var currentTime = new Date();
   var currentTimeEpoch = Math.round(currentTime.getTime()/1000);
 
   var resultSet = [];
 
 
-  db = mongojs(config.connectionstring);
+  db = mongojs(config.connectionstring + dbname);
 
   db.collection('real_time_data').find
   ().sort({ '_id' : 1}

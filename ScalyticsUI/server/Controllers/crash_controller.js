@@ -73,15 +73,16 @@ module.exports.crashDetail = function(req,res){
 
   console.log("crashSummary code is called");
   var startDate,endDate,frequency;
-  startDate = parseInt(req.query["param1"])/1000;
-  endDate = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
-  crashTime = req.query["param4"];
-  platform = req.query["param5"];
-  OSVersion = req.query["param6"];
-  AppVersion = req.query["param7"];
+  var dbname = req.query["param1"];
+  startDate = parseInt(req.query["param2"])/1000;
+  endDate = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+  crashTime = req.query["param5"];
+  platform = req.query["param6"];
+  OSVersion = req.query["param7"];
+  AppVersion = req.query["param8"];
 
-  var db = mongojs(config.connectionstring);
+  var db = mongojs(config.connectionstring + dbname);
 
   var key = {};
   var plcondition = {};
@@ -128,11 +129,12 @@ module.exports.crashSummary = function(req,res){
 
   console.log("crashSummary code is called");
   var startDate,endDate,frequency;
-  startDate = parseInt(req.query["param1"])/1000;
-  endDate = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
+  var dbname = req.query["param1"];
+  startDate = parseInt(req.query["param2"])/1000;
+  endDate = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
 
-  var db = mongojs(config.connectionstring);
+  var db = mongojs(config.connectionstring + dbname);
   var key = {};
   var type = {};
 

@@ -64,9 +64,10 @@ module.exports.summarydata = function(req,res){
 
   var startDate,endDate,frequency;
   console.log("summarydata code is called");
-  startDate = parseInt(req.query["param1"])/1000;
-  endDate = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
+  var dbname = req.query["param1"];
+  startDate = parseInt(req.query["param2"])/1000;
+  endDate = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
 
   console.log(startDate);
   console.log(endDate);
@@ -75,7 +76,7 @@ module.exports.summarydata = function(req,res){
   var type = {};
   var connectionCount = 0;
   var resultSet = {};
-  var db = mongojs(config.connectionstring);
+  var db = mongojs(config.connectionstring + dbname);
 
 
   matchCriteria(startDate,endDate,frequency,key,type);

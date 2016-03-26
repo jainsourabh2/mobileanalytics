@@ -63,7 +63,8 @@ function matchCriteria(startDate, endDate, frequency, key, type)
 module.exports.eventNames = function(req,res){
 
   console.log("events code is called");
-  var db = mongojs(config.connectionstring);
+  var dbname = req.query["param1"];
+  var db = mongojs(config.connectionstring + dbname);
 
   db.collection('agg_event_data').aggregate
   ({$match : {'_id.type' : 'Day'}}
@@ -85,11 +86,12 @@ module.exports.eventCounts = function(req,res){
   console.log("eventscomparisiondata code is called");
   var startDate,endDate,frequency;
   var eventList=[];
-  startDate = parseInt(req.query["param1"])/1000;
-  endDate = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
-  eventList = req.query["param4"];
-  var db = mongojs(config.connectionstring);
+  var dbname = req.query["param1"];
+  startDate = parseInt(req.query["param2"])/1000;
+  endDate = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+  eventList = req.query["param5"];
+  var db = mongojs(config.connectionstring + dbname);
 
   function generateResultSet(result,resultSet){
 
@@ -137,10 +139,11 @@ module.exports.eventSummary = function(req,res){
 
   console.log("eventsdata code is called");
   var startDate,endDate,frequency;
-  startDate = parseInt(req.query["param1"])/1000;
-  endDate = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
-  var db = mongojs(config.connectionstring);
+  var dbname = req.query["param1"];
+  startDate = parseInt(req.query["param2"])/1000;
+  endDate = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+  var db = mongojs(config.connectionstring + dbname);
   var key = {};
   var type = {};
 

@@ -142,12 +142,13 @@ module.exports.userretention = function(req,res){
 
   console.log("userretention code is called");
   var startDateEpoch,endDateEpoch,frequency,userType;  
-  startDateEpoch = parseInt(req.query["param1"])/1000;
-  endDateEpoch = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
-  userType = req.query["param4"];
+  var dbname = req.query["param1"];
+  startDateEpoch = parseInt(req.query["param2"])/1000;
+  endDateEpoch = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+  userType = req.query["param5"];
 
-  var db = mongojs(config.connectionstring);
+  var db = mongojs(config.connectionstring + dbname);
   var matchCondition = [];
   var key = {};
   var type = {};  

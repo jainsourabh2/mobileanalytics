@@ -64,10 +64,11 @@ module.exports.sessioncounts = function(req,res){
 
   var startDate,endDate,frequency;
   console.log("sessioncounts code is called");
-  startDate = parseInt(req.query["param1"])/1000;
-  endDate = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
-  var db = mongojs(config.connectionstring);
+  var dbname = req.query["param1"];
+  startDate = parseInt(req.query["param2"])/1000;
+  endDate = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+  var db = mongojs(config.connectionstring + dbname);
   var key = {};
   var type = {};
 
@@ -97,10 +98,11 @@ module.exports.sessionduration = function(req,res){
 
   var startDate,endDate,frequency;
   console.log("sessionduration code is called");
-  startDate = parseInt(req.query["param1"])/1000;
-  endDate = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
-  var db = mongojs(config.connectionstring);
+  var dbname = req.query["param1"];
+  startDate = parseInt(req.query["param2"])/1000;
+  endDate = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+  var db = mongojs(config.connectionstring + dbname);
   var key = {};
   var type = {};
 
@@ -130,10 +132,11 @@ module.exports.usersplit = function(req,res){
 
 	var startDate,endDate,frequency;
 	console.log("usersplit code is called");
-	startDate = parseInt(req.query["param1"])/1000;
-	endDate = parseInt(req.query["param2"])/1000;
-	frequency = req.query["param3"];
-    var db = mongojs(config.connectionstring);
+        var dbname = req.query["param1"];
+	startDate = parseInt(req.query["param2"])/1000;
+	endDate = parseInt(req.query["param3"])/1000;
+	frequency = req.query["param4"];
+        var db = mongojs(config.connectionstring + dbname);
 	var key = {};
 	var type = {};
 
@@ -163,10 +166,11 @@ module.exports.insightsession = function(req,res){
 
   var startDate,endDate,frequency;
   console.log("insightsession code is called");
-  startDate = parseInt(req.query["param1"])/1000;
-  endDate = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
-  var db = mongojs(config.connectionstring);
+  var dbname = req.query["param1"];
+  startDate = parseInt(req.query["param2"])/1000;
+  endDate = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+  var db = mongojs(config.connectionstring + dbname);
   var key = {};
   var type = {};
 
@@ -197,10 +201,11 @@ module.exports.insightuser = function(req,res){
 
   var startDate,endDate,frequency;
   console.log("insightuser code is called");
-  startDate = parseInt(req.query["param1"])/1000;
-  endDate = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
-  var db = mongojs(config.connectionstring);
+  var dbname = req.query["param1"];
+  startDate = parseInt(req.query["param2"])/1000;
+  endDate = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+  var db = mongojs(config.connectionstring + dbname);
   var key = {};
   var type = {};
 

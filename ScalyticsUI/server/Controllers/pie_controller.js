@@ -3,12 +3,14 @@ var mongojs		= require('mongojs');
 var config		= require('../../../config/config');
 
 module.exports.devicepiecharts = function(req,res){
-  var db = mongojs(config.connectionstring);
   var startDateEpoch,endDateEpoch,frequency;
   console.log("device pie chart code is called");
-  startDateEpoch = parseInt(req.query["param1"])/1000;
-  endDateEpoch = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
+  var dbname = req.query["param1"];
+  startDateEpoch = parseInt(req.query["param2"])/1000;
+  endDateEpoch = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+
+  var db = mongojs(config.connectionstring + dbname);
 
   var startDate = new Date(0); // The 0 there is the key, which sets the date to the epoch
   startDate.setUTCSeconds(startDateEpoch);

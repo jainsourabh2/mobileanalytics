@@ -64,10 +64,11 @@ module.exports.deviceusersbycities = function(req,res){
 
   var startDateEpoch,endDateEpoch,frequency,istest;
   console.log("deviceusersbycities code is called");
-  startDateEpoch = parseInt(req.query["param1"])/1000;
-  endDateEpoch = parseInt(req.query["param2"])/1000;
-  frequency = req.query["param3"];
-  var db = mongojs(config.connectionstring);
+  var dbname = req.query["param1"];
+  startDateEpoch = parseInt(req.query["param2"])/1000;
+  endDateEpoch = parseInt(req.query["param3"])/1000;
+  frequency = req.query["param4"];
+  var db = mongojs(config.connectionstring + dbname);
   var data = [];
 
   //istest = req.query["param4"];
