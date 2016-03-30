@@ -7,6 +7,9 @@ nameApp.controller('EventsCompareCtrl', ['$scope','$http','analyticsService',fun
       });
 
     $(function() {
+
+          $scope.showeventsComparecharts=false;
+
           $('#reportrange').daterangepicker({
             linkedCalendars: false,
             minDate: moment().subtract(365, 'days'),
@@ -22,30 +25,20 @@ nameApp.controller('EventsCompareCtrl', ['$scope','$http','analyticsService',fun
               // }
           }, cb);
           
-           function moveItems(origin, dest) {
-                $(origin).find(':selected').appendTo(dest);
-            }
-             
-            function moveAllItems(origin, dest) {
-                $(origin).children().appendTo(dest);
-            }
-            
-            $("#btnLeft").click(function () {
-                moveItems('#ComparedEvents', '#EventsSelector');
-            });
-             
-            $("#btnRight").on('click', function () {
-                moveItems('#EventsSelector', '#ComparedEvents');
-            });
+
 
             $("#btnCompare").on('click', function () {
-            	$scope.selectedevents = [];
-                
 
-            	$('#ComparedEvents option').each(function (i, option) {
-				      $scope.selectedevents[i] = $(option).text();
-				});
-                //console.log($scope.selectedevents);
+              var counter = 0;
+              $scope.selectedevents = [];
+              $("#check-list-box li.active").each(function(idx, li) {
+
+                  $scope.selectedevents[counter] = $(li).text();
+                  counter++;
+                  console.log($scope.selectedevents[counter]);
+              });
+              console.log($scope.selectedevents);
+              $scope.showeventsComparecharts=true;
 
                if(!$scope.$$phase) {
                 $scope.$apply(function() {
@@ -165,10 +158,12 @@ nameApp.controller('EventsCompareCtrl', ['$scope','$http','analyticsService',fun
 
 
 $scope.init = function(){
-                  if(!$scope.$$phase) {
+                  if(!$scope.$$phase) 
+               {
                       $scope.$apply(function() {
                           
                           $scope.getEventNames();
+                          //$scope.updatecheckboxes();
 
                       });
                 }
@@ -176,10 +171,14 @@ $scope.init = function(){
                 {
 
                           $scope.getEventNames();
-         
+                          //$scope.updatecheckboxes();
 
                 }
 };
+
+/*$scope.updatecheckboxes = function(){
+
+};*/
 
 $scope.getEventNames = function(){
 
@@ -190,6 +189,84 @@ $scope.getEventNames = function(){
 
      $scope.eventsdata =  response.data;
      console.log($scope.eventsdata);
+
+setTimeout(function(){
+  console.log("hi");
+    $('.list-group.checked-list-box .list-group-item').each(function () {
+        console.log('anks1');
+        // Settings
+        var $widget = $(this),
+            $checkbox = $('<input type="checkbox" class="hidden" />'),
+            color = ($widget.data('color') ? $widget.data('color') : "primary"),
+            style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+            settings = {
+                on: {
+                    icon: 'glyphicon glyphicon-check'
+                },
+                off: {
+                    icon: 'glyphicon glyphicon-unchecked'
+                }
+            };
+            
+        $widget.css('cursor', 'pointer')
+        $widget.append($checkbox);
+
+        // Event Handlers
+        $widget.on('click', function () {
+            $checkbox.prop('checked', !$checkbox.is(':checked'));
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+        $checkbox.on('change', function () {
+            updateDisplay();
+
+        });
+          
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $widget.data('state', (isChecked) ? "on" : "off");
+
+            // Set the button's icon
+            $widget.find('.state-icon')
+                .removeClass()
+                .addClass('state-icon ' + settings[$widget.data('state')].icon);
+
+            // Update the button's color
+            if (isChecked) {
+                $widget.addClass(style + color + ' active');
+            } else {
+                $widget.removeClass(style + color + ' active');
+            }
+        }
+
+        // Initialization
+        function init() {
+            
+            if ($widget.data('checked') == true) {
+                $checkbox.prop('checked', !$checkbox.is(':checked'));
+            }
+            
+            updateDisplay();
+
+            // Inject the icon if applicable
+            if ($widget.find('.state-icon').length == 0) {
+                $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span>');
+            }
+        }
+        init();
+    });
+    
+  
+
+  },100);
+
+
+        console.log('anks');   
+
 
     });
 
@@ -244,9 +321,9 @@ $scope.getEventNames = function(){
     d3.select("#Event_Compare_SVG_ID_2").remove();
   }
 // Set the dimensions of the canvas / graph
-var margin = {top: 30, right: 30, bottom: 70, left: 50},
+var margin = {top: 10, right: 30, bottom: 70, left: 50},
     width = 980 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    height = 270 - margin.top - margin.bottom;
 
 // Parse the date / time
 var parseDate;
@@ -290,10 +367,14 @@ var xAxis = d3.svg.axis().scale(x)
   }
 
 var yAxis1 = d3.svg.axis().scale(y1)
-    .orient("left").ticks(5);
+    .orient("left").ticks(5)
+    .innerTickSize(-width)
+      .outerTickSize(0);
 
 var yAxis2 = d3.svg.axis().scale(y2)
-    .orient("left").ticks(5);
+    .orient("left").ticks(5)
+          .innerTickSize(-width)
+      .outerTickSize(0);
 
 // Define the line
 var eventsline1 = d3.svg.line() 
@@ -310,7 +391,7 @@ var svg1 = d3.select("#divEventNonUniqueChart")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr("id","Event_Compare_SVG_ID_1")
-        .attr('viewBox', '0 0 980 300')
+        .attr('viewBox', '0 0 980 270')
         .attr('perserveAspectRatio', 'xMinYMid')
     .append("g")
         .attr("transform", 
@@ -322,7 +403,7 @@ var svg2 = d3.select("#divEventUniqueChart")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr("id","Event_Compare_SVG_ID_2")
-        .attr('viewBox', '0 0 980 300')
+        .attr('viewBox', '0 0 980 270')
         .attr('perserveAspectRatio', 'xMinYMid')        
     .append("g")
         .attr("transform", 
@@ -353,14 +434,14 @@ var svg2 = d3.select("#divEventUniqueChart")
      .attr('class', 'd3-tip')
      .offset([-10, 0])
      .html(function (d) {
-     return "<strong>Total Number of Events:</strong> <span style='color:red'>" + d.Non_Unique_Event_Count +"</span>";
+     return "<span style='color:red'>" + d.Non_Unique_Event_Count +"</span>";
  })
 
   var tip2 = d3.tip()
        .attr('class', 'd3-tip')
        .offset([-10, 0])
        .html(function (d) {
-       return "<strong>Unique Number of Users:</strong> <span style='color:red'>" + d.Unique_User_Count +"</span>";
+       return "<span style='color:red'>" + d.Unique_User_Count +"</span>";
    })
 
    svg1.call(tip1);
@@ -402,7 +483,7 @@ var svg2 = d3.select("#divEventUniqueChart")
         // Add the Legend
         svg1.append("text")
             .attr("x", (legendSpace/2)+i*legendSpace)  // space legend
-            .attr("y", height + (margin.bottom/2)+ 5)
+            .attr("y", height + (margin.bottom/2)+ 30)
             .attr("class", "legend")    // style the legend
             .style("fill", function() { // Add the colours dynamically
                 return d.color = color(d.key); })
@@ -455,12 +536,12 @@ var svg2 = d3.select("#divEventUniqueChart")
         // Add the Legend
         svg2.append("text")
             .attr("x", (legendSpace/2)+i*legendSpace)  // space legend
-            .attr("y", height + (margin.bottom/2)+ 5)
+            .attr("y", height + (margin.bottom/2)+ 30)
             .attr("class", "legend")    // style the legend
             .style("fill", function() { // Add the colours dynamically
                 return d.color = color(d.key); })
             .on("click", function(){
-                // Determine if current line is visible 
+                // Determ ine if current line is visible 
                 var active   = d.active ? false : true,
                 newOpacity = active ? 0 : 1; 
                 // Hide or show the elements based on the ID
@@ -480,25 +561,49 @@ var svg2 = d3.select("#divEventUniqueChart")
     });
 
     // Add the X Axis
-    svg1.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+    var xAxisOrigsvg1 = svg1.append("g")
+                  .attr("class", "x axis")
+                  .attr("transform", "translate(0," + height + ")")
+                  .call(xAxis);
+
+     xAxisOrigsvg1.selectAll("text")  // select all the text elements for the xaxis
+        .style("text-anchor", "end")
+        .style("fill", "grey")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("font-family","sans-serif")
+        //.attr("font-weight","bold")
+        .attr("transform", function(d) {
+            return "rotate(-55)";
+      });
 
     // Add the Y Axis
-    svg1.append("g")
-        .attr("class", "y axis")
+    svg1.append("g") 
+        .attr("class", "y axis axisLeft")
+        .style("fill", "grey")
         .call(yAxis1);
 
     // Add the X Axis
-    svg2.append("g")
+    var xAxisOrigsvg2 = svg2.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
+     xAxisOrigsvg2.selectAll("text")  // select all the text elements for the xaxis
+        .style("text-anchor", "end")
+        .style("fill", "grey")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("font-family","sans-serif")
+        //.attr("font-weight","bold")
+        .attr("transform", function(d) {
+            return "rotate(-55)";
+      });
+
     // Add the Y Axis
     svg2.append("g")
-        .attr("class", "y axis")
+        .attr("class", "y axis axisLeft")
+        .style("fill", "grey")
         .call(yAxis2);
 
   
