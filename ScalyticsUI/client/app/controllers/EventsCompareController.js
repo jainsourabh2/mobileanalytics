@@ -447,6 +447,52 @@ var svg2 = d3.select("#divEventUniqueChart")
    svg1.call(tip1);
    svg2.call(tip2);
 
+    // Add the X Axis
+    var xAxisOrigsvg1 = svg1.append("g")
+                  .attr("class", "x axis")
+                  .attr("transform", "translate(0," + height + ")")
+                  .call(xAxis);
+
+     xAxisOrigsvg1.selectAll("text")  // select all the text elements for the xaxis
+        .style("text-anchor", "end")
+        .style("fill", "grey")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("font-family","sans-serif")
+        //.attr("font-weight","bold")
+        .attr("transform", function(d) {
+            return "rotate(-55)";
+      });
+
+    // Add the X Axis
+    var xAxisOrigsvg2 = svg2.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+     xAxisOrigsvg2.selectAll("text")  // select all the text elements for the xaxis
+        .style("text-anchor", "end")
+        .style("fill", "grey")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("font-family","sans-serif")
+        //.attr("font-weight","bold")
+        .attr("transform", function(d) {
+            return "rotate(-55)";
+      });
+        
+    // Add the Y Axis
+    svg1.append("g") 
+        .attr("class", "y axis axisLeft")
+        .style("fill", "grey")
+        .call(yAxis1);
+
+    // Add the Y Axis
+    svg2.append("g")
+        .attr("class", "y axis axisLeft")
+        .style("fill", "grey")
+        .call(yAxis2);
+
     // Loop through each event_name / key
     dataNest.forEach(function(d,i) { 
 
@@ -559,52 +605,6 @@ var svg2 = d3.select("#divEventUniqueChart")
             .text(d.key); 
 
     });
-
-    // Add the X Axis
-    var xAxisOrigsvg1 = svg1.append("g")
-                  .attr("class", "x axis")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(xAxis);
-
-     xAxisOrigsvg1.selectAll("text")  // select all the text elements for the xaxis
-        .style("text-anchor", "end")
-        .style("fill", "grey")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("font-family","sans-serif")
-        //.attr("font-weight","bold")
-        .attr("transform", function(d) {
-            return "rotate(-55)";
-      });
-
-    // Add the Y Axis
-    svg1.append("g") 
-        .attr("class", "y axis axisLeft")
-        .style("fill", "grey")
-        .call(yAxis1);
-
-    // Add the X Axis
-    var xAxisOrigsvg2 = svg2.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
-
-     xAxisOrigsvg2.selectAll("text")  // select all the text elements for the xaxis
-        .style("text-anchor", "end")
-        .style("fill", "grey")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("font-family","sans-serif")
-        //.attr("font-weight","bold")
-        .attr("transform", function(d) {
-            return "rotate(-55)";
-      });
-
-    // Add the Y Axis
-    svg2.append("g")
-        .attr("class", "y axis axisLeft")
-        .style("fill", "grey")
-        .call(yAxis2);
 
   
       var the_chart1 = $("#Event_Compare_SVG_ID_1"),

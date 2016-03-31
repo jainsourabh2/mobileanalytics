@@ -2,10 +2,10 @@
 var mongojs		= require('mongojs');
 var config		= require('../../../config/config');
 
-function matchCriteria(startDate, endDate, frequency, key, type)
+function matchCriteria(startDate, endDate, frequency, key, type, matchCondition)
 {
   var increment = 0;
-  var matchCondition = [];
+//  var matchCondition = [];
 
   for(var i = startDate; i<=endDate; i=i+increment)
   {
@@ -59,7 +59,7 @@ function matchCriteria(startDate, endDate, frequency, key, type)
   type['_id.type'] = {$in : [frequency]};
 
 } //end of function matchCriteria
-
+/*
 module.exports.sessioncounts = function(req,res){
 
   var startDate,endDate,frequency;
@@ -161,7 +161,7 @@ module.exports.usersplit = function(req,res){
               return res.json(result);
           });
 } //end of function usersplit
-
+*/
 module.exports.insightsession = function(req,res){
 
   var startDate,endDate,frequency;
@@ -173,8 +173,9 @@ module.exports.insightsession = function(req,res){
   var db = mongojs(config.connectionstring + dbname);
   var key = {};
   var type = {};
+  var matchCondition = [];
 
-  matchCriteria(startDate,endDate,frequency,key,type);
+  matchCriteria(startDate,endDate,frequency,key,type,matchCondition);
 
   db.collection('agg_session_data').aggregate(
      {$match : {$and : [key,type]}}
@@ -193,7 +194,27 @@ module.exports.insightsession = function(req,res){
 
                 console.log(result);
                 db.close();
-                return res.json(result);
+
+                var resultSet = [];
+                for (j=0;j<matchCondition.length;j++){
+                    var resultItem = {};
+                    resultItem['_id'] = matchCondition[j];
+                    resultItem['Total_Time_Spent'] = 0;
+                    resultItem['Non_Unique_User_Count'] = 0;
+                     //var reset = 0;
+ 
+                   for (k=0;k<result.length;k++){
+                       if(matchCondition[j] == result[k]._id){
+                          //reset = 1;
+                          resultItem['_id'] = result[k]._id;
+                          resultItem['Total_Time_Spent'] = result[k].Total_Time_Spent;
+                          resultItem['Non_Unique_User_Count'] = result[k].Non_Unique_User_Count;
+                       }
+                    } //Enf of 'for' loop
+                    
+                resultSet.push(resultItem);
+                } //End of 'for' loop
+                return res.json(resultSet);
             });
 } //end of function insightsession
 
@@ -208,8 +229,9 @@ module.exports.insightuser = function(req,res){
   var db = mongojs(config.connectionstring + dbname);
   var key = {};
   var type = {};
+  var matchCondition = [];
 
-  matchCriteria(startDate,endDate,frequency,key,type);
+  matchCriteria(startDate,endDate,frequency,key,type,matchCondition);
 
   db.collection('agg_session_data').aggregate(
      {$match : {$and : [key,type]}}
@@ -229,6 +251,29 @@ module.exports.insightuser = function(req,res){
 
                 console.log(result);
                 db.close();
-                return res.json(result);
+
+                var resultSet = [];
+                for (j=0;j<matchCondition.length;j++){
+                    var resultItem = {};
+                    resultItem['_id'] = matchCondition[j];
+                    resultItem['Total_Time_Spent'] = 0;
+                    resultItem['Unique_User_Count'] = 0;
+                    resultItem['New_User_Count'] = 0;
+                     //var reset = 0;
+
+                   for (k=0;k<result.length;k++){
+                       if(matchCondition[j] == result[k]._id){
+                          //reset = 1;
+                          resultItem['_id'] = result[k]._id;
+                          resultItem['Total_Time_Spent'] = result[k].Total_Time_Spent;
+                          resultItem['Unique_User_Count'] = result[k].Unique_User_Count;
+                          resultItem['New_User_Count'] = result[k].New_User_Count;
+                       }
+                    } //Enf of 'for' loop
+
+                resultSet.push(resultItem);
+                } //End of 'for' loop
+
+                return res.json(resultSet);
             });
 } //end of function insightsession
