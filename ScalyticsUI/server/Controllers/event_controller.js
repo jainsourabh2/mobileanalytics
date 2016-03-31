@@ -2,10 +2,10 @@
 var mongojs		= require('mongojs');
 var config		= require('../../../config/config');
 
-function matchCriteria(startDate, endDate, frequency, key, type)
+function matchCriteria(startDate, endDate, frequency, key, type, matchCondition)
 {
   var increment = 0;
-  var matchCondition = [];
+  //var matchCondition = [];
 
   for(var i = startDate; i<=endDate; i=i+increment)
   {
@@ -92,7 +92,7 @@ module.exports.eventCounts = function(req,res){
   frequency = req.query["param4"];
   eventList = req.query["param5"];
   var db = mongojs(config.connectionstring + dbname);
-
+/*
   function generateResultSet(result,resultSet){
 
   for (i=0; i<result.length; i++){
@@ -107,13 +107,16 @@ module.exports.eventCounts = function(req,res){
   console.log(resultSet);
   return res.json(resultSet);
 } //end of function generateResultSet
-
+*/
 var key = {};
 var type = {};
 var eventname = {};
 eventname['value._id.event'] = {$in : eventList};
+var matchCondition = [];
 
-matchCriteria(startDate,endDate,frequency,key,type);
+matchCriteria(startDate,endDate,frequency,key,type,matchCondition);
+
+//console.log(matchCondition);
 
 db.collection('agg_event_data').aggregate(
   {$unwind : '$value'}
@@ -130,8 +133,36 @@ db.collection('agg_event_data').aggregate(
                return;} //end of function
 
            db.close();
-           var output = [];
-           generateResultSet(result,output);
+           //var output = [];
+           console.log(result);
+           var resultSet = [];
+           for (i=0;i<eventList.length;i++){
+                //console.log(eventList[i]);
+
+                for (j=0;j<matchCondition.length;j++){
+                    var resultItem = {};
+                    resultItem['event_name'] = eventList[i];
+                    resultItem['event_date'] = matchCondition[j];
+                    resultItem['Non_Unique_Event_Count'] = 0;
+                    resultItem['Unique_User_Count'] = 0;
+                     //var reset = 0;
+
+                   for (k=0;k<result.length;k++){
+                       if(matchCondition[j] == result[k]._id.key && eventList[i] == result[k]._id.event){
+                          //reset = 1;
+                          resultItem['event_name'] = eventList[i];
+                          resultItem['event_date'] = matchCondition[j];
+                          resultItem['Non_Unique_Event_Count'] = result[k].Non_Unique_Event_Count;
+                          resultItem['Unique_User_Count'] = result[k].Unique_User_Count;
+                       }
+                    } //Enf of 'for' loop
+
+                resultSet.push(resultItem);
+                } //End of 'for' loop
+           } //end of 'for' loop
+           console.log(resultSet);
+           return res.json(resultSet);
+           //generateResultSet(result,output);
        });
 } //end of function eventCounts
 
@@ -146,8 +177,9 @@ module.exports.eventSummary = function(req,res){
   var db = mongojs(config.connectionstring + dbname);
   var key = {};
   var type = {};
+  var matchCondition = [];
 
-  matchCriteria(startDate,endDate,frequency,key,type);
+  matchCriteria(startDate,endDate,frequency,key,type,matchCondition);
 
   db.collection('agg_event_data').aggregate(
   {$unwind : '$value'}
