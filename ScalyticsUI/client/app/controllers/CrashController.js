@@ -1,67 +1,7 @@
 nameApp.controller('CrashCtrl', ['$scope','$http','analyticsService',function ($scope,$http,analyticsService){
 
-/*        var line1active;
-        var line2active;
-
-
-      $scope.SelectionType = 'Event';
-
-      $(document).on('click', '#anchorevent', function() {
-
-          console.log("this is event trial");
-          $scope.currentpopoverstatus='hide';
-          $('#anchorpop').text("Event");
-          $('#privacy-menu').addClass('cssevent');
-          $('#privacy-menu').removeClass('cssuser');
-          $('a[rel=popover]').popover($scope.currentpopoverstatus);
-          $scope.SelectionType = 'Event';
-
-            if(!$scope.$$phase) {
-                  $scope.$apply(function () {
-                      $scope.updateEventsMainChart();
-                  });
-            }
-            
-         });
-
-      $(document).on('click', '#anchoruser', function() {
-
-          console.log("this is user trial");
-          $scope.currentpopoverstatus='hide';
-          $('#anchorpop').text("User");
-          $('#privacy-menu').removeClass('cssevent');
-          $('#privacy-menu').addClass('cssuser');
-          $('a[rel=popover]').popover($scope.currentpopoverstatus);
-          $scope.SelectionType = 'User';
-
-            if(!$scope.$$phase) {
-                  $scope.$apply(function () {
-                      $scope.updateEventsMainChart();
-                  });
-            }
-
-         });*/
 
     $(function() {
-
-
-/*
-              $('a[rel=popover]').popover().click(function(e) {
-                                                  $(this).popover('toggle');
-                                                  e.stopPropagation();
-
-                                                    if($('#anchorpop').text()=='Event') 
-                                                     {
-                                                       $('#privacy-menu').addClass('cssevent');
-                                                       $('#privacy-menu').removeClass('cssuser');
-                                                     } 
-                                                     else 
-                                                     {
-                                                       $('#privacy-menu').addClass('cssuser');
-                                                       $('#privacy-menu').removeClass('cssevent');
-                                                     }
-                                                  
-                                              });*/
 
           $('#reportrange').daterangepicker({
             linkedCalendars: false,
@@ -78,7 +18,34 @@ nameApp.controller('CrashCtrl', ['$scope','$http','analyticsService',function ($
               // }
           }, cb);
           
+            $("#anchtoday").click(function(){
+             cb(moment().startOf('day'), moment().endOf('day'),"Hour");
+            });
 
+            $("#anchyesterday").click(function(){
+             cb(moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day'),"Hour");
+            });
+
+            $("#anchcurrmonth").click(function(){
+             cb(moment().startOf('month').startOf('day'), moment().endOf('day'),"Day");
+            });
+
+            $("#anchprevmonth").click(function(){
+             cb(moment().subtract(1, 'month').startOf('month').startOf('day'), moment().subtract(1, 'month').endOf('month').endOf('day'),"Day");
+            });
+
+            $("#anch3mnths").click(function(){
+             cb(moment().subtract(3, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+                                    
+            $("#anch6mnths").click(function(){
+             cb(moment().subtract(6, 'month').startOf('day'), moment().endOf('day'),"Week");
+            });
+
+            $("#anch1year").click(function(){
+             cb(moment().subtract(1, 'year').startOf('day'), moment().endOf('day'),"Month");
+            });   
+            
             $("#btntoday").click(function(){
              cb(moment().startOf('day'), moment().endOf('day'),"Hour");
             });
