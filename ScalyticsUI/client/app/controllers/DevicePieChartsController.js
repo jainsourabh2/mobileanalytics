@@ -18,7 +18,6 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
         $scope.showdeviceManufacturer=true;
         the_chart1 = $("#divsubdeviceManufacturersvg1");
         the_chart2 = $("#divsubdeviceManufacturersvg2");
-        the_chart3 = $("#divsubdeviceManufacturersvg3");
       }
      if($scope.devicesubtype == 'deviceModel')
       {
@@ -76,8 +75,6 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
         aspect2 = the_chart2.width() / the_chart2.height(),
         container2 = the_chart2.parent();
 
-        aspect3 = the_chart3.width() / the_chart3.height(),
-        container3 = the_chart3.parent();
 
 
       $(function() {
@@ -307,9 +304,9 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
       the_chart2.attr("height", Math.round(targetWidth2 / aspect2));
 /*     the_chart2.attr("height", container2.height());*/
 
-      var targetWidth3 = container3.width();
+/*      var targetWidth3 = container3.width();
       the_chart3.attr("width", targetWidth3);
-      the_chart3.attr("height", Math.round(targetWidth3 / aspect3));        
+      the_chart3.attr("height", Math.round(targetWidth3 / aspect3));    */    
 /*    the_chart3.attr("height", container3.height());    
 */
     }).trigger("resize");
@@ -331,7 +328,7 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
       $(div + ' span').html("");
     }*/
 
-    var width1 = 400,
+    var width1 = 500,
         height = 300;
 
     var  width2 = width1,
@@ -378,7 +375,7 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
             .attr("class","divpiechartssvg1")
             .attr("width", width1)
             .attr("height", height)
-            .attr('viewBox', '0 0 400 300')
+            .attr('viewBox', '0 0 500 300')
             .attr('perserveAspectRatio', 'xMinYMid');
 
         var svg2 = d3.select(div+"div2")
@@ -387,7 +384,7 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
             .attr("class","divpiechartssvg2")
             .attr("width", width2)
             .attr("height", height)
-            .attr('viewBox', '0 0 400 300')
+            .attr('viewBox', '0 0 500 300')
             .attr('perserveAspectRatio', 'xMinYMid');            
           // .append("g")
           //   .attr("class","g1")
@@ -399,7 +396,7 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
             .append("g")
             .attr("class", "arc1")
             //.attr("fill","steelblue")
-            .attr("transform", "translate(" + ((width1 / 2))  + "," + ((height / 2))   + ")");
+            .attr("transform", "translate(" + ((width1/4))  + "," + ((height / 2))   + ")");
 
 
         var arcs2 = svg2.selectAll("g.arc2")
@@ -408,7 +405,7 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
             .append("g")
             .attr("class", "arc2")
             //.attr("fill","steelblue")
-            .attr("transform", "translate(" + ((width2 / 2))  + "," + ((height / 2))   + ")");
+            .attr("transform", "translate(" + ((width2/4))  + "," + ((height / 2))   + ")");
 
         var paths1 = arcs1.append("path")
             .attr("fill", function (d, i) {
@@ -477,111 +474,77 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
         //         return  parseFloat((parseInt(d.value)/total * 100.00)).toFixed(2) +"%";
         //     })
         // .style("fill", "#fff");
+    
 
-
-arcs1.append("text")
-    .attr("text-anchor", "middle")
-    .attr("x", function(d) {
-        var a = d.startAngle + (d.endAngle - d.startAngle)/2 - Math.PI/2;
-        d.cx = Math.cos(a) * (radius - 40);
-        return d.x = Math.cos(a) * (radius + 15);
-    })
-    .attr("y", function(d) {
-        var a = d.startAngle + (d.endAngle - d.startAngle)/2 - Math.PI/2;
-        d.cy = Math.sin(a) * (radius - 40);
-        return d.y = Math.sin(a) * (radius + 15);
-    })
-    .text(function(d) { return parseFloat((parseInt(d.value)/total1 * 100.00)).toFixed(2) +"%";  })
-    .each(function(d) {
-        var bbox = this.getBBox();
-        d.sx = d.x - bbox.width/2 - 7;
-        d.ox = d.x + bbox.width/2 + 2;
-        d.sy = d.oy = d.y+2;
-    });
-
-arcs2.append("text")
-    .attr("text-anchor", "middle")
-    .attr("x", function(d) {
-        var a = d.startAngle + (d.endAngle - d.startAngle)/2 - Math.PI/2;
-        d.cx = Math.cos(a) * (radius - 40);
-        return d.x = Math.cos(a) * (radius + 15);
-    })
-    .attr("y", function(d) {
-        var a = d.startAngle + (d.endAngle - d.startAngle)/2 - Math.PI/2;
-        d.cy = Math.sin(a) * (radius - 40);
-        return d.y = Math.sin(a) * (radius + 15);
-    })
-    .text(function(d) { return parseFloat((parseInt(d.value)/total2 * 100.00)).toFixed(2) +"%";  })
-    .each(function(d) {
-        var bbox = this.getBBox();
-        d.sx = d.x - bbox.width/2 - 7;
-        d.ox = d.x + bbox.width/2 + 2;
-        d.sy = d.oy = d.y+2;
-    });
-
-svg1.append("defs").append("marker")
-    .attr("id", "circ")
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("refX", 3)
-    .attr("refY", 3)
-    .append("circle")
-    .attr("cx", 3)
-    .attr("cy", 3)
-    .attr("r", 3);
-
-svg2.append("defs").append("marker")
-    .attr("id", "circ")
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("refX", 3)
-    .attr("refY", 3)
-    .append("circle")
-    .attr("cx", 3)
-    .attr("cy", 3)
-    .attr("r", 3);
-
-arcs1.append("path")
-    .attr("class", "pointer")
-    .style("fill", "none")
-    .style("stroke", "black")
-    .attr("marker-end", "url(#circ)")
-    .attr("d", function(d) {
-        if(d.cx > d.ox) {
-            return "M" + d.sx + "," + d.sy + "L" + d.ox + "," + d.oy + " " + d.cx + "," + d.cy;
-        } else {
-            return "M" + d.ox + "," + d.oy + "L" + d.sx + "," + d.sy + " " + d.cx + "," + d.cy;
-        }
-    });
-
-arcs2.append("path")
-    .attr("class", "pointer")
-    .style("fill", "none")
-    .style("stroke", "black")
-    .attr("marker-end", "url(#circ)")
-    .attr("d", function(d) {
-        if(d.cx > d.ox) {
-            return "M" + d.sx + "," + d.sy + "L" + d.ox + "," + d.oy + " " + d.cx + "," + d.cy;
-        } else {
-            return "M" + d.ox + "," + d.oy + "L" + d.sx + "," + d.sy + " " + d.cx + "," + d.cy;
-        }
-    });
-
-          var svg3 = d3.select(div+"div3")
-           .append("svg")
-            .attr("id",divclass+"svg3")
-            .attr("class","divpiechartssvg3")
-            .attr("width", width3)
-            .attr("height", height)
-            .attr('viewBox', '0 0 200 300')
-            .attr('perserveAspectRatio', 'xMinYMid');            
-
-        var legend = svg3.append("g")
+        var legend = svg1.append("g")
         .attr("class", "legend")
         .attr("height", height)
         .attr("width", width3)
-        .attr('transform', 'translate(-40,60)');
+        .attr('transform', 'translate(220,60)');
     
+        var legend1 = svg1.append("g")
+        .attr("class", "legend")
+        .attr("height", height)
+        .attr("width", width3)
+        .attr('transform', 'translate(270,60)');
+
+        legend.selectAll('rect')
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", 50)
+        .attr("y", function (d, i) {
+                return i * 20;
+            })
+        .attr("width", 10)
+        .attr("height", 10)
+        .style("fill", function (d, i) {
+                return color(i);
+            });
+console.log("trial");
+console.log(data);
+
+    legend.selectAll('text')
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", 70)
+        .attr("y", function (d, i) {
+                return i * 20 + 9;
+            })
+        .text(function (d, i) {
+                //return t[i];
+                console.log(d);
+                return (d._id); 
+            });
+
+
+    legend1.selectAll('text')
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", 170)
+        .attr("y", function (d, i) {
+                return i * 20 + 9;
+            })
+        .text(function (d, i) {
+                //return t[i];
+                console.log(d);
+                return (parseFloat((parseInt(d.Unique_User_Count)/total1 * 100.00)).toFixed(2) +"%"); 
+            });
+
+        var legend = svg2.append("g")
+        .attr("class", "legend")
+        .attr("height", height)
+        .attr("width", width3)
+        .attr('transform', 'translate(220,60)');
+
+        var legend1 = svg2.append("g")
+        .attr("class", "legend")
+        .attr("height", height)
+        .attr("width", width3)
+        .attr('transform', 'translate(270,60)');
+
         legend.selectAll('rect')
         .data(data)
         .enter()
@@ -609,6 +572,19 @@ arcs2.append("path")
                 return d._id; 
             });
 
+    legend1.selectAll('text')
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", 170)
+        .attr("y", function (d, i) {
+                return i * 20 + 9;
+            })
+        .text(function (d, i) {
+                //return t[i];
+                console.log(d);
+                return (parseFloat((parseInt(d.Total_Time_Spent)/total2 * 100.00)).toFixed(2) +"%"); 
+            });
 
     }
      else
@@ -616,10 +592,10 @@ arcs2.append("path")
 
       d3.select(div+"div1").select("svg").selectAll("g.arc1").remove();
       d3.select(div+"div2").select("svg").selectAll("g.arc2").remove();
-      d3.select(div+"div3").select("svg").selectAll("rect").remove();
       d3.select(div+"div1").select("svg").selectAll("text").remove();
       d3.select(div+"div2").select("svg").selectAll("text").remove();
-      d3.select(div+"div3").select("svg").selectAll("text").remove();
+      d3.select(div+"div1").select("svg").selectAll("rect").remove();
+      d3.select(div+"div2").select("svg").selectAll("rect").remove();
 
       var paths1 = d3.select(div+"div1").select("svg").selectAll("g.arc1").data(pie1(data));
       var paths2 = d3.select(div+"div2").select("svg").selectAll("g.arc2").data(pie2(data));
@@ -630,14 +606,14 @@ arcs2.append("path")
       .append("g")
         .attr("class", "arc1")
         //.attr("transform", "translate(" + radius + "," + radius + ")");
-        .attr("transform", "translate(" + ((width1 / 2))  + "," + ((height / 2))   + ")");
+        .attr("transform", "translate(" + ((width1 / 4))  + "," + ((height / 2))   + ")");
 
       var pathsEnter2 = paths2
         .enter()
       .append("g")
         .attr("class", "arc2")
         //.attr("transform", "translate(" + radius + "," + radius + ")");
-        .attr("transform", "translate(" + ((width2 / 2))  + "," + ((height / 2))   + ")");
+        .attr("transform", "translate(" + ((width2 / 4))  + "," + ((height / 2))   + ")");
     
     pathsEnter1
       .append("path")
@@ -712,102 +688,77 @@ arcs2.append("path")
 
         var svg1 = d3.select(div+"div1").select("svg");
         var svg2 = d3.select(div+"div2").select("svg");
-        var svg3 = d3.select(div+"div3").select("svg");
 
-  pathsEnter1.append("text")
-    .attr("text-anchor", "middle")
-    .attr("x", function(d) {
-        var a = d.startAngle + (d.endAngle - d.startAngle)/2 - Math.PI/2;
-        d.cx = Math.cos(a) * (radius - 40);
-        return d.x = Math.cos(a) * (radius + 15);
-    })
-    .attr("y", function(d) {
-        var a = d.startAngle + (d.endAngle - d.startAngle)/2 - Math.PI/2;
-        d.cy = Math.sin(a) * (radius - 40);
-        return d.y = Math.sin(a) * (radius + 15);
-    })
-    .text(function(d) { return parseFloat((parseInt(d.value)/total1 * 100.00)).toFixed(2) +"%";  })
-    .each(function(d) {
-        var bbox = this.getBBox();
-        d.sx = d.x - bbox.width/2 - 7;
-        d.ox = d.x + bbox.width/2 + 2;
-        d.sy = d.oy = d.y+2;
-    });
 
-  pathsEnter2.append("text")
-    .attr("text-anchor", "middle")
-    .attr("x", function(d) {
-        var a = d.startAngle + (d.endAngle - d.startAngle)/2 - Math.PI/2;
-        d.cx = Math.cos(a) * (radius - 40);
-        return d.x = Math.cos(a) * (radius + 15);
-    })
-    .attr("y", function(d) {
-        var a = d.startAngle + (d.endAngle - d.startAngle)/2 - Math.PI/2;
-        d.cy = Math.sin(a) * (radius - 40);
-        return d.y = Math.sin(a) * (radius + 15);
-    })
-    .text(function(d) { return parseFloat((parseInt(d.value)/total2 * 100.00)).toFixed(2) +"%";  })
-    .each(function(d) {
-        var bbox = this.getBBox();
-        d.sx = d.x - bbox.width/2 - 7;
-        d.ox = d.x + bbox.width/2 + 2;
-        d.sy = d.oy = d.y+2;
-    });
-
-svg1.append("defs").append("marker")
-    .attr("id", "circ")
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("refX", 3)
-    .attr("refY", 3)
-    .append("circle")
-    .attr("cx", 3)
-    .attr("cy", 3)
-    .attr("r", 3);
-
-svg2.append("defs").append("marker")
-    .attr("id", "circ")
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("refX", 3)
-    .attr("refY", 3)
-    .append("circle")
-    .attr("cx", 3)
-    .attr("cy", 3)
-    .attr("r", 3);
-
-pathsEnter1.append("path")
-    .attr("class", "pointer")
-    .style("fill", "none")
-    .style("stroke", "black")
-    .attr("marker-end", "url(#circ)")
-    .attr("d", function(d) {
-        if(d.cx > d.ox) {
-            return "M" + d.sx + "," + d.sy + "L" + d.ox + "," + d.oy + " " + d.cx + "," + d.cy;
-        } else {
-            return "M" + d.ox + "," + d.oy + "L" + d.sx + "," + d.sy + " " + d.cx + "," + d.cy;
-        }
-    });
-
-pathsEnter2.append("path")
-    .attr("class", "pointer")
-    .style("fill", "none")
-    .style("stroke", "black")
-    .attr("marker-end", "url(#circ)")
-    .attr("d", function(d) {
-        if(d.cx > d.ox) {
-            return "M" + d.sx + "," + d.sy + "L" + d.ox + "," + d.oy + " " + d.cx + "," + d.cy;
-        } else {
-            return "M" + d.ox + "," + d.oy + "L" + d.sx + "," + d.sy + " " + d.cx + "," + d.cy;
-        }
-    });
-
-      var legend = svg3.append("g")
+        var legend = svg1.append("g")
         .attr("class", "legend")
         .attr("height", height)
         .attr("width", width3)
-        .attr('transform', 'translate(-40,60)');
+        .attr('transform', 'translate(220,60)');
     
+        var legend1 = svg1.append("g")
+        .attr("class", "legend")
+        .attr("height", height)
+        .attr("width", width3)
+        .attr('transform', 'translate(270,60)');
+
+        legend.selectAll('rect')
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", 50)
+        .attr("y", function (d, i) {
+                return i * 20;
+            })
+        .attr("width", 10)
+        .attr("height", 10)
+        .style("fill", function (d, i) {
+                return color(i);
+            });
+console.log("trial");
+console.log(data);
+
+    legend.selectAll('text')
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", 70)
+        .attr("y", function (d, i) {
+                return i * 20 + 9;
+            })
+        .text(function (d, i) {
+                //return t[i];
+                console.log(d);
+                return (d._id); 
+            });
+
+
+    legend1.selectAll('text')
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", 170)
+        .attr("y", function (d, i) {
+                return i * 20 + 9;
+            })
+        .text(function (d, i) {
+                //return t[i];
+                console.log(d);
+                return (parseFloat((parseInt(d.Unique_User_Count)/total1 * 100.00)).toFixed(2) +"%"); 
+            });
+
+        var legend = svg2.append("g")
+        .attr("class", "legend")
+        .attr("height", height)
+        .attr("width", width3)
+        .attr('transform', 'translate(220,60)');
+
+        var legend1 = svg2.append("g")
+        .attr("class", "legend")
+        .attr("height", height)
+        .attr("width", width3)
+        .attr('transform', 'translate(270,60)');
+
         legend.selectAll('rect')
         .data(data)
         .enter()
@@ -833,6 +784,20 @@ pathsEnter2.append("path")
         .text(function (d, i) {
                 //return t[i];
                 return d._id; 
+            });
+
+    legend1.selectAll('text')
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", 170)
+        .attr("y", function (d, i) {
+                return i * 20 + 9;
+            })
+        .text(function (d, i) {
+                //return t[i];
+                console.log(d);
+                return (parseFloat((parseInt(d.Total_Time_Spent)/total2 * 100.00)).toFixed(2) +"%"); 
             });
 
         
