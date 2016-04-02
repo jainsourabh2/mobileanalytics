@@ -217,7 +217,7 @@ nameApp.controller('InsightUserCtrl', ['$scope','$http','analyticsService',funct
 
  $scope.updateuserdetailslinechart = function(div,divid,userdata){
 
-  var margin = {top: 20, right: 20, bottom: 55, left: 40},
+  var margin = {top: 20, right: 20, bottom: 55, left: 50},
   width = 1000 - margin.left - margin.right,
   height = 220 - margin.top - margin.bottom;
   var parseDate;
@@ -263,7 +263,10 @@ nameApp.controller('InsightUserCtrl', ['$scope','$http','analyticsService',funct
   }
 
   var yAxisLeft = d3.svg.axis().scale(y0)
-      .orient("left").ticks(5)
+      .orient("left")
+      .ticks(5)
+      .tickFormat(d3.format("d"))
+      .tickSubdivide(0)
       .innerTickSize(-width)
       .outerTickSize(0);
 
@@ -452,7 +455,7 @@ $scope.updateuserdetailsbarchart = function(div,divid,userdata)
    {
 
 
-  var margin = {top: 20, right: 20, bottom: 55, left: 40},
+  var margin = {top: 20, right: 20, bottom: 55, left: 50},
   width = 1000 - margin.left - margin.right,
   height = 220 - margin.top - margin.bottom;
 
@@ -499,6 +502,8 @@ if($scope.selectedfrequency=="Month")
 
   var yAxisLeft = d3.svg.axis().scale(y0)
       .orient("left").ticks(5)
+      .tickFormat(d3.format("d"))
+      .tickSubdivide(0)
       .innerTickSize(-width)
       .outerTickSize(0);
 

@@ -185,7 +185,9 @@ TickerDataPromise.then(function(response){
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left") 
-        .ticks(5);
+        .ticks(5)
+        .tickFormat(d3.format("d"))
+        .tickSubdivide(0);
 
     var chart = d3.select("#tickerchart").append("svg")
         .attr("id","chart")

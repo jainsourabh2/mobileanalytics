@@ -312,6 +312,8 @@ nameApp.controller('EventsCtrl', ['$scope','$http','analyticsService',function (
 
   var yAxisLeft = d3.svg.axis().scale(y0)
       .orient("left").ticks(5)
+      .tickFormat(d3.format("d"))
+      .tickSubdivide(0)
       .innerTickSize(-width)
       .outerTickSize(0);
 

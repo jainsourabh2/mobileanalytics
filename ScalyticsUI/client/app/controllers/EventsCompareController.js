@@ -368,11 +368,15 @@ var xAxis = d3.svg.axis().scale(x)
 
 var yAxis1 = d3.svg.axis().scale(y1)
     .orient("left").ticks(5)
+      .tickFormat(d3.format("d"))
+      .tickSubdivide(0)        
     .innerTickSize(-width)
       .outerTickSize(0);
 
 var yAxis2 = d3.svg.axis().scale(y2)
     .orient("left").ticks(5)
+      .tickFormat(d3.format("d"))
+      .tickSubdivide(0)    
           .innerTickSize(-width)
       .outerTickSize(0);
 

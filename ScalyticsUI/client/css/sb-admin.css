@@ -123,7 +123,8 @@ ul.alert-dropdown {
         border: none;
         border-radius: 0;
         overflow-y: auto;
-        background-color: #222;
+/*        background-color: #222;*/
+        background-color:#87CEFA;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
@@ -135,22 +136,23 @@ ul.alert-dropdown {
 
     .side-nav li a:hover,
     .side-nav li a:focus {
-        outline: none;
-        background-color: #000 !important;
+/*        outline: none;
+        background-color: #000 !important;*/
     }
 
 }
 @media(min-width:768px) {
     .side-nav {
         position: fixed;
-        top: 51px;
+        top: 50px;
         left: 225px;
         width: 225px;
         margin-left: -225px;
         border: none;
         border-radius: 0;
         overflow-y: auto;
-        background-color: #222;
+/*        background-color: #222;*/
+        background-color: #87CEFA;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
@@ -163,16 +165,25 @@ ul.alert-dropdown {
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
-        background-color: #000 !important;
+/*        background-color: #000 !important;*/
+/*      background-color: #fff !important;*/
     }
 
 }
+
+/*.side-nav>li>a:focus 
+.side-nav>li>a:hover
+.side-nav>li>a:active
+{
+  background-color: #87CEFA;
+}*/
+
 
 .side-nav>li>ul>li>a {
     display: block;
     padding: 10px 15px 10px 38px;
     text-decoration: none;
-    color: #999;
+    color: #fff;
    }
 
 .side-nav>li>ul {
@@ -180,9 +191,19 @@ ul.alert-dropdown {
 }
 
 .side-nav>li>ul>li>a:hover {
-    color: #fff;
+        display: block;
+    padding: 10px 15px 10px 38px;
+    text-decoration: none;
+    color: #000;
 }
 
+.side-nav>li>ul>li>a:focus 
+.side-nav>li>ul>li>a:active{
+        display: block;
+    padding: 10px 15px 10px 38px;
+    text-decoration: none;
+    color: #0000;
+   }
 /* Flot Chart Containers */
 
 .flot-chart {

@@ -174,7 +174,7 @@ nameApp.controller('InsightSessionCtrl', ['$scope','$http','analyticsService',fu
 
  $scope.updatesessiondetailschart = function(div,divid,sessiondata){
 
-  var margin = {top: 20, right: 20, bottom: 55,left: 40},
+  var margin = {top: 20, right: 20, bottom: 55,left: 50},
   width = 1000 - margin.left - margin.right,
   height = 214 - margin.top - margin.bottom;
   var parseDate;
@@ -221,6 +221,8 @@ nameApp.controller('InsightSessionCtrl', ['$scope','$http','analyticsService',fu
 
   var yAxisLeft = d3.svg.axis().scale(y0)
       .orient("left").ticks(5)
+      .tickFormat(d3.format("d"))
+      .tickSubdivide(0)
       .innerTickSize(-width)
       .outerTickSize(0);
 
