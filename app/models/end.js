@@ -20,6 +20,7 @@ var EndSchema   = new Schema({
         rtc : {type: Number,trim: true},			//Record TimeStamp in epoch format
         res : {type: String,lowercase: true,trim: true},     	//resolution of the phone
 	ts : {type: Number,trim: true},				//Time Spent on the session
+        ip : {type: String,lowercase: true,trim: true},         //IP address
         akey : {type: String,lowercase: true,trim: true}        //Application Key
 });
 

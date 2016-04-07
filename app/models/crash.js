@@ -19,6 +19,7 @@ var CrashSchema   = new Schema({
     sid : {type: String,lowercase: true,trim: true},	//Session ID	
     rtc : {type: Number,trim: true},					//Record TimeStamp in epoch format
     res : {type: String,lowercase: true,trim: true},    //Resolution of the phone
+        ip : {type: String,lowercase: true,trim: true},        //IP address
 	stkt : {type: String,trim: true},					//Stack trace of the crash
 	stkc : {type: String,trim:true},					//Stack command of the crash
 	stkm : {type: String,trim:true},						//Stack message of the crash
