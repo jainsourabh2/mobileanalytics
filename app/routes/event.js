@@ -161,6 +161,7 @@ router.route('/data/event')
         evt.rtc       = req.body.rtc;
         evt.res       = req.body.res;
         evt.akey      = req.body.akey;
+	evt.ip		= req.headers['x-forwarded-for']||req.connection.remoteAddress;
         evt.key       = req.body.key;
         evt.keypro    = req.body.keypro;
 

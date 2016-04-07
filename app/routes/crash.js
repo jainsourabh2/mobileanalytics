@@ -66,7 +66,7 @@ router.route('/data/C')
 			 ,'pf' 		: req.body.pf
 			 ,'osv' 	: req.body.osv
 			 ,'avn'		: req.body.avn
-			 ,'ip' 		: req.body.ip
+			 ,'ip' 		: req.headers['x-forwarded-for']||req.connection.remoteAddress
 			 ,'c' 		: req.body.c
 			 ,'nwk' 	: req.body.nwk
 			 ,'logno' 	: req.body.logno
@@ -107,6 +107,7 @@ router.route('/data/C')
         crash.sid       = req.body.sid;
         crash.rtc       = req.body.rtc;
         crash.res       = req.body.res;
+	crash.ip	= req.headers['x-forwarded-for']||req.connection.remoteAddress;
         crash.stkt      = req.body.stkt;
         crash.stkc      = req.body.stkc;
         crash.stkm      = req.body.stkm;
