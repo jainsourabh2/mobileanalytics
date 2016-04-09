@@ -21,6 +21,7 @@ var EventSchema   = new Schema({
         res : {type: String,lowercase: true,trim: true},        //Resolution of the phone
         akey : {type: String,trim: true},                       //ApplicationKey
         key : {type: String,trim:true},                 //Name of the Event
+        ip : {type: String,lowercase: true,trim: true},        //IP address
         keypro : {type: String,trim:true}                               //Properties of the associated event
 });
 
