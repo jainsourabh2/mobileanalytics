@@ -1,4 +1,4 @@
-nameApp.controller('InsightUserCtrl', ['$scope','$http','analyticsService',function ($scope,$http,analyticsService){
+nameApp.controller('InsightUserCtrl', ['$scope','$rootScope','$http','analyticsService',function ($scope,$rootScope,$http,analyticsService){
 
     $scope.$on("$destroy", function(){
 
@@ -146,7 +146,7 @@ nameApp.controller('InsightUserCtrl', ['$scope','$http','analyticsService',funct
 
 //Get the data
 
-       var UserDetailsPromise  = analyticsService.getInsightUserDetails($scope.startdate,$scope.enddate,$scope.selectedfrequency);
+       var UserDetailsPromise  = analyticsService.getInsightUserDetails($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency);
        UserDetailsPromise.then(function(response){
 
        var userdata =  response.data;

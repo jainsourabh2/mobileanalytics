@@ -215,7 +215,7 @@ nameApp.controller('DevicePieChartCtrl', ['$scope','$route','$rootScope','analyt
       console.log($scope.currentpage1);
       $scope.currentpage1 = 'devicescope';
 
-      var DevicePieChartsPromise  = analyticsService.getDevicePieCharts($scope.startdate,$scope.enddate,$scope.selectedfrequency);
+      var DevicePieChartsPromise  = analyticsService.getDevicePieCharts($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency);
       DevicePieChartsPromise.then(function(response){
 
       devicepiechartdata = response.data;

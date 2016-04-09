@@ -1,4 +1,4 @@
-nameApp.controller('WorldMapCtrl', ['$scope','analyticsService',function ($scope,analyticsService)
+nameApp.controller('WorldMapCtrl', ['$scope','$rootScope','analyticsService',function ($scope,$rootScope,analyticsService)
 {
 
     $scope.$on("$destroy", function(){
@@ -142,7 +142,7 @@ nameApp.controller('WorldMapCtrl', ['$scope','analyticsService',function ($scope
   $scope.setDates = function()
   {
 
-    var DeviceUsersbyCitiesDataPromise  = analyticsService.getDeviceUsersbyCitiesData($scope.startdate,$scope.enddate,$scope.selectedfrequency);
+    var DeviceUsersbyCitiesDataPromise  = analyticsService.getDeviceUsersbyCitiesData($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency);
     DeviceUsersbyCitiesDataPromise.then(function(response){
 
       var deviceusersbycitiesdata =  response.data;

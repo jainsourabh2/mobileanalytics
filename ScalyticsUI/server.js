@@ -1,5 +1,11 @@
 var express = require('express');
 var app = express();
+var passport = require('passport');
+var flash    = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
+
 var databasecontroller = require('./server/Controllers/session_controller');
 var devicepiechartcontroller = require('./server/Controllers/pie_controller');
 var eventscontroller = require('./server/Controllers/event_controller');
@@ -9,7 +15,22 @@ var summarycontroller = require('./server/Controllers/summary_controller');
 var crashcontroller = require('./server/Controllers/crash_controller');
 var worldmapcontroller = require('./server/Controllers/worldmap_controller');
 
-app.get('/', function (req, res) {
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
+app.set('view engine', 'ejs'); // set up ejs for templating
+
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+ require('./config/passport')(passport);
+ 
+// routes ======================================================================
+require('./server/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+/*app.get('/', function (req, res) {
   // res.send('Hello World!');
   res.sendFile(__dirname + '/home.html');
 });
@@ -17,7 +38,7 @@ app.get('/', function (req, res) {
 app.get('/analytics', function (req, res) {
   // res.send('Hello World!');
   res.sendFile(__dirname + '/mainpage.html');
-});
+});*/
 
 app.get('/database/summarydata', summarycontroller.summarydata);
 

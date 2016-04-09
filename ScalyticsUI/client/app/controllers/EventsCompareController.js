@@ -1,4 +1,4 @@
-nameApp.controller('EventsCompareCtrl', ['$scope','$http','analyticsService',function ($scope,$http,analyticsService){
+nameApp.controller('EventsCompareCtrl', ['$scope','$rootScope','$http','analyticsService',function ($scope,$rootScope,$http,analyticsService){
 
       $scope.$on("$destroy", function(){
 
@@ -184,7 +184,7 @@ $scope.getEventNames = function(){
 
      //Get the data
 
-     var EventsDataPromise  = analyticsService.getEventNames();
+     var EventsDataPromise  = analyticsService.getEventNames($rootScope.appKey);
      EventsDataPromise.then(function(response){
 
      $scope.eventsdata =  response.data;
@@ -275,7 +275,7 @@ setTimeout(function(){
 
  $scope.updateuniquecountchart = function(){
 
-	   var EventsDataPromise  = analyticsService.getEventsComparisionData($scope.startdate,$scope.enddate,$scope.selectedfrequency,$scope.selectedevents);
+	   var EventsDataPromise  = analyticsService.getEventsComparisionData($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency,$scope.selectedevents);
 	   EventsDataPromise.then(function(response){
 
 	   var eventscomparisondata =  response.data;

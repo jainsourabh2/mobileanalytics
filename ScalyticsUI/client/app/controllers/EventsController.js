@@ -1,4 +1,4 @@
-nameApp.controller('EventsCtrl', ['$scope','$http','analyticsService',function ($scope,$http,analyticsService){
+nameApp.controller('EventsCtrl', ['$scope','$rootScope','$http','analyticsService',function ($scope,$rootScope,$http,analyticsService){
 
         var line1active;
         var line2active;
@@ -217,7 +217,7 @@ nameApp.controller('EventsCtrl', ['$scope','$http','analyticsService',function (
       	$('#myLargeModalLabel').text(eventname);
       	$('#myModal').modal('show');
       	console.log($scope.startdate,$scope.enddate,$scope.selectedfrequency);
-     var EventsDataPromise  = analyticsService.getEventsComparisionData($scope.startdate,$scope.enddate,$scope.selectedfrequency,selectedevents);
+     var EventsDataPromise  = analyticsService.getEventsComparisionData($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency,selectedevents);
      EventsDataPromise.then(function(response){
 
      $scope.eventsmaindata =  response.data;
@@ -531,7 +531,7 @@ if($scope.alreadysessionloaded==false)
 
 	   //Get the data
 
-	   var EventsDataPromise  = analyticsService.getEventsSummary($scope.startdate,$scope.enddate,$scope.selectedfrequency);
+	   var EventsDataPromise  = analyticsService.getEventsSummary($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency);
 	   EventsDataPromise.then(function(response){
 
 	   $scope.eventsdata =  response.data;

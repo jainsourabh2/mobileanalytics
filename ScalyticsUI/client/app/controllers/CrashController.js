@@ -1,4 +1,4 @@
-nameApp.controller('CrashCtrl', ['$scope','$http','analyticsService',function ($scope,$http,analyticsService){
+nameApp.controller('CrashCtrl', ['$scope','$rootScope','$http','analyticsService',function ($scope,$rootScope,$http,analyticsService){
 
 
     $(function() {
@@ -74,7 +74,7 @@ nameApp.controller('CrashCtrl', ['$scope','$http','analyticsService',function ($
              cb(moment().subtract(1, 'year').startOf('day'), moment().endOf('day'),"Month");
             });
 
-          cb(moment().subtract(3, 'month').startOf('day'), moment().endOf('day'),"Week");
+          cb(moment().startOf('month').startOf('day'), moment().endOf('day'),"Day");
 
 
           function cb(start, end, freq) {
@@ -151,7 +151,7 @@ nameApp.controller('CrashCtrl', ['$scope','$http','analyticsService',function ($
       	$('#myModal').modal('show');
       	console.log($scope.startdate,$scope.enddate,$scope.selectedfrequency);
 
-     var CrashDetailsPromise  = analyticsService.getCrashReportDetail($scope.startdate,$scope.enddate,$scope.selectedfrequency,crashdetails);
+     var CrashDetailsPromise  = analyticsService.getCrashReportDetail($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency,crashdetails);
      CrashDetailsPromise.then(function(response){
 
      crashdetails =  response.data;
@@ -185,7 +185,7 @@ nameApp.controller('CrashCtrl', ['$scope','$http','analyticsService',function ($
 
 	   //Get the data
 
-	   var CrashDataPromise  = analyticsService.getCrashReportSummary($scope.startdate,$scope.enddate,$scope.selectedfrequency);
+	   var CrashDataPromise  = analyticsService.getCrashReportSummary($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency);
 	   CrashDataPromise.then(function(response){
 
 	   $scope.crashsummarydata =  response.data;

@@ -6,12 +6,12 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
     //     return parseInt(Math.random() * 1000)
     //  };
 
-    this.getDashboardSummary = function(start,end,selectedfrequency) {
+    this.getDashboardSummary = function(appKey,start,end,selectedfrequency) {
  
       console.log("Aalytic service called for dashboard summary");
-      console.log(start,end,selectedfrequency);
+      console.log(appKey,start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/summarydata",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
+       return $http.get("/database/summarydata",{params:{"param1": appKey, "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for summarydata");
               console.log(response);
@@ -24,12 +24,12 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
 };
 
-     this.getInsightSessionDetails = function(start,end,selectedfrequency) {
+     this.getInsightSessionDetails = function(appKey,start,end,selectedfrequency) {
  
  
-      console.log(start,end,selectedfrequency);
+      console.log(appKey,start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/insightsession",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
+       return $http.get("/database/insightsession",{params:{"param1": appKey, "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for insightsession");
               console.log(response);
@@ -42,12 +42,12 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
 };
 
-     this.getInsightUserDetails = function(start,end,selectedfrequency) {
+     this.getInsightUserDetails = function(appKey,start,end,selectedfrequency) {
  
  
-      console.log(start,end,selectedfrequency);
+      console.log(appKey,start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/insightuser",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
+       return $http.get("/database/insightuser",{params:{"param1": appKey, "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for insightuser");
               console.log(response);
@@ -61,11 +61,11 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 };
 
 
-     this.getEventsComparisionData = function(start,end,selectedfrequency,selectedevents) {
+     this.getEventsComparisionData = function(appKey,start,end,selectedfrequency,selectedevents) {
 
-      console.log(start,end,selectedfrequency,selectedevents);
+      console.log(appKey,start,end,selectedfrequency,selectedevents);
        //var data;
-       return $http.get("/database/eventscomparisiondata",{params:{"param1" : '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5[]":selectedevents,"param6":0}})
+       return $http.get("/database/eventscomparisiondata",{params:{"param1" : appKey, "param2": start, "param3": end,"param4": selectedfrequency,"param5[]":selectedevents,"param6":0}})
         .success(function(response){
               console.log("I got the data for geteventscomparisiondata");
               console.log(response);
@@ -80,11 +80,11 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
 
 
-     this.getDevicePieCharts = function(start,end,selectedfrequency) {
+     this.getDevicePieCharts = function(appKey,start,end,selectedfrequency) {
 
-      console.log(start,end,selectedfrequency);
+      console.log(appKey,start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/devicepiecharts",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
+       return $http.get("/database/devicepiecharts",{params:{"param1": appKey, "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for devicepiecharts");
               console.log(response);
@@ -98,13 +98,11 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 };
 
 
-     this.getDeviceUsersbyCitiesData = function(start,end,selectedfrequency) {
+     this.getDeviceUsersbyCitiesData = function(appKey,start,end,selectedfrequency) {
 
-      console.log(selectedfrequency);
-
-      console.log(start,end,selectedfrequency);
+      console.log(appKey,start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/deviceusersbycities",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
+       return $http.get("/database/deviceusersbycities",{params:{"param1": appKey, "param2": start, "param3": end,"param4": selectedfrequency,"param5":0}})
         .success(function(response){
               console.log("I got the data for deviceusersbycities");
               console.log(response);
@@ -117,11 +115,11 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
      };
 
-    this.getTickerData = function(start) {
+    this.getTickerData = function(appKey,start) {
 
-      console.log(start);
+      console.log(appKey,start);
        //var data;
-       return $http.get("/database/ticker",{params:{"param1": '109158001', "param2": start}})
+       return $http.get("/database/ticker",{params:{"param1": appKey, "param2": start}})
         .success(function(response){
               console.log("I got the data for ticker");
               console.log(response);
@@ -134,11 +132,11 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
     };
 
-    this.getUserRetentionData = function(start,end,selectedfrequency,usertype) {
+    this.getUserRetentionData = function(appKey,start,end,selectedfrequency,usertype) {
 
-      console.log(start,end,selectedfrequency);
+      console.log(appKey,start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/userretention",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":usertype}})
+       return $http.get("/database/userretention",{params:{"param1": appKey, "param2": start, "param3": end,"param4": selectedfrequency,"param5":usertype}})
         .success(function(response){
               console.log("I got the data for user retention");
               //console.log(response);
@@ -151,10 +149,10 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
      };
 
-     this.getEventsSummary = function(start,end,selectedfrequency) {
-      console.log(start,end,selectedfrequency);
+     this.getEventsSummary = function(appKey,start,end,selectedfrequency) {
+      console.log(appKey,start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/eventssummary",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":1}})
+       return $http.get("/database/eventssummary",{params:{"param1": appKey, "param2": start, "param3": end,"param4": selectedfrequency,"param5":1}})
         .success(function(response){
               console.log("I got the data for eventssummary");
               console.log(response);
@@ -167,11 +165,11 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
     };
 
-    this.getCrashReportSummary = function(start,end,selectedfrequency) {
+    this.getCrashReportSummary = function(appKey,start,end,selectedfrequency) {
 
-      console.log(start,end,selectedfrequency);
+      console.log(appKey,start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/crashreportsummary",{params:{"param1": '109158001', "param2": start, "param3": end,"param4": selectedfrequency,"param5":1}})
+       return $http.get("/database/crashreportsummary",{params:{"param1": appKey, "param2": start, "param3": end,"param4": selectedfrequency,"param5":1}})
         .success(function(response){
               console.log("I got the data for getCrashReportSummary");
               console.log(response);
@@ -184,11 +182,11 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
     };
 
-    this.getCrashReportDetail= function(start,end,selectedfrequency,selectedcrash) {
+    this.getCrashReportDetail= function(appKey,start,end,selectedfrequency,selectedcrash) {
 
-      console.log(start,end,selectedfrequency);
+      console.log(appKey,start,end,selectedfrequency);
        //var data;
-       return $http.get("/database/crashreportdetail",{params:{"param1": '109158001',
+       return $http.get("/database/crashreportdetail",{params:{"param1": appKey,
                                                                "param2": start, 
                                                                "param3": end,
                                                                "param4": selectedfrequency,
@@ -209,11 +207,11 @@ nameApp.service('analyticsService', ['$http', function ($http,$rootScope) {
 
     };
 
-  this.getEventNames = function() {
+  this.getEventNames = function(appKey) {
 
-      console.log();
+      console.log(appKey);
        //var data;
-       return $http.get("/database/events",{params:{"param1": '109158001', "param5":1}})
+       return $http.get("/database/events",{params:{"param1": appKey, "param5":1}})
         .success(function(response){
               console.log("I got the data for events");
               //console.log(response);

@@ -1,6 +1,11 @@
-nameApp.controller('DashboardCtrl', ['$scope','$http','analyticsService',function ($scope,$http,analyticsService){
+nameApp.controller('DashboardCtrl', ['$scope','$rootScope','$http','analyticsService',function ($scope,$rootScope,$http,analyticsService){
 
 //Ticker code start
+var appKey = $('#txtappkey').val();
+
+
+$rootScope.appKey = appKey;
+console.log($rootScope.appKey);
 
 var timer;
         var line1active;
@@ -114,7 +119,7 @@ $scope.$on("$destroy", function(){
 
     $scope.updatedashboardsummary = function(){
 
-      var DashboardSummaryPromise  = analyticsService.getDashboardSummary($scope.startdate,$scope.enddate,$scope.selectedfrequency);
+      var DashboardSummaryPromise  = analyticsService.getDashboardSummary($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency);
       DashboardSummaryPromise.then(function(response){
            $scope.dashboardsummarydata = {};
            dashboarddata =  response.data;
@@ -139,7 +144,7 @@ $scope.dashboardsummarydata.Total_Crash_Count = (dashboarddata.Total_Crash_Count
 
 $scope.drawtickerchart = function()
 {
-var TickerDataPromise  = analyticsService.getTickerData($scope.tickerstartdate);
+var TickerDataPromise  = analyticsService.getTickerData($rootScope.appKey,$scope.tickerstartdate);
 TickerDataPromise.then(function(response){
 
     data=response.data;
@@ -263,7 +268,7 @@ TickerDataPromise.then(function(response){
                   $scope.tickerstartdate = $scope.tickerstartdate + 15000;
                   //$scope.enddate = $scope.enddate + 15000;
                   console.log(nextnumber);
-              var TickerDataPromise1  = analyticsService.getTickerData(nextnumber);
+              var TickerDataPromise1  = analyticsService.getTickerData($rootScope.appKey,nextnumber);
               TickerDataPromise1.then(function(response1){
                      
                     console.log("before redraw");

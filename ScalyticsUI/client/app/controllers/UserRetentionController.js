@@ -1,4 +1,4 @@
-nameApp.controller('UserRetentionChartCtrl', ['$scope','analyticsService',function ($scope,analyticsService)
+nameApp.controller('UserRetentionChartCtrl', ['$scope','$rootScope','analyticsService',function ($scope,$rootScope,analyticsService)
 {
     
     //$scope.currentpopoverstatus ='hide';
@@ -205,7 +205,7 @@ nameApp.controller('UserRetentionChartCtrl', ['$scope','analyticsService',functi
       // $scope.enddate=end;
       // $scope.selectedfrequency=freq;
 
-   var UserRetentionPromise  = analyticsService.getUserRetentionData($scope.startdate,$scope.enddate,$scope.selectedfrequency,$scope.UserType);
+   var UserRetentionPromise  = analyticsService.getUserRetentionData($rootScope.appKey,$scope.startdate,$scope.enddate,$scope.selectedfrequency,$scope.UserType);
    UserRetentionPromise.then(function(response){
 
       data1 = response.data;
