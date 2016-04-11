@@ -168,6 +168,7 @@ ul.alert-dropdown {
         outline: none;
 /*        background-color: #000 !important;*/
 /*      background-color: #fff !important;*/
+        color:#00ffff;
     }
 
 }
@@ -195,7 +196,7 @@ ul.alert-dropdown {
         display: block;
     padding: 10px 15px 10px 38px;
     text-decoration: none;
-    color: #000;
+    color: #00ffff;
 }
 
 .side-nav>li>ul>li>a:focus 
@@ -203,7 +204,7 @@ ul.alert-dropdown {
         display: block;
     padding: 10px 15px 10px 38px;
     text-decoration: none;
-    color: #0000;
+    color: #00ffff;
    }
 /* Flot Chart Containers */
 
